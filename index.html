@@ -40,7 +40,6 @@
       padding-bottom: 95px;
     }
 
-    /* تنبيهات حية */
     #liveToast {
       position: fixed;
       top: 15px;
@@ -94,6 +93,7 @@
       gap: 10px;
     }
 
+    /* الدائرة الشخصية للطالب في أعلى اليسار */
     .student-avatar-btn {
       width: 42px;
       height: 42px;
@@ -150,7 +150,12 @@
       background: var(--secondary-gradient);
       box-shadow: 0 4px 15px rgba(168, 85, 247, 0.25);
     }
-    .btn-danger { background: linear-gradient(135deg, #ef4444, #f43f5e); }
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
     .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
 
     .container {
@@ -177,54 +182,6 @@
       padding: 22px;
       margin-bottom: 18px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-
-    /* زر عائم لفتح قائمة الكورسات الجانبية */
-    .courses-floating-trigger {
-      position: fixed;
-      right: 20px;
-      bottom: 85px;
-      z-index: 990;
-      background: var(--secondary-gradient);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 30px;
-      font-weight: 800;
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .courses-floating-trigger:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
-    }
-
-    /* القائمة الجانبية للكورسات (Course Drawer) */
-    .course-drawer {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(6px);
-      z-index: 2500;
-      display: none;
-      justify-content: flex-start;
-      animation: fadeIn 0.2s ease;
-    }
-    .drawer-content {
-      width: 85%;
-      max-width: 360px;
-      height: 100%;
-      background: #0f1629;
-      border-left: 1px solid var(--card-border);
-      padding: 22px;
-      overflow-y: auto;
-      box-shadow: -10px 0 35px rgba(0,0,0,0.6);
-      display: flex;
-      flex-direction: column;
     }
 
     .teacher-hero {
@@ -282,7 +239,7 @@
     .social-btn.tg:hover { background: #229ed9; }
     .social-btn.wa:hover { background: #25d366; }
 
-    /* كروت المحاضرات والكويزات المدمجة */
+    /* كروت المحاضرات والكويز التابع لها */
     .lesson-card {
       background: rgba(23, 33, 58, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.09);
@@ -439,7 +396,7 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 20px;
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       padding: 24px 18px;
       position: relative;
       max-height: 90vh;
@@ -525,7 +482,6 @@
 </head>
 <body>
 
-  <!-- تنبيهات ذكية -->
   <div id="liveToast">
     <div style="display:flex; align-items:flex-start; gap:12px;">
       <i class="fa-solid fa-bell fa-lg" style="margin-top:4px;"></i>
@@ -543,6 +499,7 @@
     </div>
     
     <div class="header-actions">
+      <!-- دائرة بروفايل الطالب الشخصية فقط في أقصى اليسار -->
       <div id="studentAvatarHeaderBtn" class="student-avatar-btn" onclick="openStudentProfileModal()" title="حسابي">
         <span id="studentInitialLetter">ط</span>
       </div>
@@ -553,41 +510,9 @@
     </div>
   </header>
 
-  <!-- الزر العائم لفتح درج الكورسات -->
-  <div class="courses-floating-trigger" onclick="toggleCourseDrawer(true)">
-    <i class="fa-solid fa-layer-group"></i>
-    <span>الكورسات والمحاضرات</span>
-  </div>
-
-  <!-- درج الكورسات الجانبي المنبثق -->
-  <div id="courseDrawer" class="course-drawer" onclick="closeDrawerOnBg(event)">
-    <div class="drawer-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h3 style="color: var(--primary);"><i class="fa-solid fa-graduation-cap"></i> فهرس الكورسات</h3>
-        <button class="modal-close-btn" style="position: static;" onclick="toggleCourseDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">اختر الكورس والصف لعرض محاضراته وكويزاته مباشرة:</p>
-      
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <button class="btn btn-secondary" style="justify-content: flex-start; padding: 12px;" onclick="selectGradeFromDrawer('1')">
-          <i class="fa-solid fa-book-bookmark" style="color:#06b6d4;"></i> كورس أولى ثانوي (التركيب الخلوي)
-        </button>
-        <button class="btn btn-secondary" style="justify-content: flex-start; padding: 12px;" onclick="selectGradeFromDrawer('2')">
-          <i class="fa-solid fa-book-bookmark" style="color:#a855f7;"></i> كورس ثانية ثانوي (التغذية والنقل)
-        </button>
-        <button class="btn btn-secondary" style="justify-content: flex-start; padding: 12px;" onclick="selectGradeFromDrawer('3')">
-          <i class="fa-solid fa-book-bookmark" style="color:#10b981;"></i> كورس ثالثة ثانوي (DNA والمناعة)
-        </button>
-        <button class="btn btn-secondary" style="justify-content: flex-start; padding: 12px;" onclick="selectGradeFromDrawer('all')">
-          <i class="fa-solid fa-list-ul"></i> عرض كل المحاضرات
-        </button>
-      </div>
-    </div>
-  </div>
-
   <div class="container">
     
-    <!-- 1. الرئيسية والترحيب -->
+    <!-- 1. الرئيسية: تم تنظيفها بالكامل وحذف المربع الرمادي -->
     <section id="sec-home" class="section active">
       <div class="teacher-hero">
         <div class="teacher-avatar-wrap">
@@ -598,7 +523,7 @@
         <h1 style="font-size: 1.8rem; margin-bottom: 4px;">الأستاذ محمد العكل</h1>
         <p style="color: var(--primary); font-weight: 700;">خبير ومدرس الأحياء للثانوية العامة</p>
         <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 550px; margin: 8px auto 14px;">
-          محاضرات متدرجة، كويز تفاعلي بعد كل محاضرة، ومتابعة دقيقة لكل طالب.
+          فهم عميق للمنهج، محاضرات مخصصة لكل صف دراسي، واختبار فوري بعد كل محاضرة.
         </p>
         
         <div class="social-links">
@@ -608,16 +533,9 @@
           <a id="btnTeacherWa" href="#" target="_blank" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
 
-        <button id="heroActionBtn" class="btn" style="width: 100%; max-width: 280px; margin: 20px auto 0;" onclick="goToSection('sec-auth')">
+        <button id="heroActionBtn" class="btn" style="width: 100%; max-width: 280px; margin: 20px auto 0;" onclick="handleHeroClick()">
           <i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول / حساب جديد
         </button>
-      </div>
-
-      <div class="card" id="studentWelcomeCard">
-        <h3><i class="fa-solid fa-circle-user" style="color: var(--primary); margin-left: 8px;"></i>بيانات حساب الطالب</h3>
-        <p id="studentInfoText" style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">
-          يرجى تسجيل الدخول لبدء مشاهدة الكورسات وحل كويز كل محاضرة.
-        </p>
       </div>
     </section>
 
@@ -656,7 +574,7 @@
             <input type="text" id="reg_name" class="form-control" placeholder="اكتب اسمك كاملاً" required />
           </div>
           <div class="form-group">
-            <label>الصف الدراسي</label>
+            <label>الصف الدراسي (يتم قفل المحاضرات عليه فقط)</label>
             <select id="reg_grade" class="form-control" required>
               <option value="1">الصف الأول الثانوي</option>
               <option value="2">الصف الثاني الثانوي</option>
@@ -683,7 +601,7 @@
         <!-- استعادة الباسورد OTP -->
         <div id="forgotPassArea" style="display: none;">
           <h3 style="margin-bottom: 8px; color: var(--primary);">استعادة كلمة المرور</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">اكتب هاتفك وسيصلك كود للتعيين فوراً:</p>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">اكتب هاتفك وسيصلك كود التعيين فوراً:</p>
 
           <div id="otpStep1">
             <div class="form-group">
@@ -713,22 +631,19 @@
       </div>
     </section>
 
-    <!-- 3. قسم المحاضرات (كل محاضرة بكارت مستقل وتحتها كويزها الخاص) -->
+    <!-- 3. المحاضرات (مقيدة إجبارياً على صف الطالب فقط) -->
     <section id="sec-lessons" class="section">
       <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <h3>الكورسات والمحاضرات التفاعلية</h3>
-          <span id="currentGradeBadge" style="font-size:0.8rem; color:var(--primary); font-weight:700;">الصف الأول الثانوي</span>
+          <h3>محاضرات صفك الدراسي</h3>
+          <span id="currentGradeBadge" style="font-size:0.85rem; color:var(--primary); font-weight:800;">الصف الأول الثانوي</span>
         </div>
-        <select id="gradeFilterSelect" class="form-control" style="width:auto; padding:6px 12px;" onchange="changeFilterGrade(this.value)">
-          <option value="1">أولى ثانوي</option>
-          <option value="2">ثانية ثانوي</option>
-          <option value="3">ثالثة ثانوي</option>
-          <option value="all">كل الكورسات</option>
-        </select>
+        <span style="font-size:0.75rem; background:rgba(6, 182, 212, 0.15); color:var(--primary); padding:4px 10px; border-radius:10px; border:1px solid rgba(6,182,212,0.3);">
+          <i class="fa-solid fa-lock"></i> محتوى خاص بصفك فقط
+        </span>
       </div>
 
-      <!-- مشغل الفيديو المشترك -->
+      <!-- المشغل المشترك -->
       <div id="lessonPlayerBox" style="display:none;" class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
           <h4 id="playingLessonTitle" style="color:var(--primary);">عنوان المحاضرة</h4>
@@ -737,11 +652,11 @@
         <div class="video-box" id="mediaBoxArea"></div>
       </div>
 
-      <!-- حاوية كروت المحاضرات والكويزات المدمجة -->
+      <!-- كروت محاضرات صف الطالب فقط مع كويزها الخاص -->
       <div id="lessonsContainer"></div>
     </section>
 
-    <!-- 4. واجهة خوض الكويز التفاعلي متعدد الأسئلة -->
+    <!-- 4. واجهة خوض كويز المحاضرة متعدد الأسئلة -->
     <section id="sec-quiz-runner" class="section">
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--card-border); padding-bottom:12px; margin-bottom:15px;">
@@ -762,7 +677,7 @@
       </div>
     </section>
 
-    <!-- 5. لوحة تحكم المستر والمطور -->
+    <!-- 5. لوحة التحكم والإدارة (المستر + المطور) -->
     <section id="sec-admin" class="section">
       <div class="card" style="border-right: 4px solid var(--primary); display:flex; justify-content:space-between; align-items:center;">
         <div>
@@ -772,7 +687,7 @@
         <button class="btn btn-danger" style="padding:6px 12px; font-size:0.8rem;" onclick="logoutAdmin()">خروج</button>
       </div>
 
-      <!-- إضافة محاضرة جديدة مع إمكانية ربط كويز فوري متعدد الأسئلة -->
+      <!-- إضافة محاضرة جديدة تابعة لصف محدد مع كويزها المباشر -->
       <div class="card">
         <h3><i class="fa-solid fa-folder-plus" style="color:var(--primary); margin-left: 8px;"></i>إضافة محاضرة جديدة</h3>
         <form onsubmit="handleCreateLesson(event)" style="margin-top: 14px;">
@@ -781,7 +696,7 @@
             <input type="text" id="lesTitle" class="form-control" placeholder="مثال: الحصة الأولى - النظرية الخلوية" required />
           </div>
           <div class="form-group">
-            <label>الكورس / الصف التابع له</label>
+            <label>الصف المستهدف (تظهر لطلاب هذا الصف فقط)</label>
             <select id="lesGrade" class="form-control" required>
               <option value="1">الصف الأول الثانوي</option>
               <option value="2">الصف الثاني الثانوي</option>
@@ -789,7 +704,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>فيديو المحاضرة</label>
+            <label>طريقة إضافة الفيديو</label>
             <select id="lesVideoType" class="form-control" onchange="toggleLessonVideoInput(this.value)">
               <option value="url">رابط فيديو (يوتيوب أو رابط مباشر)</option>
               <option value="file">رفع ملف فيديو من الجهاز</option>
@@ -804,7 +719,7 @@
 
           <hr style="border:0; border-top:1px solid var(--card-border); margin:18px 0;" />
 
-          <!-- بناء كويز المحاضرة المباشر (متعدد الأسئلة) -->
+          <!-- بناء كويز المحاضرة متعدد الأسئلة -->
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
             <h4 style="color:#a855f7;"><i class="fa-solid fa-list-check"></i> كويز المحاضرة (متعدد الأسئلة)</h4>
             <button type="button" class="btn btn-secondary btn-sm" onclick="addNewQuestionField()">
@@ -818,7 +733,6 @@
           </div>
 
           <div id="questionsBuilderContainer">
-            <!-- السؤال الأول افتراضياً -->
             <div class="question-builder-item" data-qindex="0">
               <div class="form-group">
                 <label>السؤال 1:</label>
@@ -836,7 +750,7 @@
           </div>
 
           <button type="submit" class="btn btn-purple" style="width: 100%; margin-top: 10px;">
-            <i class="fa-solid fa-cloud-arrow-up"></i> حفظ المحاضرة مع كويزها ونشرها فوراً
+            <i class="fa-solid fa-cloud-arrow-up"></i> حفظ المحاضرة وكويزها ونشرها لصفها فوراً
           </button>
         </form>
       </div>
@@ -859,7 +773,7 @@
         <div id="devUnlockedArea" style="display: none; margin-top: 15px;">
           <form onsubmit="handleDevProfileUpdate(event)">
             <div class="form-group">
-              <label><strong>رفع صورتك الشخصية (من الهاتف أو اللابتوب):</strong></label>
+              <label><strong>رفع صورتك الشخصية:</strong></label>
               <input type="file" id="devPicFile" class="form-control" accept="image/*" onchange="previewDevImg(this)" />
             </div>
             <div class="form-group">
@@ -948,7 +862,7 @@
 
   </div>
 
-  <!-- نافذة بروفايل وإحصائيات الطالب -->
+  <!-- نافذة بروفايل الطالب المتكاملة (تفتح بالضغط على دائرته الشخصية فقط) -->
   <div id="studentProfileModal" class="modal-backdrop" onclick="closeStudentModalOnBg(event)">
     <div class="modal-box">
       <button class="modal-close-btn" onclick="closeStudentProfileModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -959,6 +873,7 @@
         </div>
         <h3 id="modalStudentName" style="color: #fff;">اسم الطالب</h3>
         <span id="modalStudentGrade" style="font-size: 0.85rem; color: var(--primary); font-weight: 700;">الصف الدراسي</span>
+        <p id="modalStudentPhone" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;"></p>
       </div>
 
       <!-- إحصائيات الطالب -->
@@ -999,8 +914,9 @@
 
       <!-- تعديل بيانات الطالب -->
       <form onsubmit="handleStudentSelfUpdate(event)" style="border-top: 1px solid var(--card-border); padding-top: 14px;">
+        <h4 style="font-size: 0.9rem; color: #fff; margin-bottom: 10px;"><i class="fa-solid fa-user-pen"></i> تعديل البيانات</h4>
         <div class="form-group">
-          <label>تعديل اسم الطالب</label>
+          <label>الاسم</label>
           <input type="text" id="edit_stu_name" class="form-control" required />
         </div>
         <div class="form-group">
@@ -1012,14 +928,27 @@
           </select>
         </div>
         <div class="form-group">
+          <label>العمر</label>
+          <input type="number" id="edit_stu_age" class="form-control" required />
+        </div>
+        <div class="form-group">
           <label>كلمة المرور الجديدة (اختياري)</label>
           <input type="password" id="edit_stu_pass" class="form-control" placeholder="اتركها فارغة إذا لم ترد التغيير" />
         </div>
-        <div style="display:flex; gap:8px;">
+
+        <div style="display:flex; gap:8px; margin-top: 12px;">
           <button type="submit" class="btn" style="flex:2;">حفظ التعديلات</button>
-          <button type="button" class="btn btn-danger" style="flex:1;" onclick="logoutStudent()">خروج</button>
+          <button type="button" class="btn btn-secondary" style="flex:1;" onclick="logoutStudent()">خروج</button>
         </div>
       </form>
+
+      <!-- خيار حذف الحساب نهائياً للطالب -->
+      <div style="border-top: 1px dashed rgba(239, 68, 68, 0.4); margin-top: 18px; padding-top: 14px; text-align: center;">
+        <button type="button" class="btn btn-danger" style="width: 100%; font-size: 0.85rem;" onclick="handleStudentDeleteAccount()">
+          <i class="fa-solid fa-trash-can"></i> حذف حسابي نهائياً من المنصة
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -1067,23 +996,21 @@
       <i class="fa-solid fa-house"></i>
       <span>الرئيسية</span>
     </button>
-    <button class="nav-item" onclick="goToSection('sec-lessons', this)">
+    <button class="nav-item" onclick="handleLessonsNavClick(this)">
       <i class="fa-solid fa-book-open"></i>
-      <span>المحاضرات</span>
+      <span>محاضراتي</span>
     </button>
-    <button class="nav-item" id="navAuthBtn" onclick="goToSection('sec-auth', this)">
+    <button class="nav-item" id="navAuthBtn" onclick="handleNavAuthClick(this)">
       <i class="fa-solid fa-user"></i>
       <span>حسابي</span>
     </button>
   </div>
 
   <script>
-    // تهيئة البيانات المحلية
     if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
     if (!localStorage.getItem('dev_master_pwd')) localStorage.setItem('dev_master_pwd', 'Essam@Dev2026');
     if (!localStorage.getItem('registered_students')) localStorage.setItem('registered_students', JSON.stringify([]));
 
-    // تهيئة بيانات المحاضرات الافتراضية المدمجة مع كويزاتها
     if (!localStorage.getItem('platform_lessons')) {
       const defaultLessons = [
         {
@@ -1103,16 +1030,29 @@
         },
         {
           id: 'les_2',
-          title: 'الجزيئات البيولوجية الكبيرة (الكربوهيدرات)',
-          grade: '1',
+          title: 'التغذية الذاتية والبناء الضوئي',
+          grade: '2',
           videoSrc: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
           isEmbed: true,
           quiz: {
-            title: 'كويز الكربوهيدرات والسكريات',
-            duration: 8,
+            title: 'كويز التغذية والبناء الضوئي',
+            duration: 10,
             questions: [
-              { prompt: 'الصيغة العامة للسكريات الأحادية هي؟', options: ['(CH2O)n', 'CnH2nOn+1', 'C6H12O6', 'C12H22O11'], correct: 0 },
-              { prompt: 'يستخدم كاشف بندكت في الكشف عن؟', options: ['البروتين', 'النشا', 'السكريات البسيطة', 'الدهون'], correct: 2 }
+              { prompt: 'أين تحدث التفاعلات الضوئية للبناء الضوئي؟', options: ['الجرانا', 'الستروما', 'الغشاء الخارجي', 'السيتوبلازم'], correct: 0 }
+            ]
+          }
+        },
+        {
+          id: 'les_3',
+          title: 'الحمض النووي DNA وتخليق البروتين',
+          grade: '3',
+          videoSrc: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          isEmbed: true,
+          quiz: {
+            title: 'كويز تركيب الـ DNA',
+            duration: 15,
+            questions: [
+              { prompt: 'الرابطة بين القواعد النيتروجينية المتكاملة هي رابطة؟', options: ['ببتيدية', 'تساهمية', 'هيدروجينية', 'أيونية'], correct: 2 }
             ]
           }
         }
@@ -1135,7 +1075,7 @@
         btn.classList.add('active');
       }
 
-      if (id === 'sec-lessons') renderLessons();
+      if (id === 'sec-lessons') renderStudentGradeLessons();
       if (id === 'sec-admin') renderStudentsTable();
       window.scrollTo(0, 0);
     }
@@ -1148,45 +1088,59 @@
       setTimeout(() => { toast.style.display = 'none'; }, 6000);
     }
 
-    /* ---- قائمة الكورسات الجانبية (Drawer) ---- */
-    function toggleCourseDrawer(open) {
-      document.getElementById('courseDrawer').style.display = open ? 'flex' : 'none';
-    }
-    function closeDrawerOnBg(e) {
-      if (e.target.id === 'courseDrawer') toggleCourseDrawer(false);
-    }
-    function selectGradeFromDrawer(grade) {
-      toggleCourseDrawer(false);
-      document.getElementById('gradeFilterSelect').value = grade;
-      changeFilterGrade(grade);
-      goToSection('sec-lessons');
+    function handleHeroClick() {
+      const saved = localStorage.getItem('active_student');
+      if (saved) {
+        goToSection('sec-lessons');
+      } else {
+        goToSection('sec-auth');
+      }
     }
 
-    function changeFilterGrade(grade) {
-      const badge = document.getElementById('currentGradeBadge');
-      if (grade === '1') badge.innerText = 'الصف الأول الثانوي';
-      else if (grade === '2') badge.innerText = 'الصف الثاني الثانوي';
-      else if (grade === '3') badge.innerText = 'الصف الثالث الثانوي';
-      else badge.innerText = 'كل الصفوف والكورسات';
-      renderLessons();
+    function handleLessonsNavClick(btn) {
+      const saved = localStorage.getItem('active_student');
+      if (!saved) {
+        alert('يجب تسجيل الدخول كطالب أولاً للوصول لمحاضرات صفك.');
+        goToSection('sec-auth');
+        return;
+      }
+      goToSection('sec-lessons', btn);
     }
 
-    /* ---- عرض المحاضرات مع الكويزات المدمجة ---- */
-    function renderLessons() {
+    function handleNavAuthClick(btn) {
+      const saved = localStorage.getItem('active_student');
+      if (saved) {
+        openStudentProfileModal();
+      } else {
+        goToSection('sec-auth', btn);
+      }
+    }
+
+    /* ---- عرض محاضرات صف الطالب فقط بصورة إجبارية ومغلقة ---- */
+    function renderStudentGradeLessons() {
+      const saved = localStorage.getItem('active_student');
+      if (!saved) {
+        goToSection('sec-auth');
+        return;
+      }
+      const student = JSON.parse(saved);
+      const studentGrade = student.grade; // صف الطالب المسجل فقط
+
+      document.getElementById('currentGradeBadge').innerText = getGradeText(studentGrade);
+
+      const allLessons = JSON.parse(localStorage.getItem('platform_lessons') || '[]');
+      // فلترة صارمة: محاضرات صف الطالب فقط
+      const filtered = allLessons.filter(l => l.grade === studentGrade);
+
       const container = document.getElementById('lessonsContainer');
-      const selectedGrade = document.getElementById('gradeFilterSelect').value;
-      const lessons = JSON.parse(localStorage.getItem('platform_lessons') || '[]');
-      const filtered = selectedGrade === 'all' ? lessons : lessons.filter(l => l.grade === selectedGrade);
-
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">لا توجد محاضرات مرفوعة لهذا الصف حالياً. سيعلن الأستاذ عنها قريباً.</div>`;
+        container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">لا توجد محاضرات مرفوعة لـ ${getGradeText(studentGrade)} حالياً. سيقوم المستر برفعها قريباً.</div>`;
         return;
       }
 
-      const activeStudent = JSON.parse(localStorage.getItem('active_student') || '{}');
-      const studentScores = activeStudent.quizScores || [];
+      const studentScores = student.quizScores || [];
 
-      container.innerHTML = filtered.map((les, idx) => {
+      container.innerHTML = filtered.map(les => {
         const solvedQuiz = studentScores.find(sc => sc.lessonId === les.id);
         const hasQuiz = les.quiz && les.quiz.questions && les.quiz.questions.length > 0;
 
@@ -1197,7 +1151,7 @@
                 <h3 style="color:#fff; font-size:1.15rem; margin-bottom:4px;">${les.title}</h3>
                 <span style="font-size:0.8rem; color:var(--primary); font-weight:700;">${getGradeText(les.grade)}</span>
               </div>
-              ${solvedQuiz ? `<span style="background:rgba(16, 185, 129, 0.2); color:#10b981; font-size:0.75rem; padding:4px 10px; border-radius:12px; font-weight:bold;"><i class="fa-solid fa-circle-check"></i> تم حل الكويز (${solvedQuiz.pct}%)</span>` : ''}
+              ${solvedQuiz ? `<span style="background:rgba(16, 185, 129, 0.2); color:#10b981; font-size:0.75rem; padding:4px 10px; border-radius:12px; font-weight:bold;"><i class="fa-solid fa-circle-check"></i> تم اجتياز الكويز (${solvedQuiz.pct}%)</span>` : ''}
             </div>
 
             <div class="lesson-actions">
@@ -1207,7 +1161,7 @@
 
               ${hasQuiz ? `
                 <button class="btn btn-purple btn-sm" onclick="startLessonQuiz('${les.id}')">
-                  <i class="fa-solid fa-pen-nib"></i> ${solvedQuiz ? 'إعادة كويز المحاضرة' : 'حل كويز المحاضرة (' + les.quiz.questions.length + ' أسئلة)'}
+                  <i class="fa-solid fa-pen-nib"></i> ${solvedQuiz ? 'إعادة كويز المحاضرة' : 'بدء كويز المحاضرة (' + les.quiz.questions.length + ' أسئلة)'}
                 </button>
               ` : `<span style="font-size:0.8rem; color:var(--text-muted); align-self:center;">لا يوجد كويز مضاف</span>`}
             </div>
@@ -1231,7 +1185,6 @@
       document.getElementById('playingLessonTitle').innerText = decodeURIComponent(title);
       window.scrollTo({ top: box.offsetTop - 70, behavior: 'smooth' });
 
-      // تتبع المشاهدة
       trackStudentVideoWatch(lesId);
     }
 
@@ -1263,7 +1216,7 @@
     function startLessonQuiz(lesId) {
       const saved = localStorage.getItem('active_student');
       if (!saved) {
-        alert('يجب تسجيل الدخول كطالب أولاً لخوض الكويز وحفظ درجاتك.');
+        alert('يجب تسجيل الدخول كطالب أولاً.');
         goToSection('sec-auth');
         return;
       }
@@ -1333,13 +1286,11 @@
 
       const pct = Math.round((marks / totalQ) * 100);
 
-      // حفظ النتيجة في بروفايل الطالب
       const saved = localStorage.getItem('active_student');
       if (saved) {
         const student = JSON.parse(saved);
         if (!student.quizScores) student.quizScores = [];
 
-        // تحديث أو إضافة
         const existingIdx = student.quizScores.findIndex(sc => sc.lessonId === activeRunningQuiz.lessonId);
         const scoreObj = {
           lessonId: activeRunningQuiz.lessonId,
@@ -1434,7 +1385,6 @@
         }
       }
 
-      // تجميع الأسئلة المتعددة
       const qItems = document.querySelectorAll('.question-builder-item');
       const questionsList = [];
       qItems.forEach(item => {
@@ -1464,13 +1414,13 @@
       lessons.unshift(newLesson);
       localStorage.setItem('platform_lessons', JSON.stringify(lessons));
 
-      alert('تم نشر المحاضرة وكويزها المدمج بنجاح!');
-      showLiveToast('محاضرة وكويز جديد!', `تم نشر: ${title}`);
+      alert('تم نشر المحاضرة بنجاح!');
+      showLiveToast('محاضرة جديدة!', `تم نشر: ${title}`);
       e.target.reset();
       goToSection('sec-lessons');
     }
 
-    /* ---- بروفايل وإحصائيات الطالب ---- */
+    /* ---- بروفايل وإحصائيات الطالب وتعديل / حذف الحساب ---- */
     function openStudentProfileModal() {
       const saved = localStorage.getItem('active_student');
       if (!saved) return;
@@ -1478,6 +1428,7 @@
 
       document.getElementById('modalStudentName').innerText = student.name;
       document.getElementById('modalStudentGrade').innerText = getGradeText(student.grade);
+      document.getElementById('modalStudentPhone').innerText = `رقم الهاتف: ${student.phone}`;
       document.getElementById('modalStudentLetter').innerText = student.name.charAt(0);
 
       const watched = student.watchedVideos || [];
@@ -1508,6 +1459,7 @@
 
       document.getElementById('edit_stu_name').value = student.name;
       document.getElementById('edit_stu_grade').value = student.grade;
+      document.getElementById('edit_stu_age').value = student.age;
       document.getElementById('edit_stu_pass').value = '';
       document.getElementById('studentProfileModal').style.display = 'flex';
     }
@@ -1523,6 +1475,7 @@
 
       student.name = document.getElementById('edit_stu_name').value.trim();
       student.grade = document.getElementById('edit_stu_grade').value;
+      student.age = document.getElementById('edit_stu_age').value;
       const pass = document.getElementById('edit_stu_pass').value.trim();
       if (pass) student.pass = pass;
 
@@ -1538,6 +1491,30 @@
       refreshStudentUI();
       closeStudentProfileModal();
       alert('تم تحديث بياناتك بنجاح!');
+      if (document.getElementById('sec-lessons').classList.contains('active')) {
+        renderStudentGradeLessons();
+      }
+    }
+
+    /* ---- حذف حساب الطالب نهائياً من المنصة ---- */
+    function handleStudentDeleteAccount() {
+      const confirmDelete = confirm('هل أنت متأكد تماماً من رغبتك في حذف حسابك نهائياً؟\nسيتم مسح كافة درجاتك وسجل محاضراتك من المنصة ولا يمكن استرجاعها.');
+      if (!confirmDelete) return;
+
+      const saved = localStorage.getItem('active_student');
+      if (saved) {
+        const student = JSON.parse(saved);
+        const all = JSON.parse(localStorage.getItem('registered_students') || '[]');
+        const updatedAll = all.filter(s => s.phone !== student.phone);
+        localStorage.setItem('registered_students', JSON.stringify(updatedAll));
+      }
+
+      localStorage.removeItem('active_student');
+      closeStudentProfileModal();
+      refreshStudentUI();
+      goToSection('sec-home');
+      alert('تم حذف حسابك نهائياً من المنصة بنجاح.');
+      showLiveToast('تم حذف الحساب', 'تم حذف بياناتك نهائياً من المنصة.');
     }
 
     /* ---- مصادقة الطالب (دخول / تسجيل / OTP) ---- */
@@ -1617,6 +1594,7 @@
 
     function showForgotPasswordFlow() {
       document.getElementById('formLogin').style.display = 'none';
+      document.getElementById('formRegister').style.display = 'none';
       document.getElementById('authTabsContainer').style.display = 'none';
       document.getElementById('forgotPassArea').style.display = 'block';
       document.getElementById('otpStep1').style.display = 'block';
@@ -1677,7 +1655,6 @@
 
     function refreshStudentUI() {
       const saved = localStorage.getItem('active_student');
-      const box = document.getElementById('studentInfoText');
       const heroBtn = document.getElementById('heroActionBtn');
       const avatarBtn = document.getElementById('studentAvatarHeaderBtn');
       const letterSpan = document.getElementById('studentInitialLetter');
@@ -1686,16 +1663,10 @@
         const s = JSON.parse(saved);
         avatarBtn.style.display = 'flex';
         letterSpan.innerText = s.name.charAt(0);
-        box.innerHTML = `<strong>الطالب:</strong> ${s.name} | <strong>الصف:</strong> ${getGradeText(s.grade)} | <strong>الهاتف:</strong> ${s.phone}<br><span style="color:var(--primary); font-size:0.8rem; cursor:pointer;" onclick="openStudentProfileModal()"><i class="fa-solid fa-arrow-pointer"></i> اضغط هنا أو على دائرة حسابك أعلى اليسار لعرض درجاتك وإحصائياتك.</span>`;
-        document.getElementById('gradeFilterSelect').value = s.grade;
-        changeFilterGrade(s.grade);
-        heroBtn.innerHTML = `<i class="fa-solid fa-book-open"></i> استكمال كورسات الصف ${s.grade}`;
-        heroBtn.onclick = () => goToSection('sec-lessons');
+        heroBtn.innerHTML = `<i class="fa-solid fa-book-open"></i> استكمال محاضرات ${getGradeText(s.grade)}`;
       } else {
         avatarBtn.style.display = 'none';
-        box.innerHTML = `لم يتم تسجيل الدخول. سجل الآن للوصول لكامل المحاضرات والكويزات.`;
         heroBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول / حساب جديد`;
-        heroBtn.onclick = () => goToSection('sec-auth');
       }
     }
 
@@ -1859,7 +1830,6 @@
     window.addEventListener('DOMContentLoaded', () => {
       refreshStudentUI();
       renderProfiles();
-      renderLessons();
     });
   </script>
 </body>
