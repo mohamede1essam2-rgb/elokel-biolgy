@@ -36,30 +36,28 @@
       line-height: 1.6;
     }
 
-    /* مؤشر المزامنة السحابية الحي */
-    #cloudSyncStatus {
+    #cloudStatusBadge {
       position: fixed;
       bottom: 20px;
       left: 20px;
-      background: rgba(18, 24, 38, 0.9);
+      background: rgba(18, 24, 38, 0.95);
       border: 1px solid var(--sakr-card-border);
       color: var(--sakr-muted);
       font-size: 0.72rem;
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
       z-index: 1000;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
-    .sync-dot {
-      width: 7px;
-      height: 7px;
+    .status-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #10b981;
     }
 
-    /* الهيدر العلوي */
     .sakr-header {
       background: rgba(11, 15, 25, 0.95);
       backdrop-filter: blur(12px);
@@ -126,7 +124,6 @@
       color: #000;
     }
 
-    /* قسم الهيرو */
     .hero-section {
       text-align: center;
       padding: 55px 20px 45px;
@@ -175,7 +172,6 @@
     }
     .btn-sakr-cta:hover { transform: translateY(-2px); }
 
-    /* الإحصائيات */
     .sakr-stats {
       display: flex;
       justify-content: center;
@@ -228,7 +224,6 @@
       margin-top: 4px;
     }
 
-    /* مميزات المنصة */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -269,7 +264,6 @@
       color: var(--sakr-muted);
     }
 
-    /* شبكة الكورسات */
     .courses-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -347,7 +341,6 @@
       color: #000;
     }
 
-    /* مربع المطور الصغير بالأسفل */
     .dev-bottom-box {
       position: fixed;
       bottom: 15px;
@@ -392,7 +385,6 @@
       color: var(--sakr-yellow);
     }
 
-    /* النوافذ المنبثقة العامة */
     .sakr-modal-backdrop {
       display: none;
       position: fixed;
@@ -433,7 +425,6 @@
     }
     .modal-close-btn:hover { background: #ef4444; color: #fff; }
 
-    /* بطاقات اختيار الصف عند الاشتراك */
     .grade-select-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -460,7 +451,6 @@
       color: var(--sakr-gold);
     }
 
-    /* نافذة المطور */
     .dev-big-avatar {
       width: 130px;
       height: 130px;
@@ -483,7 +473,6 @@
       overflow: hidden;
     }
 
-    /* مشغل الفيديو والكويز */
     .video-viewport {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -494,7 +483,6 @@
     }
     video, iframe { width: 100%; height: 100%; border: none; }
 
-    /* لوحة تحكم المستر الكبيرة */
     #adminScreen {
       display: none;
       position: fixed;
@@ -594,18 +582,15 @@
 </head>
 <body>
 
-  <!-- مؤشر المزامنة السحابية الحي -->
-  <div id="cloudSyncStatus">
-    <div class="sync-dot"></div>
-    <span id="syncText">سحابي: متصل ومحدث</span>
+  <div id="cloudStatusBadge">
+    <div class="status-dot"></div>
+    <span id="syncText">سحابي: جارِ المزامنة...</span>
   </div>
 
-  <!-- تنبيه حي -->
   <div id="liveToast" style="display:none; position:fixed; top:15px; left:15px; right:15px; max-width:420px; margin:auto; background:var(--sakr-gold-gradient); color:#000; padding:14px 18px; border-radius:12px; z-index:9999; font-weight:bold; box-shadow:0 10px 30px rgba(0,0,0,0.8);">
     <i class="fa-solid fa-message"></i> <span id="toastMsgText"></span>
   </div>
 
-  <!-- الهيدر العلوي -->
   <header class="sakr-header">
     <div class="sakr-brand">
       <i class="fa-solid fa-atom"></i>
@@ -613,13 +598,11 @@
     </div>
 
     <div class="header-btns">
-      <!-- خانة حسابي للطالب -->
       <button class="btn-account-top" id="btnMyAccount" onclick="openStudentAccountModal()">
         <i class="fa-solid fa-user-circle"></i>
         <span id="accountBtnLabel">تسجيل الدخول / حسابي</span>
       </button>
 
-      <!-- زر لوحة المستر -->
       <button class="btn-admin-top" onclick="promptAdminLogin()">
         <i class="fa-solid fa-sliders"></i>
         <span>لوحة المستر</span>
@@ -627,7 +610,6 @@
     </div>
   </header>
 
-  <!-- قسم الهيرو الرئيسي -->
   <section class="hero-section">
     <div class="hero-badge" id="heroBadgeText">
       <i class="fa-solid fa-circle-check"></i> منصة الكيمياء والأحياء للثانوية العامة
@@ -637,12 +619,10 @@
       سواء كنت في أولى، تانية، أو تالتة ثانوي، هنا هتلاقي كل اللي تحتاجه علشان تتفوق، وتفهم المنهج صح، وتطبق عليه بسهولة.
     </p>
 
-    <!-- زر اشترك دلوقتي -->
     <button class="btn-sakr-cta" onclick="startSubscriptionFlow()">
       <i class="fa-solid fa-fire"></i> اشترك دلوقتي !
     </button>
 
-    <!-- إحصائيات المنصة -->
     <div class="sakr-stats">
       <div class="stat-pill">
         <i class="fa-brands fa-youtube"></i>
@@ -670,7 +650,6 @@
 
   <div class="container">
     
-    <!-- قسم ليه تشترك معانا؟ -->
     <div class="section-title">
       <h2 id="featuresTitleText">ليه تشترك معانا؟</h2>
       <p id="featuresSubText">طريقة تدريس مبتكرة مبنية على الفهم والتطبيق التفاعلي</p>
@@ -699,7 +678,6 @@
       </div>
     </div>
 
-    <!-- شبكة الكورسات والمحاضرات -->
     <div id="coursesSection" class="section-title">
       <h2>الكورسات والمحاضرات المتاحة</h2>
       <p>اختر صفك الدراسي واستكمل محاضراتك وكويزاتك</p>
@@ -709,7 +687,6 @@
 
   </div>
 
-  <!-- نافذة اختيار الصف الدراسي -->
   <div id="gradePickerModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card">
       <button class="modal-close-btn" onclick="closeModal('gradePickerModal')"><i class="fa-solid fa-xmark"></i></button>
@@ -744,7 +721,6 @@
     </div>
   </div>
 
-  <!-- نافذة تسجيل البيانات الفوري المباشر -->
   <div id="registerModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card">
       <button class="modal-close-btn" onclick="closeModal('registerModal')"><i class="fa-solid fa-xmark"></i></button>
@@ -772,7 +748,6 @@
     </div>
   </div>
 
-  <!-- نافذة نجاح التسجيل ورسالة الواتساب -->
   <div id="welcomeSuccessModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card" style="text-align: center;">
       <i class="fa-solid fa-circle-check" style="font-size:3rem; color:#10b981; margin-bottom:12px;"></i>
@@ -789,12 +764,10 @@
     </div>
   </div>
 
-  <!-- نافذة حسابي للطالب -->
   <div id="studentAccountModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card">
       <button class="modal-close-btn" onclick="closeModal('studentAccountModal')"><i class="fa-solid fa-xmark"></i></button>
       
-      <!-- في حالة تسجيل الدخول -->
       <div id="accountLoggedInView" style="display: none;">
         <div style="text-align: center; margin-bottom: 18px;">
           <div style="width: 65px; height: 65px; border-radius: 50%; background: var(--sakr-gold); color: #000; font-size: 1.8rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
@@ -823,7 +796,6 @@
         </button>
       </div>
 
-      <!-- في حالة عدم تسجيل الدخول -->
       <div id="accountLoginFormView">
         <h3 style="color:var(--sakr-gold); text-align:center; margin-bottom:8px;">تسجيل الدخول لحسابك</h3>
         <p style="color:var(--sakr-muted); font-size:0.85rem; text-align:center; margin-bottom:16px;">اكتب رقم هاتفك وكلمة المرور لمتابعة محاضراتك:</p>
@@ -848,7 +820,6 @@
     </div>
   </div>
 
-  <!-- مربع المطور الصغير بالأسفل -->
   <div class="dev-bottom-box" onclick="openDevModal()" title="اضغط لعرض بيانات المطور">
     <div id="devThumbBox" class="dev-thumb-circle">
       <i class="fa-solid fa-code"></i>
@@ -859,7 +830,6 @@
     </div>
   </div>
 
-  <!-- نافذة تكبير صورة وبيانات المطور الدائرية في المنتصف -->
   <div id="devModal" class="sakr-modal-backdrop" onclick="closeDevModalOnBg(event)">
     <div class="sakr-modal-card" style="max-width:340px; text-align:center;">
       <button class="modal-close-btn" onclick="closeDevModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -887,7 +857,6 @@
     </div>
   </div>
 
-  <!-- مشغل الفيديو -->
   <div id="playerModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card" style="max-width:820px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
@@ -898,7 +867,6 @@
     </div>
   </div>
 
-  <!-- نافذة الكويز التفاعلي للطلاب -->
   <div id="quizModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card" style="max-width: 600px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid var(--sakr-card-border); padding-bottom:10px;">
@@ -912,14 +880,11 @@
     </div>
   </div>
 
-  <!-- =========================================================
-       لوحة تحكم المستر الكبيرة بنظام الشاشات
-       ========================================================= -->
   <div id="adminScreen">
     <div class="admin-navbar">
       <div style="display:flex; align-items:center; gap:10px;">
         <i class="fa-solid fa-sliders" style="color:var(--sakr-gold); font-size:1.3rem;"></i>
-        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل (مزامنة سحابية مباشرة)</strong>
+        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل (مزامنة سحابية حقيقية)</strong>
       </div>
       <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="closeAdminScreen()">
         <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج من اللوحة
@@ -927,7 +892,6 @@
     </div>
 
     <div class="admin-body-layout">
-      <!-- الشريط الجانبي -->
       <aside class="admin-sidebar">
         <button class="admin-tab-btn active" onclick="switchAdminTab('courses', this)">
           <i class="fa-solid fa-graduation-cap"></i> إدارة الكورسات والأسعار
@@ -949,10 +913,8 @@
         </button>
       </aside>
 
-      <!-- منطقة العمل الرئيسية -->
       <main class="admin-main-view">
         
-        <!-- تبويب 1: إدارة الكورسات والأسعار -->
         <div id="viewCourses" class="admin-tab-view">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-plus-circle"></i> إضافة كورس جديد وتحديد سعره وصفه الدراسي</h3>
@@ -980,7 +942,7 @@
                 <input type="text" id="cDesc" class="form-control" placeholder="شرح مبسط لمحتوى الكورس وما يقدمه للطالب" required />
               </div>
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
-                <i class="fa-solid fa-check"></i> حفظ ونشر سحابياً عند كل الطلاب
+                <i class="fa-solid fa-check"></i> حفظ ونشر الكورس عند كل الطلاب فوراً
               </button>
             </form>
           </div>
@@ -991,7 +953,6 @@
           </div>
         </div>
 
-        <!-- تبويب 2: رفع الفيديوهات -->
         <div id="viewLectures" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-cloud-arrow-up"></i> رفع محاضرة فيديو وربطها بكورس وصف محدد</h3>
@@ -1017,7 +978,6 @@
           </div>
         </div>
 
-        <!-- تبويب 3: إنشاء الكويزات -->
         <div id="viewQuizzes" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-file-circle-question"></i> إنشاء كويز تحت محاضرة وفيديو محدد</h3>
@@ -1037,7 +997,6 @@
                 </div>
               </div>
 
-              <!-- الأسئلة -->
               <div style="display:flex; justify-content:space-between; align-items:center; margin:16px 0 8px;">
                 <strong style="color:#fff;">أسئلة الكويز:</strong>
                 <button type="button" class="btn-sm-action" onclick="addQuestionItem()"><i class="fa-solid fa-plus"></i> إضافة سؤال آخر</button>
@@ -1065,7 +1024,6 @@
           </div>
         </div>
 
-        <!-- تبويب 4: تعديل نصوص ومميزات الواجهة -->
         <div id="viewContent" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-pen-nib"></i> تعديل نصوص الواجهة ومربعات "ليه تشترك معانا؟"</h3>
@@ -1145,7 +1103,6 @@
           </div>
         </div>
 
-        <!-- تبويب 5: تعديل أرقام الإحصائيات -->
         <div id="viewStats" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-pen-to-square"></i> تعديل أرقام الإحصائيات بالصفحة الرئيسية</h3>
@@ -1169,7 +1126,6 @@
           </div>
         </div>
 
-        <!-- تبويب 6: إدارة المطور (محمي بكلمة السر 33333) -->
         <div id="viewDev" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card" style="border-color:var(--sakr-gold);">
             <h3 style="color:var(--sakr-gold); margin-bottom:10px;"><i class="fa-solid fa-lock"></i> قسم مطور الويب (محمد عصام)</h3>
@@ -1211,11 +1167,10 @@
 
   <script>
     /* =========================================================================
-       محرك المزامنة السحابية المركزي (Cloud Real-time Engine)
-       يضمن أن أي تعديل يقوم به المستر يظهر فوراً عند جميع الطلاب على أي جهاز
+       قاعدة البيانات السحابية المركزية المباشرة (Firebase Cloud Realtime Engine)
+       تسمح للمستر بالحفظ وللطلاب بالقراءة الفورية من أي هاتف أو كمبيوتر في مصر
        ========================================================================= */
-    const CLOUD_BIN_ID = '66f1b3e8acd3cb34a889b12e'; // معرف التخزين السحابي المباشر
-    const CLOUD_API_KEY = '$2a$10$7p8p.4jT1yVnE3kGqC2/d.uH8U7e9e5X7k5x8w4V8p0K6m2q9r.';
+    const CLOUD_FIREBASE_URL = 'https://elokel-biology-default-rtdb.firebaseio.com/platformData.json';
 
     let currentCloudData = {
       texts: {
@@ -1282,58 +1237,52 @@
       }
     };
 
-    // جلب البيانات السحابية المركزية فور فتح الموقع
+    // مزامنة حية من السحابة فوراً
     async function syncFromCloud() {
       const syncText = document.getElementById('syncText');
-      if (syncText) syncText.innerText = 'سحابي: جارِ جلب أحدث تعديلات المستر...';
+      if (syncText) syncText.innerText = 'سحابي: جارِ جلب تعديلات المستر...';
       try {
-        const cached = localStorage.getItem('cloud_app_data');
+        const cached = localStorage.getItem('cloud_app_data_v2');
         if (cached) {
           currentCloudData = JSON.parse(cached);
           renderFrontView();
         }
 
-        const res = await fetch('https://api.jsonbin.io/v3/b/' + CLOUD_BIN_ID + '/latest', {
-          headers: { 'X-Master-Key': CLOUD_API_KEY }
-        });
+        const res = await fetch(CLOUD_FIREBASE_URL);
         if (res.ok) {
           const data = await res.json();
-          if (data && data.record) {
-            currentCloudData = data.record;
-            localStorage.setItem('cloud_app_data', JSON.stringify(currentCloudData));
-            if (syncText) syncText.innerText = 'سحابي: متصل ومحدث عند الجميع';
+          if (data && typeof data === 'object') {
+            currentCloudData = data;
+            localStorage.setItem('cloud_app_data_v2', JSON.stringify(currentCloudData));
+            if (syncText) syncText.innerText = 'سحابي: متصل ومحدث عند كل الطلاب';
             renderFrontView();
           }
         }
       } catch (e) {
-        if (syncText) syncText.innerText = 'سحابي: متصل محلياً';
+        if (syncText) syncText.innerText = 'سحابي: تم تحميل النسخة المحلية';
       }
     }
 
-    // حفظ البيانات في السحابة لتصل لكل الطلاب فوراً
+    // حفظ ونشر التعديل سحابياً
     async function saveToCloud() {
       const syncText = document.getElementById('syncText');
-      if (syncText) syncText.innerText = 'سحابي: جارِ نشر التعديل لجميع الطلاب...';
-      localStorage.setItem('cloud_app_data', JSON.stringify(currentCloudData));
+      if (syncText) syncText.innerText = 'سحابي: جارِ نشر التعديل لكل الأجهزة...';
+      localStorage.setItem('cloud_app_data_v2', JSON.stringify(currentCloudData));
       renderFrontView();
 
       try {
-        await fetch('https://api.jsonbin.io/v3/b/' + CLOUD_BIN_ID, {
+        await fetch(CLOUD_FIREBASE_URL, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Master-Key': CLOUD_API_KEY
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(currentCloudData)
         });
-        if (syncText) syncText.innerText = 'سحابي: تم النشر لكل الأجهزة بنجاح!';
-        toast('تم نشر التعديلات سحابياً ووصلت لجميع الطلاب فوراً!');
+        if (syncText) syncText.innerText = 'سحابي: تم الحفظ والتحديث عند جميع الطلاب!';
+        toast('تم نشر التعديلات سحابياً وظهرت فوراً عند كل الطلاب!');
       } catch (err) {
-        if (syncText) syncText.innerText = 'تم الحفظ في جهازك وسينشر سحابياً فور توفر الإنترنت';
+        if (syncText) syncText.innerText = 'تم الحفظ محلياً وستنشر فور توفر اتصال';
       }
     }
 
-    // تهيئة كلمات السر
     if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
     if (!localStorage.getItem('dev_pass')) localStorage.setItem('dev_pass', '33333');
     if (!localStorage.getItem('registered_students')) localStorage.setItem('registered_students', JSON.stringify([]));
@@ -1352,7 +1301,6 @@
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    /* ---- عرض الواجهة الخارجية بناءً على السحابة ---- */
     function renderFrontView() {
       const t = currentCloudData.texts;
       if (t) {
@@ -1433,7 +1381,6 @@
       return 'الصف الثالث الثانوي';
     }
 
-    /* ---- مسار التسجيل المباشر بدون كود + رسالة واتساب ---- */
     function startSubscriptionFlow() {
       const active = localStorage.getItem('active_student');
       if (active) {
@@ -1479,7 +1426,6 @@
       closeModal('registerModal');
       refreshStudentHeaderButton();
 
-      // تجهيز رسالة الواتساب للرقم المسجل
       const cleanPhone = phone.replace(/[^0-9]/g, '');
       const waNumber = cleanPhone.startsWith('0') ? '2' + cleanPhone : cleanPhone;
       const welcomeText = encodeURIComponent(
@@ -1493,7 +1439,6 @@
       toast(`أهلاً بك يا ${name}! تم تسجيل حسابك.`);
     }
 
-    /* ---- خانة حسابي للطالب وتغيير كلمة السر ---- */
     function openStudentAccountModal() {
       const saved = localStorage.getItem('active_student');
       if (saved) {
@@ -1570,7 +1515,6 @@
       }
     }
 
-    /* ---- مشغل الفيديو والكويز ---- */
     function playVideo(encUrl, encTitle) {
       const url = decodeURIComponent(encUrl);
       const title = decodeURIComponent(encTitle);
@@ -1647,7 +1591,6 @@
       closeModal('quizModal');
     }
 
-    /* ---- لوحة تحكم المستر الكبيرة ---- */
     function promptAdminLogin() {
       const pass = prompt('أدخل كلمة سر لوحة المستر:');
       const actual = localStorage.getItem('admin_pwd') || '123456';
@@ -1781,7 +1724,6 @@
       e.target.reset();
     }
 
-    /* ---- تعديل نصوص ومربعات الواجهة ---- */
     function loadContentTextsToInputs() {
       const t = currentCloudData.texts || {};
       document.getElementById('editBrandName').value = t.brandName || '';
@@ -1819,7 +1761,6 @@
       saveToCloud();
     }
 
-    /* ---- تعديل الإحصائيات ---- */
     function loadStatsInputs() {
       const stats = currentCloudData.stats || {};
       document.getElementById('statInputYt').value = stats.yt || '+1.3M';
@@ -1838,7 +1779,6 @@
       saveToCloud();
     }
 
-    /* ---- قسم المطور المحمي بكلمة السر 33333 ---- */
     function unlockDevSection() {
       const input = document.getElementById('devSecretPassInput').value;
       const actual = localStorage.getItem('dev_pass') || '33333';
