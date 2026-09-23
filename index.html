@@ -62,6 +62,30 @@
       font-size: 1.6rem;
     }
 
+    .header-btns {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-account-top {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--sakr-card-border);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+    .btn-account-top:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
     .btn-admin-top {
       background: rgba(245, 158, 11, 0.12);
       border: 1px solid var(--sakr-gold);
@@ -132,7 +156,7 @@
     }
     .btn-sakr-cta:hover { transform: translateY(-2px); }
 
-    /* الإحصائيات (قابلة للتعديل من اللوحة) */
+    /* الإحصائيات */
     .sakr-stats {
       display: flex;
       justify-content: center;
@@ -185,7 +209,7 @@
       margin-top: 4px;
     }
 
-    /* مميزات المنصة */
+    /* مميزات المنصة (قابلة للتحكم والتعديل بالكامل) */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -349,8 +373,8 @@
       color: var(--sakr-yellow);
     }
 
-    /* نافذة تكبير المطور */
-    #devModal {
+    /* النوافذ المنبثقة العامة */
+    .sakr-modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
@@ -361,14 +385,15 @@
       justify-content: center;
       padding: 16px;
     }
-    .dev-modal-content {
-      background: linear-gradient(180deg, #161e31, #0c1220);
+    .sakr-modal-card {
+      background: var(--sakr-card);
       border: 1.5px solid var(--sakr-gold);
-      border-radius: 20px;
+      border-radius: 18px;
       width: 100%;
-      max-width: 340px;
-      padding: 30px 20px 24px;
-      text-align: center;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 26px;
       position: relative;
       box-shadow: 0 16px 40px rgba(0,0,0,0.85);
     }
@@ -388,6 +413,35 @@
       justify-content: center;
     }
     .modal-close-btn:hover { background: #ef4444; color: #fff; }
+
+    /* بطاقات اختيار الصف عند الاشتراك */
+    .grade-select-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .grade-option-card {
+      background: #090e18;
+      border: 1px solid var(--sakr-card-border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: 0.2s;
+    }
+    .grade-option-card:hover {
+      border-color: var(--sakr-gold);
+      background: rgba(245, 158, 11, 0.08);
+    }
+    .grade-option-card i {
+      font-size: 1.8rem;
+      color: var(--sakr-gold);
+    }
+
+    /* نافذة المطور */
     .dev-big-avatar {
       width: 130px;
       height: 130px;
@@ -409,49 +463,8 @@
       color: var(--sakr-gold);
       overflow: hidden;
     }
-    .dev-links {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .dev-btn-link {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--sakr-card-border);
-      color: #fff;
-      padding: 10px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.88rem;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: 0.2s;
-    }
-    .dev-btn-link:hover { background: var(--sakr-gold); color: #000; }
 
     /* مشغل الفيديو والكويز */
-    #playerModal, #quizModal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      backdrop-filter: blur(8px);
-      z-index: 2500;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .player-card {
-      width: 100%;
-      max-width: 820px;
-      background: var(--sakr-card);
-      border: 1px solid var(--sakr-card-border);
-      border-radius: 14px;
-      padding: 16px;
-    }
     .video-viewport {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -462,9 +475,7 @@
     }
     video, iframe { width: 100%; height: 100%; border: none; }
 
-    /* =========================================================
-       لوحة تحكم المستر الكبيرة والاحترافية بنظام الشاشات
-       ========================================================= */
+    /* لوحة تحكم المستر الكبيرة */
     #adminScreen {
       display: none;
       position: fixed;
@@ -490,7 +501,7 @@
       overflow: hidden;
     }
     .admin-sidebar {
-      width: 250px;
+      width: 260px;
       background: #0d1322;
       border-left: 1px solid var(--sakr-card-border);
       display: flex;
@@ -506,17 +517,14 @@
       border-radius: 10px;
       text-align: right;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 10px;
       transition: 0.2s;
     }
-    .admin-tab-btn:hover {
-      background: rgba(255, 255, 255, 0.04);
-      color: #fff;
-    }
+    .admin-tab-btn:hover { background: rgba(255, 255, 255, 0.04); color: #fff; }
     .admin-tab-btn.active {
       background: rgba(245, 158, 11, 0.15);
       color: var(--sakr-gold);
@@ -567,34 +575,49 @@
 </head>
 <body>
 
-  <!-- شريط منصة صقر العلوي -->
+  <!-- تنبيه الرسائل والتحقق OTP -->
+  <div id="liveToast" style="display:none; position:fixed; top:15px; left:15px; right:15px; max-width:420px; margin:auto; background:var(--sakr-gold-gradient); color:#000; padding:14px 18px; border-radius:12px; z-index:9999; font-weight:bold; box-shadow:0 10px 30px rgba(0,0,0,0.8);">
+    <i class="fa-solid fa-message"></i> <span id="toastMsgText"></span>
+  </div>
+
+  <!-- الهيدر العلوي -->
   <header class="sakr-header">
     <div class="sakr-brand">
       <i class="fa-solid fa-atom"></i>
-      <span>الأستاذ محمد العكل</span>
+      <span id="brandNameDisplay">الأستاذ محمد العكل</span>
     </div>
 
-    <!-- زر لوحة المستر في الأعلى -->
-    <button class="btn-admin-top" onclick="promptAdminLogin()">
-      <i class="fa-solid fa-sliders"></i>
-      <span>لوحة المستر</span>
-    </button>
+    <div class="header-btns">
+      <!-- خانة حسابي للطالب -->
+      <button class="btn-account-top" id="btnMyAccount" onclick="openStudentAccountModal()">
+        <i class="fa-solid fa-user-circle"></i>
+        <span id="accountBtnLabel">تسجيل الدخول / حسابي</span>
+      </button>
+
+      <!-- زر لوحة المستر -->
+      <button class="btn-admin-top" onclick="promptAdminLogin()">
+        <i class="fa-solid fa-sliders"></i>
+        <span>لوحة المستر</span>
+      </button>
+    </div>
   </header>
 
-  <!-- قسم الهيرو الرئيسي -->
+  <!-- قسم الهيرو الرئيسي (نصوصه قابلة للتعديل بالكامل من اللوحة) -->
   <section class="hero-section">
-    <div class="hero-badge">
+    <div class="hero-badge" id="heroBadgeText">
       <i class="fa-solid fa-circle-check"></i> منصة الكيمياء والأحياء للثانوية العامة
     </div>
-    <h1>أهلاً بيك في <span>بيتك التاني!</span></h1>
-    <p>
+    <h1 id="heroHeadingText">أهلاً بيك في <span>بيتك التاني!</span></h1>
+    <p id="heroDescText">
       سواء كنت في أولى، تانية، أو تالتة ثانوي، هنا هتلاقي كل اللي تحتاجه علشان تتفوق، وتفهم المنهج صح، وتطبق عليه بسهولة.
     </p>
-    <a href="#coursesSection" class="btn-sakr-cta">
-      <i class="fa-solid fa-fire"></i> اشترك دلوقتي !
-    </a>
 
-    <!-- إحصائيات المنصة (يتم تعديلها مباشرة من اللوحة) -->
+    <!-- زر اشترك دلوقتي (يفتح اختيار الصف أولاً) -->
+    <button class="btn-sakr-cta" onclick="startSubscriptionFlow()">
+      <i class="fa-solid fa-fire"></i> اشترك دلوقتي !
+    </button>
+
+    <!-- إحصائيات المنصة -->
     <div class="sakr-stats">
       <div class="stat-pill">
         <i class="fa-brands fa-youtube"></i>
@@ -622,36 +645,36 @@
 
   <div class="container">
     
-    <!-- قسم ليه تشترك معانا؟ -->
+    <!-- قسم ليه تشترك معانا؟ (مربعات قابلة للتعديل بنصوصها من اللوحة) -->
     <div class="section-title">
-      <h2>ليه تشترك معانا؟</h2>
-      <p>طريقة تدريس مبتكرة مبنية على الفهم والتطبيق التفاعلي</p>
+      <h2 id="featuresTitleText">ليه تشترك معانا؟</h2>
+      <p id="featuresSubText">طريقة تدريس مبتكرة مبنية على الفهم والتطبيق التفاعلي</p>
     </div>
 
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
-        <h3>1. شرح بسيط ومفهوم</h3>
-        <p>تفكيك أعقد نقاط المنهج بطريقة سردية وممتعة تثبت المعلومة في ذهنك.</p>
+        <h3 id="featTitle1">1. شرح بسيط ومفهوم</h3>
+        <p id="featDesc1">تفكيك أعقد نقاط المنهج بطريقة سردية وممتعة تثبت المعلومة في ذهنك.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><i class="fa-solid fa-film"></i></div>
-        <h3>2. فيديوهات برسومات توضيحية</h3>
-        <p>جرافيك عالي الجودة ومجسمات تفاعلية تجعلك ترى التجارب بنفسك.</p>
+        <h3 id="featTitle2">2. فيديوهات برسومات توضيحية</h3>
+        <p id="featDesc2">جرافيك عالي الجودة ومجسمات تفاعلية تجعلك ترى التجارب بنفسك.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><i class="fa-solid fa-stopwatch-20"></i></div>
-        <h3>3. تمارين تفاعلية على الدروس</h3>
-        <p>كويزات إلكترونية مقيدة بوقت وتصحيح فوري على كل محاضرة.</p>
+        <h3 id="featTitle3">3. تمارين تفاعلية على الدروس</h3>
+        <p id="featDesc3">كويزات إلكترونية مقيدة بوقت وتصحيح فوري على كل محاضرة.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-        <h3>4. مرونة كاملة في المذاكرة</h3>
-        <p>محاضراتك متاحة 24 ساعة من موبايلك أو لابتوبك أينما كنت.</p>
+        <h3 id="featTitle4">4. مرونة كاملة في المذاكرة</h3>
+        <p id="featDesc4">محاضراتك متاحة 24 ساعة من موبايلك أو لابتوبك أينما كنت.</p>
       </div>
     </div>
 
-    <!-- شبكة الكورسات والمحاضرات الفعالة -->
+    <!-- شبكة الكورسات والمحاضرات -->
     <div id="coursesSection" class="section-title">
       <h2>الكورسات والمحاضرات المتاحة</h2>
       <p>اختر صفك الدراسي واستكمل محاضراتك وكويزاتك</p>
@@ -659,6 +682,143 @@
 
     <div class="courses-grid" id="coursesGridArea"></div>
 
+  </div>
+
+  <!-- نافذة تدفق الاشتراك: الخطوة 1: اختيار الصف الدراسي -->
+  <div id="gradePickerModal" class="sakr-modal-backdrop">
+    <div class="sakr-modal-card">
+      <button class="modal-close-btn" onclick="closeModal('gradePickerModal')"><i class="fa-solid fa-xmark"></i></button>
+      <h3 style="color:var(--sakr-gold); text-align:center; margin-bottom:6px;">اختر صفك الدراسي للاشتراك</h3>
+      <p style="color:var(--sakr-muted); font-size:0.85rem; text-align:center;">حدد مرحلتك الدراسية ليتم فتح المحاضرات والكورسات الخاصة بك:</p>
+
+      <div class="grade-select-grid">
+        <div class="grade-option-card" onclick="selectGradeToRegister('1')">
+          <i class="fa-solid fa-1"></i>
+          <div>
+            <strong style="color:#fff; font-size:1.05rem;">الصف الأول الثانوي</strong>
+            <p style="font-size:0.8rem; color:var(--sakr-muted); margin:0;">تأسيس الكيمياء والأحياء للنظام الحديث</p>
+          </div>
+        </div>
+
+        <div class="grade-option-card" onclick="selectGradeToRegister('2')">
+          <i class="fa-solid fa-2"></i>
+          <div>
+            <strong style="color:#fff; font-size:1.05rem;">الصف الثاني الثانوي</strong>
+            <p style="font-size:0.8rem; color:var(--sakr-muted); margin:0;">شرح وافي للمنهج وتطبيقات تفاعلية دورية</p>
+          </div>
+        </div>
+
+        <div class="grade-option-card" onclick="selectGradeToRegister('3')">
+          <i class="fa-solid fa-3"></i>
+          <div>
+            <strong style="color:#fff; font-size:1.05rem;">الصف الثالث الثانوي (الشهادة)</strong>
+            <p style="font-size:0.8rem; color:var(--sakr-muted); margin:0;">رحلة التفوق وحصد الدرجة النهائية حتى ليلة الامتحان</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة تسجيل البيانات والتحقق بكود الهاتف (OTP) -->
+  <div id="registerOtpModal" class="sakr-modal-backdrop">
+    <div class="sakr-modal-card">
+      <button class="modal-close-btn" onclick="closeModal('registerOtpModal')"><i class="fa-solid fa-xmark"></i></button>
+      
+      <!-- مرحلة كتابة البيانات -->
+      <div id="regStepData">
+        <h3 style="color:var(--sakr-gold); text-align:center; margin-bottom:4px;">تسجيل بيانات الطالب</h3>
+        <p style="color:var(--sakr-yellow); font-size:0.85rem; text-align:center; margin-bottom:16px;" id="regSelectedGradeBadge"></p>
+
+        <form onsubmit="handleSendOtpCode(event)">
+          <div class="form-group">
+            <label>اسم الطالب رباعي</label>
+            <input type="text" id="stuNameInput" class="form-control" placeholder="اكتب اسمك كاملاً" required />
+          </div>
+          <div class="form-group">
+            <label>رقم هاتف الطالب (لتلقي كود التأكيد)</label>
+            <input type="tel" id="stuPhoneInput" class="form-control" placeholder="01xxxxxxxxx" required />
+          </div>
+          <div class="form-group">
+            <label>كلمة المرور لحسابك</label>
+            <input type="password" id="stuPassInput" class="form-control" placeholder="اختر كلمة سر قوية" required />
+          </div>
+          <button type="submit" class="btn-sakr-cta" style="width: 100%; justify-content:center; margin-top:10px;">
+            إرسال كود التأكيد للهاتف <i class="fa-solid fa-arrow-left"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- مرحلة إدخال كود التحقق OTP -->
+      <div id="regStepOtp" style="display: none; text-align: center;">
+        <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: var(--sakr-gold); margin-bottom: 10px;"></i>
+        <h3 style="color:#fff; margin-bottom: 6px;">تأكيد رقم الهاتف</h3>
+        <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom: 16px;">تم إرسال كود تحقق مكون من 4 أرقام لهاتفك، اكتبه بالأسفل لتفعيل حسابك:</p>
+
+        <input type="text" id="inputOtpVerification" class="form-control" placeholder="أدخل كود الـ 4 أرقام" style="text-align:center; font-size:1.3rem; letter-spacing:6px; max-width:260px; margin:0 auto 16px;" maxlength="4" />
+        <button class="btn-sakr-cta" style="width: 100%; justify-content:center;" onclick="verifyOtpAndActivateAccount()">
+          تأكيد الكود وتفعيل الحساب <i class="fa-solid fa-check"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة خانة حسابي للطالب (عرض البيانات وتغيير كلمة السر) -->
+  <div id="studentAccountModal" class="sakr-modal-backdrop">
+    <div class="sakr-modal-card">
+      <button class="modal-close-btn" onclick="closeModal('studentAccountModal')"><i class="fa-solid fa-xmark"></i></button>
+      
+      <!-- في حالة تسجيل الدخول -->
+      <div id="accountLoggedInView" style="display: none;">
+        <div style="text-align: center; margin-bottom: 18px;">
+          <div style="width: 65px; height: 65px; border-radius: 50%; background: var(--sakr-gold); color: #000; font-size: 1.8rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <h3 id="accStudentName" style="color:#fff; margin-bottom:2px;">اسم الطالب</h3>
+          <span id="accStudentGrade" style="color:var(--sakr-yellow); font-size:0.85rem; font-weight:bold;">الصف الدراسي</span>
+          <p id="accStudentPhone" style="color:var(--sakr-muted); font-size:0.8rem; margin-top:4px;"></p>
+        </div>
+
+        <div style="border-top:1px solid var(--sakr-card-border); padding-top:14px; margin-top:14px;">
+          <h4 style="color:#fff; font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-key" style="color:var(--sakr-gold);"></i> تغيير كلمة المرور</h4>
+          <form onsubmit="handleChangeStudentPassword(event)">
+            <div class="form-group">
+              <label>كلمة المرور الجديدة</label>
+              <input type="password" id="newStudentPassInput" class="form-control" placeholder="اكتب كلمة المرور الجديدة" required />
+            </div>
+            <button type="submit" class="btn-sm-action" style="width:100%; justify-content:center; padding:10px;">
+              تحديث كلمة المرور فوراً
+            </button>
+          </form>
+        </div>
+
+        <button class="btn-sm-action" style="width:100%; justify-content:center; background:#ef4444; border-color:#ef4444; color:#fff; margin-top:16px; padding:9px;" onclick="logoutStudent()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> تسجيل الخروج
+        </button>
+      </div>
+
+      <!-- في حالة عدم تسجيل الدخول (فورم تسجيل دخول سريع) -->
+      <div id="accountLoginFormView">
+        <h3 style="color:var(--sakr-gold); text-align:center; margin-bottom:8px;">تسجيل الدخول لحسابك</h3>
+        <p style="color:var(--sakr-muted); font-size:0.85rem; text-align:center; margin-bottom:16px;">اكتب رقم هاتفك وكلمة المرور لمتابعة محاضراتك:</p>
+        <form onsubmit="handleQuickLogin(event)">
+          <div class="form-group">
+            <label>رقم الهاتف</label>
+            <input type="tel" id="quickLoginPhone" class="form-control" placeholder="01xxxxxxxxx" required />
+          </div>
+          <div class="form-group">
+            <label>كلمة المرور</label>
+            <input type="password" id="quickLoginPass" class="form-control" placeholder="أدخل كلمة المرور" required />
+          </div>
+          <button type="submit" class="btn-sakr-cta" style="width:100%; justify-content:center; margin-top:8px;">
+            دخول الحساب
+          </button>
+        </form>
+        <div style="text-align: center; margin-top: 14px;">
+          <span style="color:var(--sakr-muted); font-size:0.85rem;">ليس لديك حساب بعد؟</span>
+          <a href="javascript:void(0)" onclick="closeModal('studentAccountModal'); startSubscriptionFlow();" style="color:var(--sakr-gold); font-weight:bold; text-decoration:none; margin-right:6px;">اشترك الآن</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- مربع المطور الصغير بالأسفل -->
@@ -673,8 +833,8 @@
   </div>
 
   <!-- نافذة تكبير صورة وبيانات المطور الدائرية في المنتصف -->
-  <div id="devModal" onclick="closeDevModalOnBg(event)">
-    <div class="dev-modal-content">
+  <div id="devModal" class="sakr-modal-backdrop" onclick="closeDevModalOnBg(event)">
+    <div class="sakr-modal-card" style="max-width:340px; text-align:center;">
       <button class="modal-close-btn" onclick="closeDevModal()"><i class="fa-solid fa-xmark"></i></button>
 
       <div class="dev-big-avatar">
@@ -689,11 +849,11 @@
         تصميم وتطوير وبرمجة منصة الأستاذ محمد العكل بأحدث المعايير البرمجية.
       </p>
 
-      <div class="dev-links">
-        <a id="devFbLink" href="https://facebook.com" target="_blank" class="dev-btn-link">
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:18px;">
+        <a id="devFbLink" href="https://facebook.com" target="_blank" class="btn-sm-action" style="justify-content:center; padding:10px;">
           <i class="fa-brands fa-facebook-f" style="color:#1877f2;"></i> صفحتي على الفيسبوك
         </a>
-        <a id="devWaLink" href="https://wa.me/201000000000" target="_blank" class="dev-btn-link">
+        <a id="devWaLink" href="https://wa.me/201000000000" target="_blank" class="btn-sm-action" style="justify-content:center; padding:10px;">
           <i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> تواصل معي عبر واتساب
         </a>
       </div>
@@ -701,19 +861,19 @@
   </div>
 
   <!-- مشغل الفيديو -->
-  <div id="playerModal">
-    <div class="player-card">
+  <div id="playerModal" class="sakr-modal-backdrop">
+    <div class="sakr-modal-card" style="max-width:820px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h4 id="videoPlayTitle" style="color:#fff;">عنوان المحاضرة</h4>
-        <button class="modal-close-btn" style="position:static;" onclick="closePlayer()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close-btn" style="position:static;" onclick="closeModal('playerModal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="video-viewport" id="videoContainer"></div>
     </div>
   </div>
 
   <!-- نافذة الكويز التفاعلي للطلاب -->
-  <div id="quizModal">
-    <div class="player-card" style="max-width: 600px;">
+  <div id="quizModal" class="sakr-modal-backdrop">
+    <div class="sakr-modal-card" style="max-width: 600px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid var(--sakr-card-border); padding-bottom:10px;">
         <h4 id="quizTitleHeading" style="color:var(--sakr-gold);">كويز المحاضرة</h4>
         <span id="quizTimerClock" style="background:rgba(239, 68, 68, 0.2); color:#f87171; padding:4px 12px; border-radius:14px; font-weight:bold;">10:00</span>
@@ -751,6 +911,9 @@
         <button class="admin-tab-btn" onclick="switchAdminTab('quizzes', this)">
           <i class="fa-solid fa-stopwatch"></i> إنشاء وربط الكويزات
         </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('content', this)">
+          <i class="fa-solid fa-pen-ruler"></i> تعديل نصوص الواجهة والمميزات
+        </button>
         <button class="admin-tab-btn" onclick="switchAdminTab('stats', this)">
           <i class="fa-solid fa-chart-line"></i> إحصائيات الصفحة الرئيسية
         </button>
@@ -759,13 +922,13 @@
         </button>
       </aside>
 
-      <!-- منطقة العمل الرئيسية الواسعة -->
+      <!-- منطقة العمل الرئيسية -->
       <main class="admin-main-view">
         
-        <!-- تبويب 1: إدارة الكورسات والأسعار -->
+        <!-- تبويب 1: إدارة الكورسات والأسعار مع تحديد الصف بدقة -->
         <div id="viewCourses" class="admin-tab-view">
           <div class="admin-panel-card">
-            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-plus-circle"></i> إضافة كورس جديد وتحديد سعره</h3>
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-plus-circle"></i> إضافة كورس جديد وتحديد سعره وصفه الدراسي</h3>
             <form onsubmit="handleCreateCourse(event)">
               <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:14px;">
                 <div class="form-group">
@@ -773,7 +936,7 @@
                   <input type="text" id="cTitle" class="form-control" placeholder="مثال: كورس الباب الأول - التحليل الكيميائي" required />
                 </div>
                 <div class="form-group">
-                  <label>الصف الدراسي</label>
+                  <label>الصف الدراسي المخصص له الكورس</label>
                   <select id="cGrade" class="form-control" required>
                     <option value="1">الصف الأول الثانوي</option>
                     <option value="2">الصف الثاني الثانوي</option>
@@ -801,7 +964,7 @@
           </div>
         </div>
 
-        <!-- تبويب 2: رفع الفيديوهات والمحاضرات وربطها بالكورس -->
+        <!-- تبويب 2: رفع الفيديوهات -->
         <div id="viewLectures" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-cloud-arrow-up"></i> رفع محاضرة فيديو وربطها بكورس وصف محدد</h3>
@@ -827,7 +990,7 @@
           </div>
         </div>
 
-        <!-- تبويب 3: إنشاء الكويزات وربطها بالكورس والفيديو -->
+        <!-- تبويب 3: إنشاء الكويزات -->
         <div id="viewQuizzes" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-file-circle-question"></i> إنشاء كويز تحت محاضرة وفيديو محدد</h3>
@@ -847,7 +1010,7 @@
                 </div>
               </div>
 
-              <!-- بناء الأسئلة المتعددة -->
+              <!-- الأسئلة -->
               <div style="display:flex; justify-content:space-between; align-items:center; margin:16px 0 8px;">
                 <strong style="color:#fff;">أسئلة الكويز:</strong>
                 <button type="button" class="btn-sm-action" onclick="addQuestionItem()"><i class="fa-solid fa-plus"></i> إضافة سؤال آخر</button>
@@ -859,7 +1022,7 @@
                     <input type="text" class="form-control q-prompt" placeholder="اكتب نص السؤال هنا..." required />
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control q-opts" placeholder="الخيارات مفصولة بفاصلة (مثال: الخيار أ, الخيار ب, الخيار ج, الخيار د)" required />
+                    <input type="text" class="form-control q-opts" placeholder="الخيارات مفصولة بفاصلة" required />
                   </div>
                   <div class="form-group" style="margin-bottom:0;">
                     <label>رقم الاختيار الصحيح (1 أو 2 أو 3 أو 4):</label>
@@ -875,7 +1038,91 @@
           </div>
         </div>
 
-        <!-- تبويب 4: تعديل إحصائيات الصفحة الرئيسية -->
+        <!-- تبويب 4: تعديل نصوص الواجهة ومربعات "ليه تشترك معانا؟" بالكامل -->
+        <div id="viewContent" class="admin-tab-view" style="display:none;">
+          <div class="admin-panel-card">
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-pen-nib"></i> تعديل نصوص الواجهة ومربعات "ليه تشترك معانا؟"</h3>
+            <form onsubmit="handleSaveContentTexts(event)">
+              <div class="form-group">
+                <label>اسم المنصة في الهيدر العلوي</label>
+                <input type="text" id="editBrandName" class="form-control" required />
+              </div>
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+                <div class="form-group">
+                  <label>نص الشارة العلوية (Badge)</label>
+                  <input type="text" id="editHeroBadge" class="form-control" required />
+                </div>
+                <div class="form-group">
+                  <label>العنوان الترحيبي الرئيسي (الهيرو)</label>
+                  <input type="text" id="editHeroHeading" class="form-control" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>الوصف الترحيبي تحت العنوان</label>
+                <textarea id="editHeroDesc" class="form-control" rows="2" required></textarea>
+              </div>
+
+              <hr style="border:0; border-top:1px solid var(--sakr-card-border); margin:20px 0;" />
+              <h4 style="color:var(--sakr-yellow); margin-bottom:12px;"><i class="fa-solid fa-table-cells-large"></i> نصوص مربعات "ليه تشترك معانا؟" الأربعة:</h4>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+                <!-- المربع 1 -->
+                <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px;">
+                  <div class="form-group">
+                    <label>عنوان المربع 1</label>
+                    <input type="text" id="editFeatTitle1" class="form-control" required />
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label>وصف المربع 1</label>
+                    <input type="text" id="editFeatDesc1" class="form-control" required />
+                  </div>
+                </div>
+
+                <!-- المربع 2 -->
+                <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px;">
+                  <div class="form-group">
+                    <label>عنوان المربع 2</label>
+                    <input type="text" id="editFeatTitle2" class="form-control" required />
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label>وصف المربع 2</label>
+                    <input type="text" id="editFeatDesc2" class="form-control" required />
+                  </div>
+                </div>
+
+                <!-- المربع 3 -->
+                <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px;">
+                  <div class="form-group">
+                    <label>عنوان المربع 3</label>
+                    <input type="text" id="editFeatTitle3" class="form-control" required />
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label>وصف المربع 3</label>
+                    <input type="text" id="editFeatDesc3" class="form-control" required />
+                  </div>
+                </div>
+
+                <!-- المربع 4 -->
+                <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px;">
+                  <div class="form-group">
+                    <label>عنوان المربع 4</label>
+                    <input type="text" id="editFeatTitle4" class="form-control" required />
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label>وصف المربع 4</label>
+                    <input type="text" id="editFeatDesc4" class="form-control" required />
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-sakr-cta" style="padding:10px 28px; font-size:0.95rem; margin-top:16px;">
+                <i class="fa-solid fa-floppy-disk"></i> حفظ وتحديث نصوص الواجهة والمربعات فوراً
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- تبويب 5: تعديل أرقام الإحصائيات -->
         <div id="viewStats" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-pen-to-square"></i> تعديل أرقام الإحصائيات بالصفحة الرئيسية</h3>
@@ -899,7 +1146,7 @@
           </div>
         </div>
 
-        <!-- تبويب 5: إدارة المطور (محمي بكلمة السر 33333) -->
+        <!-- تبويب 6: إدارة المطور (محمي بكلمة السر 33333) -->
         <div id="viewDev" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card" style="border-color:var(--sakr-gold);">
             <h3 style="color:var(--sakr-gold); margin-bottom:10px;"><i class="fa-solid fa-lock"></i> قسم مطور الويب (محمد عصام)</h3>
@@ -942,7 +1189,26 @@
   <script>
     // تهيئة البيانات
     if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
-    if (!localStorage.getItem('dev_pass')) localStorage.setItem('dev_pass', '33333'); // خمس تلاتات
+    if (!localStorage.getItem('dev_pass')) localStorage.setItem('dev_pass', '33333');
+    if (!localStorage.getItem('registered_students')) localStorage.setItem('registered_students', JSON.stringify([]));
+
+    // نصوص ومربعات الواجهة الافتراضية
+    if (!localStorage.getItem('platform_texts')) {
+      localStorage.setItem('platform_texts', JSON.stringify({
+        brandName: 'الأستاذ محمد العكل',
+        heroBadge: 'منصة الكيمياء والأحياء للثانوية العامة',
+        heroHeading: 'أهلاً بيك في بيتك التاني!',
+        heroDesc: 'سواء كنت في أولى، تانية، أو تالتة ثانوي، هنا هتلاقي كل اللي تحتاجه علشان تتفوق، وتفهم المنهج صح، وتطبق عليه بسهولة.',
+        featTitle1: '1. شرح بسيط ومفهوم',
+        featDesc1: 'تفكيك أعقد نقاط المنهج بطريقة سردية وممتعة تثبت المعلومة في ذهنك.',
+        featTitle2: '2. فيديوهات برسومات توضيحية',
+        featDesc2: 'جرافيك عالي الجودة ومجسمات تفاعلية تجعلك ترى التجارب بنفسك.',
+        featTitle3: '3. تمارين تفاعلية على الدروس',
+        featDesc3: 'كويزات إلكترونية مقيدة بوقت وتصحيح فوري على كل محاضرة.',
+        featTitle4: '4. مرونة كاملة في المذاكرة',
+        featDesc4: 'محاضراتك متاحة 24 ساعة من موبايلك أو لابتوبك أينما كنت.'
+      }));
+    }
 
     // الإحصائيات الافتراضية
     if (!localStorage.getItem('sakr_stats')) {
@@ -993,7 +1259,7 @@
       localStorage.setItem('platform_lectures', JSON.stringify(initLectures));
     }
 
-    // الكويزات الافتراضية المرتبطة بالمحاضرات
+    // الكويزات الافتراضية
     if (!localStorage.getItem('platform_quizzes')) {
       const initQuizzes = [
         {
@@ -1003,7 +1269,7 @@
           duration: 10,
           questions: [
             { prompt: 'أي من العناصر التالية يحتوي على أعلى حالة تأكسد؟', options: ['الكروم', 'المنجنيز', 'الحديد', 'الفاناديوم'], correct: 1 },
-            { prompt: 'تتميز جميع عناصر السلسلة الانتقالية الأولى بـ؟', options: ['تعدد حالات التأكسد ما عدا السكانديوم والخارصين', 'البارامغناطيسية لجميع مركباتها', 'الملونة دائماً', 'النشاط الكيميائي الشديد'], correct: 0 }
+            { prompt: 'تتميز جميع عناصر السلسلة الانتقالية الأولى بـ؟', options: ['تعدد حالات التأكسد', 'البارامغناطيسية لجميع مركباتها', 'الملونة دائماً', 'النشاط الكيميائي الشديد'], correct: 0 }
           ]
         }
       ];
@@ -1012,16 +1278,44 @@
 
     let activeQuizTimer = null;
     let currentQuizData = null;
+    let pendingOtp = null;
+    let tempStudentRegistration = null;
 
-    /* ---- عرض الواجهة الخارجية ---- */
+    function toast(msg) {
+      const t = document.getElementById('liveToast');
+      document.getElementById('toastMsgText').innerText = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 6000);
+    }
+
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    /* ---- عرض الواجهة الخارجية والنصوص التفاعلية ---- */
     function renderFrontView() {
-      // 1. عرض الإحصائيات
+      // نصوص الواجهة
+      const t = JSON.parse(localStorage.getItem('platform_texts') || '{}');
+      if (t.brandName) document.getElementById('brandNameDisplay').innerText = t.brandName;
+      if (t.heroBadge) document.getElementById('heroBadgeText').innerHTML = `<i class="fa-solid fa-circle-check"></i> ${t.heroBadge}`;
+      if (t.heroHeading) document.getElementById('heroHeadingText').innerHTML = t.heroHeading.includes('بيتك التاني') ? t.heroHeading.replace('بيتك التاني', '<span>بيتك التاني!</span>') : t.heroHeading;
+      if (t.heroDesc) document.getElementById('heroDescText').innerText = t.heroDesc;
+
+      if (t.featTitle1) document.getElementById('featTitle1').innerText = t.featTitle1;
+      if (t.featDesc1) document.getElementById('featDesc1').innerText = t.featDesc1;
+      if (t.featTitle2) document.getElementById('featTitle2').innerText = t.featTitle2;
+      if (t.featDesc2) document.getElementById('featDesc2').innerText = t.featDesc2;
+      if (t.featTitle3) document.getElementById('featTitle3').innerText = t.featTitle3;
+      if (t.featDesc3) document.getElementById('featDesc3').innerText = t.featDesc3;
+      if (t.featTitle4) document.getElementById('featTitle4').innerText = t.featTitle4;
+      if (t.featDesc4) document.getElementById('featDesc4').innerText = t.featDesc4;
+
+      // الإحصائيات
       const stats = JSON.parse(localStorage.getItem('sakr_stats') || '{}');
       document.getElementById('statDisplayYt').innerText = stats.yt || '+1.3M';
       document.getElementById('statDisplayStudents').innerText = stats.students || '+50,000';
       document.getElementById('statDisplayTop').innerText = stats.top || 'أوائل جمهورية';
 
-      // 2. عرض الكورسات والمحاضرات والكويزات
+      // الكورسات والمحاضرات
       const courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
       const lectures = JSON.parse(localStorage.getItem('platform_lectures') || '[]');
       const quizzes = JSON.parse(localStorage.getItem('platform_quizzes') || '[]');
@@ -1066,6 +1360,8 @@
           </div>
         `;
       }).join('');
+
+      refreshStudentHeaderButton();
     }
 
     function getGradeText(g) {
@@ -1074,6 +1370,158 @@
       return 'الصف الثالث الثانوي';
     }
 
+    /* ---- مسار زر "اشترك دلوقتي !": اختيار الصف ثم البيانات ثم OTP ---- */
+    function startSubscriptionFlow() {
+      const active = localStorage.getItem('active_student');
+      if (active) {
+        openStudentAccountModal();
+      } else {
+        openModal('gradePickerModal');
+      }
+    }
+
+    function selectGradeToRegister(grade) {
+      closeModal('gradePickerModal');
+      tempStudentRegistration = { grade: grade };
+
+      document.getElementById('regSelectedGradeBadge').innerText = `المرحلة المختارة: ${getGradeText(grade)}`;
+      document.getElementById('regStepData').style.display = 'block';
+      document.getElementById('regStepOtp').style.display = 'none';
+
+      openModal('registerOtpModal');
+    }
+
+    function handleSendOtpCode(e) {
+      e.preventDefault();
+      const name = document.getElementById('stuNameInput').value.trim();
+      const phone = document.getElementById('stuPhoneInput').value.trim();
+      const pass = document.getElementById('stuPassInput').value.trim();
+
+      const students = JSON.parse(localStorage.getItem('registered_students') || '[]');
+      if (students.some(s => s.phone === phone)) {
+        alert('هذا الرقم مسجل بالفعل! يمكنك تسجيل الدخول مباشرة من خانة "حسابي".');
+        closeModal('registerOtpModal');
+        openStudentAccountModal();
+        return;
+      }
+
+      tempStudentRegistration.name = name;
+      tempStudentRegistration.phone = phone;
+      tempStudentRegistration.pass = pass;
+
+      // توليد كود التحقق وإرساله
+      pendingOtp = Math.floor(1000 + Math.random() * 9000).toString();
+
+      document.getElementById('regStepData').style.display = 'none';
+      document.getElementById('regStepOtp').style.display = 'block';
+
+      toast(`📩 رسالة إلى رقمك ${phone}: كود التحقق الخاص بك هو [ ${pendingOtp} ]`);
+    }
+
+    function verifyOtpAndActivateAccount() {
+      const inputCode = document.getElementById('inputOtpVerification').value.trim();
+      if (inputCode !== pendingOtp) {
+        alert('كود التحقق غير صحيح! يرجى كتابة الكود الموضح في الرسالة.');
+        return;
+      }
+
+      const students = JSON.parse(localStorage.getItem('registered_students') || '[]');
+      const newStudent = {
+        name: tempStudentRegistration.name,
+        grade: tempStudentRegistration.grade,
+        phone: tempStudentRegistration.phone,
+        pass: tempStudentRegistration.pass,
+        registeredAt: new Date().toLocaleDateString('ar-EG')
+      };
+
+      students.unshift(newStudent);
+      localStorage.setItem('registered_students', JSON.stringify(students));
+      localStorage.setItem('active_student', JSON.stringify(newStudent));
+
+      closeModal('registerOtpModal');
+      refreshStudentHeaderButton();
+      alert(`مبروك يا ${newStudent.name}! تم تأكيد رقمك وتفعيل حسابك بنجاح في ${getGradeText(newStudent.grade)}.`);
+      toast(`أهلاً بك يا ${newStudent.name}!`);
+    }
+
+    /* ---- خانة حسابي للطالب وتغيير كلمة السر ---- */
+    function openStudentAccountModal() {
+      const saved = localStorage.getItem('active_student');
+      if (saved) {
+        const student = JSON.parse(saved);
+        document.getElementById('accStudentName').innerText = student.name;
+        document.getElementById('accStudentGrade').innerText = getGradeText(student.grade);
+        document.getElementById('accStudentPhone').innerText = `رقم الهاتف المسجل: ${student.phone}`;
+        document.getElementById('newStudentPassInput').value = '';
+
+        document.getElementById('accountLoggedInView').style.display = 'block';
+        document.getElementById('accountLoginFormView').style.display = 'none';
+      } else {
+        document.getElementById('accountLoggedInView').style.display = 'none';
+        document.getElementById('accountLoginFormView').style.display = 'block';
+      }
+      openModal('studentAccountModal');
+    }
+
+    function handleQuickLogin(e) {
+      e.preventDefault();
+      const phone = document.getElementById('quickLoginPhone').value.trim();
+      const pass = document.getElementById('quickLoginPass').value.trim();
+
+      const students = JSON.parse(localStorage.getItem('registered_students') || '[]');
+      const student = students.find(s => s.phone === phone);
+
+      if (!student || student.pass !== pass) {
+        alert('رقم الهاتف أو كلمة المرور غير صحيحة!');
+        return;
+      }
+
+      localStorage.setItem('active_student', JSON.stringify(student));
+      closeModal('studentAccountModal');
+      refreshStudentHeaderButton();
+      toast(`مرحباً بعودتك يا ${student.name}!`);
+    }
+
+    function handleChangeStudentPassword(e) {
+      e.preventDefault();
+      const newPass = document.getElementById('newStudentPassInput').value.trim();
+      const saved = localStorage.getItem('active_student');
+      if (!saved || !newPass) return;
+
+      const student = JSON.parse(saved);
+      student.pass = newPass;
+      localStorage.setItem('active_student', JSON.stringify(student));
+
+      const students = JSON.parse(localStorage.getItem('registered_students') || '[]');
+      const idx = students.findIndex(s => s.phone === student.phone);
+      if (idx > -1) {
+        students[idx].pass = newPass;
+        localStorage.setItem('registered_students', JSON.stringify(students));
+      }
+
+      alert('تم تحديث كلمة المرور لحسابك بنجاح!');
+      closeModal('studentAccountModal');
+    }
+
+    function logoutStudent() {
+      localStorage.removeItem('active_student');
+      closeModal('studentAccountModal');
+      refreshStudentHeaderButton();
+      toast('تم تسجيل الخروج بنجاح.');
+    }
+
+    function refreshStudentHeaderButton() {
+      const saved = localStorage.getItem('active_student');
+      const label = document.getElementById('accountBtnLabel');
+      if (saved) {
+        const student = JSON.parse(saved);
+        label.innerText = `حسابي (${student.name.split(' ')[0]})`;
+      } else {
+        label.innerText = `تسجيل الدخول / حسابي`;
+      }
+    }
+
+    /* ---- مشغل الفيديو والكويز ---- */
     function playVideo(encUrl, encTitle) {
       const url = decodeURIComponent(encUrl);
       const title = decodeURIComponent(encTitle);
@@ -1090,15 +1538,9 @@
         box.innerHTML = `<video controls autoplay src="${url}"></video>`;
       }
 
-      document.getElementById('playerModal').style.display = 'flex';
+      openModal('playerModal');
     }
 
-    function closePlayer() {
-      document.getElementById('playerModal').style.display = 'none';
-      document.getElementById('videoContainer').innerHTML = '';
-    }
-
-    /* ---- خوض الكويز ---- */
     function startQuiz(quizId) {
       const quizzes = JSON.parse(localStorage.getItem('platform_quizzes') || '[]');
       currentQuizData = quizzes.find(q => q.id === quizId);
@@ -1119,7 +1561,7 @@
         </div>
       `).join('');
 
-      document.getElementById('quizModal').style.display = 'flex';
+      openModal('quizModal');
 
       let timeLeft = currentQuizData.duration * 60;
       updateQuizClock(timeLeft);
@@ -1153,7 +1595,7 @@
 
       const pct = Math.round((marks / total) * 100);
       alert(`تم الانتهاء!\nدرجتك في الكويز: ${marks} من ${total} (${pct}%)`);
-      document.getElementById('quizModal').style.display = 'none';
+      closeModal('quizModal');
     }
 
     /* ---- لوحة تحكم المستر الكبيرة ---- */
@@ -1170,6 +1612,7 @@
     function openAdminScreen() {
       document.getElementById('adminScreen').style.display = 'flex';
       refreshAdminSelectors();
+      loadContentTextsToInputs();
       loadStatsInputs();
     }
 
@@ -1185,6 +1628,7 @@
       document.getElementById('viewCourses').style.display = tabName === 'courses' ? 'block' : 'none';
       document.getElementById('viewLectures').style.display = tabName === 'lectures' ? 'block' : 'none';
       document.getElementById('viewQuizzes').style.display = tabName === 'quizzes' ? 'block' : 'none';
+      document.getElementById('viewContent').style.display = tabName === 'content' ? 'block' : 'none';
       document.getElementById('viewStats').style.display = tabName === 'stats' ? 'block' : 'none';
       document.getElementById('viewDev').style.display = tabName === 'dev' ? 'block' : 'none';
     }
@@ -1193,19 +1637,16 @@
       const courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
       const lectures = JSON.parse(localStorage.getItem('platform_lectures') || '[]');
 
-      // قائمة الكورسات في سيلكت المحاضرات
       document.getElementById('lecTargetCourse').innerHTML = courses.map(c => `
         <option value="${c.id}">${c.title} (${getGradeText(c.grade)})</option>
       `).join('');
 
-      // قائمة المحاضرات في سيلكت الكويزات
       document.getElementById('qTargetLecture').innerHTML = lectures.map(l => {
         const parentCourse = courses.find(c => c.id === l.courseId);
         const courseName = parentCourse ? parentCourse.title : 'كورس';
         return `<option value="${l.id}">${courseName} ➔ ${l.title}</option>`;
       }).join('');
 
-      // جدول الكورسات الحالية
       document.getElementById('adminCoursesListTable').innerHTML = courses.map((c, i) => `
         <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:10px 14px; border-radius:8px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
           <span>${i + 1}. <strong>${c.title}</strong> (${getGradeText(c.grade)}) - <span style="color:var(--sakr-gold);">${c.price}</span></span>
@@ -1225,7 +1666,7 @@
       courses.unshift({ id: 'course_' + Date.now(), title, grade, price, desc });
       localStorage.setItem('platform_courses', JSON.stringify(courses));
 
-      alert('تمت إضافة الكورس بنجاح!');
+      alert('تمت إضافة الكورس للصف المحدد بنجاح!');
       e.target.reset();
       refreshAdminSelectors();
     }
@@ -1295,6 +1736,47 @@
       e.target.reset();
     }
 
+    /* ---- تعديل نصوص ومربعات الواجهة ---- */
+    function loadContentTextsToInputs() {
+      const t = JSON.parse(localStorage.getItem('platform_texts') || '{}');
+      document.getElementById('editBrandName').value = t.brandName || 'الأستاذ محمد العكل';
+      document.getElementById('editHeroBadge').value = t.heroBadge || 'منصة الكيمياء والأحياء للثانوية العامة';
+      document.getElementById('editHeroHeading').value = t.heroHeading || 'أهلاً بيك في بيتك التاني!';
+      document.getElementById('editHeroDesc').value = t.heroDesc || '';
+
+      document.getElementById('editFeatTitle1').value = t.featTitle1 || '1. شرح بسيط ومفهوم';
+      document.getElementById('editFeatDesc1').value = t.featDesc1 || '';
+      document.getElementById('editFeatTitle2').value = t.featTitle2 || '2. فيديوهات برسومات توضيحية';
+      document.getElementById('editFeatDesc2').value = t.featDesc2 || '';
+      document.getElementById('editFeatTitle3').value = t.featTitle3 || '3. تمارين تفاعلية على الدروس';
+      document.getElementById('editFeatDesc3').value = t.featDesc3 || '';
+      document.getElementById('editFeatTitle4').value = t.featTitle4 || '4. مرونة كاملة في المذاكرة';
+      document.getElementById('editFeatDesc4').value = t.featDesc4 || '';
+    }
+
+    function handleSaveContentTexts(e) {
+      e.preventDefault();
+      const updated = {
+        brandName: document.getElementById('editBrandName').value.trim(),
+        heroBadge: document.getElementById('editHeroBadge').value.trim(),
+        heroHeading: document.getElementById('editHeroHeading').value.trim(),
+        heroDesc: document.getElementById('editHeroDesc').value.trim(),
+        featTitle1: document.getElementById('editFeatTitle1').value.trim(),
+        featDesc1: document.getElementById('editFeatDesc1').value.trim(),
+        featTitle2: document.getElementById('editFeatTitle2').value.trim(),
+        featDesc2: document.getElementById('editFeatDesc2').value.trim(),
+        featTitle3: document.getElementById('editFeatTitle3').value.trim(),
+        featDesc3: document.getElementById('editFeatDesc3').value.trim(),
+        featTitle4: document.getElementById('editFeatTitle4').value.trim(),
+        featDesc4: document.getElementById('editFeatDesc4').value.trim()
+      };
+
+      localStorage.setItem('platform_texts', JSON.stringify(updated));
+      alert('تم حفظ وتحديث نصوص الواجهة ومربعات "ليه تشترك معانا؟" بنجاح!');
+      renderFrontView();
+    }
+
+    /* ---- تعديل الإحصائيات ---- */
     function loadStatsInputs() {
       const stats = JSON.parse(localStorage.getItem('sakr_stats') || '{}');
       document.getElementById('statInputYt').value = stats.yt || '+1.3M';
@@ -1310,6 +1792,7 @@
 
       localStorage.setItem('sakr_stats', JSON.stringify({ yt, students, top }));
       alert('تم تحديث أرقام الإحصائيات في الصفحة الرئيسية بنجاح!');
+      renderFrontView();
     }
 
     /* ---- قسم المطور المحمي بكلمة السر 33333 ---- */
@@ -1364,8 +1847,8 @@
       document.getElementById('devWaLink').href = wa.startsWith('http') ? wa : `https://wa.me/2${wa.replace(/[^0-9]/g, '')}`;
     }
 
-    function openDevModal() { document.getElementById('devModal').style.display = 'flex'; }
-    function closeDevModal() { document.getElementById('devModal').style.display = 'none'; }
+    function openDevModal() { openModal('devModal'); }
+    function closeDevModal() { closeModal('devModal'); }
     function closeDevModalOnBg(e) { if (e.target.id === 'devModal') closeDevModal(); }
 
     window.addEventListener('DOMContentLoaded', () => {
