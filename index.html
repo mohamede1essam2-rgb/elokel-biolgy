@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>منصة الأحياء | أ. محمد العكل</title>
   
-  <!-- خط تجوال وأيقونات Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -40,7 +39,6 @@
       padding-bottom: 95px;
     }
 
-    /* تنبيهات حية */
     #liveToast {
       position: fixed;
       top: 15px;
@@ -50,9 +48,9 @@
       margin: auto;
       background: linear-gradient(135deg, #059669, #0f766e);
       color: #fff;
-      padding: 12px 18px;
+      padding: 14px 18px;
       border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
       display: none;
       z-index: 9999;
       animation: slideDown 0.3s ease;
@@ -126,7 +124,7 @@
       margin-bottom: 16px;
     }
 
-    /* قسم صورة وبروفايل المستر في الأعلى */
+    /* بروفايل المستر في الأعلى */
     .teacher-hero {
       text-align: center;
       padding: 30px 18px 25px;
@@ -219,7 +217,7 @@
       display: block;
     }
 
-    /* جدول بيانات الطلاب */
+    /* جدول الطلاب */
     .table-container {
       width: 100%;
       overflow-x: auto;
@@ -245,7 +243,7 @@
     }
     tr:hover { background: rgba(255,255,255,0.02); }
 
-    /* شريط المطور في الأسفل مع صورته الصغيرة التفاعلية */
+    /* شريط المطور السفلي */
     .developer-bar {
       margin-top: 35px;
       margin-bottom: 20px;
@@ -265,8 +263,8 @@
       gap: 14px;
     }
     .dev-avatar-wrap {
-      width: 52px;
-      height: 52px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       padding: 2px;
       background: linear-gradient(135deg, var(--accent), var(--primary-light));
@@ -274,9 +272,7 @@
       position: relative;
       transition: transform 0.2s;
     }
-    .dev-avatar-wrap:hover {
-      transform: scale(1.08);
-    }
+    .dev-avatar-wrap:hover { transform: scale(1.1); }
     .dev-avatar-wrap::after {
       content: '\f00e';
       font-family: 'Font Awesome 6 Free';
@@ -327,7 +323,7 @@
       color: var(--text-muted);
     }
 
-    /* نافذة تكبير صورة المطور الدائرية في منتصف الشاشة */
+    /* نافذة تكبير صورة المطور الدائرية */
     #devModal {
       display: none;
       position: fixed;
@@ -456,17 +452,40 @@
       border-radius: 20px;
       font-weight: bold;
     }
+
+    .auth-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      padding: 10px;
+      background: #162438;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .auth-tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
   </style>
 </head>
 <body>
 
-  <!-- تنبيه الفيديوهات الجديدة -->
+  <!-- نافذة رسائل SMS الذاتية -->
   <div id="liveToast">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <i class="fa-solid fa-bell fa-lg"></i>
+    <div style="display:flex; align-items:flex-start; gap:12px;">
+      <i class="fa-solid fa-message fa-lg" style="margin-top:4px;"></i>
       <div>
-        <strong id="toastTitle">إشعار جديد!</strong>
-        <p id="toastBody" style="font-size:0.85rem; margin-top:2px;"></p>
+        <strong id="toastTitle">رسالة جديدة</strong>
+        <p id="toastBody" style="font-size:0.9rem; margin-top:2px; font-weight: 500;"></p>
       </div>
     </div>
   </div>
@@ -476,14 +495,19 @@
       <i class="fa-solid fa-dna"></i>
       <span>الأستاذ محمد العكل</span>
     </div>
-    <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;" onclick="openAdminModal()">
-      <i class="fa-solid fa-user-gear"></i> لوحة المستر
-    </button>
+    <div style="display: flex; gap: 8px;">
+      <button id="headerLogoutBtn" class="btn btn-secondary btn-sm" style="display: none;" onclick="logoutStudent()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج
+      </button>
+      <button class="btn btn-secondary btn-sm" onclick="openAdminModal()">
+        <i class="fa-solid fa-user-gear"></i> لوحة المستر
+      </button>
+    </div>
   </header>
 
   <div class="container">
     
-    <!-- 1. الرئيسية والترحيب (مع بروفايل المستر الكبير) -->
+    <!-- 1. الرئيسية والترحيب مع صورة المستر الكبيرة -->
     <section id="sec-home" class="section active">
       <div class="teacher-hero">
         <div class="teacher-avatar-wrap">
@@ -497,37 +521,62 @@
           أهلاً بكم في المنصة الرسمية لشرح مادة الأحياء بأحدث الوسائل التفاعلية والاختبارات الدورية.
         </p>
         
-        <!-- صفحات المستر على السوشيال ميديا -->
         <div class="social-links">
-          <a id="btnTeacherFb" href="#" target="_blank" class="social-btn fb" title="صفحة الفيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
-          <a id="btnTeacherYt" href="#" target="_blank" class="social-btn yt" title="قناة اليوتيوب"><i class="fa-brands fa-youtube"></i></a>
-          <a id="btnTeacherTg" href="#" target="_blank" class="social-btn tg" title="قناة التليجرام"><i class="fa-brands fa-telegram"></i></a>
-          <a id="btnTeacherWa" href="#" target="_blank" class="social-btn wa" title="واتساب المستر"><i class="fa-brands fa-whatsapp"></i></a>
+          <a id="btnTeacherFb" href="#" target="_blank" class="social-btn fb" title="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
+          <a id="btnTeacherYt" href="#" target="_blank" class="social-btn yt" title="يوتيوب"><i class="fa-brands fa-youtube"></i></a>
+          <a id="btnTeacherTg" href="#" target="_blank" class="social-btn tg" title="تليجرام"><i class="fa-brands fa-telegram"></i></a>
+          <a id="btnTeacherWa" href="#" target="_blank" class="social-btn wa" title="واتساب"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
 
-        <button class="btn" style="width: 100%; max-width: 280px; margin: 20px auto 0;" onclick="goToSection('sec-onboarding')">
-          <i class="fa-solid fa-arrow-left"></i> ابدأ بتسجيل بياناتك والصف
+        <button id="heroActionBtn" class="btn" style="width: 100%; max-width: 280px; margin: 20px auto 0;" onclick="goToSection('sec-auth')">
+          <i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول / حساب جديد
         </button>
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-circle-user" style="color: var(--primary-light); margin-left: 8px;"></i>بياناتك المسجلة كطالب</h3>
-        <p id="studentInfoText" style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">لم يتم تسجيل بيانات الطالب بعد.</p>
+        <h3><i class="fa-solid fa-circle-user" style="color: var(--primary-light); margin-left: 8px;"></i>بيانات حسابك</h3>
+        <p id="studentInfoText" style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">يرجى تسجيل الدخول أو إنشاء حساب للاطلاع على المحاضرات والكويزات.</p>
       </div>
     </section>
 
-    <!-- 2. تحديد الصف والسن ورقم الطالب -->
-    <section id="sec-onboarding" class="section">
+    <!-- 2. تسجيل الدخول وحساب جديد ونسيان كلمة السر بالـ SMS الذاتي -->
+    <section id="sec-auth" class="section">
       <div class="card">
-        <h2 style="margin-bottom: 16px;"><i class="fa-solid fa-graduation-cap" style="color: var(--primary); margin-left: 8px;"></i>تسجيل بيانات الطالب</h2>
-        <form onsubmit="handleStudentSave(event)">
+        
+        <div class="auth-tabs" id="authTabsContainer">
+          <button class="auth-tab-btn active" id="tabBtnLogin" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+          <button class="auth-tab-btn" id="tabBtnRegister" onclick="switchAuthTab('register')">إنشاء حساب جديد</button>
+        </div>
+
+        <!-- فورم تسجيل الدخول -->
+        <form id="formLogin" onsubmit="handleStudentLogin(event)">
+          <div class="form-group">
+            <label>رقم هاتف الطالب</label>
+            <input type="tel" id="login_phone" class="form-control" placeholder="01xxxxxxxxx" required />
+          </div>
+          <div class="form-group">
+            <label>كلمة المرور</label>
+            <input type="password" id="login_pass" class="form-control" placeholder="أدخل كلمة المرور" required />
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <a href="javascript:void(0)" onclick="showForgotPasswordFlow()" style="color:#38bdf8; font-size:0.85rem; text-decoration:none;">
+              <i class="fa-solid fa-key"></i> نسيت كلمة السر؟
+            </a>
+          </div>
+          <button type="submit" class="btn" style="width: 100%;">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> دخول إلى المنصة
+          </button>
+        </form>
+
+        <!-- فورم إنشاء حساب جديد -->
+        <form id="formRegister" onsubmit="handleStudentRegister(event)" style="display: none;">
           <div class="form-group">
             <label>اسم الطالب رباعي</label>
-            <input type="text" id="stu_name" class="form-control" placeholder="اكتب اسمك كاملاً" required />
+            <input type="text" id="reg_name" class="form-control" placeholder="اكتب اسمك كاملاً" required />
           </div>
           <div class="form-group">
             <label>الصف الدراسي</label>
-            <select id="stu_grade" class="form-control" required>
+            <select id="reg_grade" class="form-control" required>
               <option value="1">الصف الأول الثانوي</option>
               <option value="2">الصف الثاني الثانوي</option>
               <option value="3">الصف الثالث الثانوي</option>
@@ -535,16 +584,64 @@
           </div>
           <div class="form-group">
             <label>العمر (السن)</label>
-            <input type="number" id="stu_age" class="form-control" placeholder="مثال: 16" min="13" max="25" required />
+            <input type="number" id="reg_age" class="form-control" placeholder="مثال: 16" min="13" max="25" required />
           </div>
           <div class="form-group">
-            <label>رقم هاتف الطالب (واتساب)</label>
-            <input type="tel" id="stu_phone" class="form-control" placeholder="01xxxxxxxxx" required />
+            <label>رقم هاتف الطالب</label>
+            <input type="tel" id="reg_phone" class="form-control" placeholder="01xxxxxxxxx" required />
           </div>
-          <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">
-            <i class="fa-solid fa-check"></i> حفظ ومتابعة للمحاضرات
+          <div class="form-group">
+            <label>كلمة مرور خاصة بك</label>
+            <input type="password" id="reg_pass" class="form-control" placeholder="اختر كلمة سر لحسابك" required />
+          </div>
+          <button type="submit" class="btn" style="width: 100%; margin-top: 8px;">
+            <i class="fa-solid fa-user-plus"></i> إنشاء الحساب وبدء المذاكرة
           </button>
         </form>
+
+        <!-- استعادة كلمة السر بالـ SMS الذاتي -->
+        <div id="forgotPassArea" style="display: none;">
+          <h3 style="margin-bottom: 8px; color: #38bdf8;">
+            <i class="fa-solid fa-shield-halved"></i> استعادة كلمة المرور
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+            اكتب رقم هاتفك المسجل، وسيتم إرسال كود تحقق مكون من 4 أرقام على هاتفك فوراً لتغيير الباسورد بنفسك.
+          </p>
+
+          <div id="otpStep1">
+            <div class="form-group">
+              <label>رقم الهاتف المسجل</label>
+              <input type="tel" id="recovery_phone" class="form-control" placeholder="01xxxxxxxxx" />
+            </div>
+            <button class="btn" style="width: 100%;" onclick="sendOtpToStudentPhone()">
+              <i class="fa-solid fa-paper-plane"></i> إرسال كود التحقق إلى هاتفي
+            </button>
+          </div>
+
+          <div id="otpStep2" style="display: none; margin-top: 15px;">
+            <div style="background: rgba(14, 165, 233, 0.15); border: 1px solid #0284c7; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-size: 0.85rem; color: #38bdf8;">
+              <i class="fa-solid fa-check-circle"></i> تم إرسال كود التحقق إلى رقمك! يرجى كتابته بالأسفل.
+            </div>
+            <div class="form-group">
+              <label>أدخل كود التحقق (OTP)</label>
+              <input type="text" id="input_otp_code" class="form-control" placeholder="كود الـ 4 أرقام" style="text-align: center; font-size: 1.2rem; letter-spacing: 4px;" maxlength="4" />
+            </div>
+            <div class="form-group">
+              <label>كلمة المرور الجديدة</label>
+              <input type="password" id="recovery_new_pass" class="form-control" placeholder="اكتب كلمة السر الجديدة" />
+            </div>
+            <button class="btn" style="width: 100%;" onclick="verifyOtpAndChangePass()">
+              <i class="fa-solid fa-lock-open"></i> تأكيد الكود وتغيير الباسورد
+            </button>
+          </div>
+
+          <div style="text-align: center; margin-top: 14px;">
+            <a href="javascript:void(0)" onclick="cancelForgotPassword()" style="color: var(--text-muted); font-size: 0.85rem; text-decoration: none;">
+              الرجوع لتسجيل الدخول
+            </a>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -604,7 +701,7 @@
       </div>
     </section>
 
-    <!-- 5. لوحة تحكم الأستاذ محمد العكل -->
+    <!-- 5. لوحة التحكم والإدارة -->
     <section id="sec-admin" class="section">
       <div class="card" style="border-right: 4px solid var(--primary-light); display:flex; justify-content:space-between; align-items:center;">
         <div>
@@ -614,17 +711,65 @@
         <button class="btn btn-danger" style="padding:6px 12px; font-size:0.8rem;" onclick="logoutAdmin()">خروج</button>
       </div>
 
+      <!-- خانة سرية خاصة بمطور الويب (محمد عصام) بكلمة سر مستقلة -->
+      <div class="card" style="border: 2px solid #0284c7; background: linear-gradient(180deg, #0f1c30, #091322);">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3><i class="fa-solid fa-shield-halved" style="color: #38bdf8; margin-left: 8px;"></i>إدارة وصورة مطور الويب (محمد عصام)</h3>
+          <span style="font-size: 0.75rem; background: #0369a1; color: #fff; padding: 2px 8px; border-radius: 6px;">محمي بكلمة سر المطور</span>
+        </div>
+
+        <!-- حالة القفل -->
+        <div id="devLockedArea" style="margin-top: 15px; text-align: center; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 10px;">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+            هذا القسم مخصص للمطور محمد عصام فقط لتعديل صورته الدائرية وروابطه.
+          </p>
+          <div style="display: flex; gap: 8px; max-width: 320px; margin: auto;">
+            <input type="password" id="devAuthPassInput" class="form-control" placeholder="كلمة سر المطور الخاصة" />
+            <button class="btn btn-secondary" onclick="unlockDevSettings()">فتح</button>
+          </div>
+        </div>
+
+        <!-- خيارات رفع الصورة والتعديل (تفتح فقط بعد إدخال كلمة سر المطور) -->
+        <div id="devUnlockedArea" style="display: none; margin-top: 15px;">
+          <form onsubmit="handleDevProfileUpdate(event)">
+            <div class="form-group">
+              <label><strong style="color:#38bdf8;">اختر صورتك الشخصية من جهازك أو هاتفك (لتظهر دائرية):</strong></label>
+              <input type="file" id="devPicFile" class="form-control" accept="image/*" onchange="previewDevImg(this)" />
+            </div>
+            <div class="form-group">
+              <label>أو ضع رابط مباشر لصورتك</label>
+              <input type="text" id="devPicUrl" class="form-control" placeholder="https://example.com/my-pic.jpg" />
+            </div>
+            <div class="form-group">
+              <label>رابط صفحتك على الفيسبوك</label>
+              <input type="text" id="devFbUrl" class="form-control" placeholder="https://facebook.com/your-profile" />
+            </div>
+            <div class="form-group">
+              <label>رقم واتساب المطور</label>
+              <input type="text" id="devWaNum" class="form-control" placeholder="201xxxxxxxxx" />
+            </div>
+            <div class="form-group">
+              <label>رابط إضافي (موقعك أو أعمالك)</label>
+              <input type="text" id="devExtraUrl" class="form-control" placeholder="https://..." />
+            </div>
+            <button type="submit" class="btn" style="width: 100%; background: #0284c7;">
+              <i class="fa-solid fa-cloud-arrow-up"></i> حفظ صورة المطور والروابط فوراً
+            </button>
+          </form>
+        </div>
+      </div>
+
       <!-- خانة صورة وبروفايل المستر وسوشيال ميديا -->
       <div class="card">
         <h3><i class="fa-solid fa-image-portrait" style="color: var(--primary-light); margin-left: 8px;"></i>تعديل صورة وبروفايل المستر</h3>
         <form onsubmit="handleTeacherProfileUpdate(event)" style="margin-top: 12px;">
           <div class="form-group">
-            <label>رفع صورة المستر (من الموبايل أو الكمبيوتر)</label>
+            <label>رفع صورة المستر (من الهاتف أو الكمبيوتر)</label>
             <input type="file" id="tPicFile" class="form-control" accept="image/*" onchange="previewTeacherImg(this)" />
           </div>
           <div class="form-group">
             <label>أو ضع رابط مباشر لصورة المستر</label>
-            <input type="text" id="tPicUrl" class="form-control" placeholder="https://example.com/photo.jpg" />
+            <input type="text" id="tPicUrl" class="form-control" placeholder="https://..." />
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div class="form-group">
@@ -650,40 +795,10 @@
         </form>
       </div>
 
-      <!-- خانة مخصصة لمطور الويب (محمد عصام) داخل اللوحة -->
-      <div class="card" style="border: 1px solid #1e3a5f; background: #0c1524;">
-        <h3><i class="fa-solid fa-code" style="color: #38bdf8; margin-left: 8px;"></i>إعدادات مطور الويب (محمد عصام)</h3>
-        <form onsubmit="handleDevProfileUpdate(event)" style="margin-top: 12px;">
-          <div class="form-group">
-            <label>رفع صورتك كمطور (لتظهر في الدائرة وتكبر بالضغط)</label>
-            <input type="file" id="devPicFile" class="form-control" accept="image/*" onchange="previewDevImg(this)" />
-          </div>
-          <div class="form-group">
-            <label>أو رابط صورتك المباشر</label>
-            <input type="text" id="devPicUrl" class="form-control" placeholder="https://..." />
-          </div>
-          <div class="form-group">
-            <label>رابط صفحتك على فيسبوك</label>
-            <input type="text" id="devFbUrl" class="form-control" placeholder="https://facebook.com/your-profile" />
-          </div>
-          <div class="form-group">
-            <label>رقم الواتساب الخاص بك كمطور</label>
-            <input type="text" id="devWaNum" class="form-control" placeholder="201xxxxxxxxx" />
-          </div>
-          <div class="form-group">
-            <label>رابط إضافي (موقعك أو لينكدإن أو إنستجرام)</label>
-            <input type="text" id="devExtraUrl" class="form-control" placeholder="https://..." />
-          </div>
-          <button type="submit" class="btn btn-secondary" style="width: 100%;">
-            <i class="fa-solid fa-user-check"></i> حفظ بيانات المطور
-          </button>
-        </form>
-      </div>
-
-      <!-- خانة سجل أرقام وبيانات الطلاب المسجلين -->
+      <!-- سجل الطلاب -->
       <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h3><i class="fa-solid fa-users" style="color: var(--accent); margin-left: 8px;"></i>سجل أرقام الطلاب المسجلين (<span id="totalStudentsCount">0</span>)</h3>
+          <h3><i class="fa-solid fa-users" style="color: var(--accent); margin-left: 8px;"></i>سجل الطلاب المسجلين (<span id="totalStudentsCount">0</span>)</h3>
           <button class="btn btn-secondary btn-sm" onclick="exportStudentsToCSV()">
             <i class="fa-solid fa-file-excel"></i> تحميل إكسيل (CSV)
           </button>
@@ -709,9 +824,9 @@
         </div>
       </div>
 
-      <!-- تعديل كلمة المرور -->
+      <!-- تغيير كلمة سر المستر -->
       <div class="card">
-        <h3><i class="fa-solid fa-key" style="margin-left: 8px;"></i>تعديل كلمة مرور اللوحة</h3>
+        <h3><i class="fa-solid fa-key" style="margin-left: 8px;"></i>تعديل كلمة مرور اللوحة للمستر</h3>
         <form onsubmit="handlePassUpdate(event)" style="margin-top: 12px;">
           <div class="form-group">
             <label>كلمة المرور الحالية</label>
@@ -725,7 +840,7 @@
         </form>
       </div>
 
-      <!-- رفع فيديو ومحاضرة -->
+      <!-- رفع فيديو -->
       <div class="card">
         <h3><i class="fa-solid fa-upload" style="margin-left: 8px;"></i>إضافة محاضرة فيديو جديدة</h3>
         <form onsubmit="handleVideoUpload(event)" style="margin-top: 12px;">
@@ -754,7 +869,7 @@
           </div>
           <div class="form-group" id="groupUrl" style="display: none;">
             <label>رابط الفيديو</label>
-            <input type="text" id="vUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=... أو رابط مباشر" />
+            <input type="text" id="vUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." />
           </div>
           <button type="submit" class="btn" style="width: 100%;">
             <i class="fa-solid fa-cloud-arrow-up"></i> نشر المحاضرة وتنبيه كل الطلبة فوراً
@@ -762,13 +877,13 @@
         </form>
       </div>
 
-      <!-- إنشاء كويز بوقت -->
+      <!-- إنشاء كويز -->
       <div class="card">
         <h3><i class="fa-solid fa-file-circle-plus" style="margin-left: 8px;"></i>إنشاء كويز بوقت محدد</h3>
         <form onsubmit="handleQuizCreate(event)" style="margin-top: 12px;">
           <div class="form-group">
             <label>عنوان الكويز</label>
-            <input type="text" id="qTitle" class="form-control" placeholder="مثال: كويز التركيب الكيميائي لأجسام الكائنات الحية" required />
+            <input type="text" id="qTitle" class="form-control" placeholder="مثال: كويز التركيب الكيميائي" required />
           </div>
           <div class="form-group">
             <label>الصف الموجه إليه</label>
@@ -805,11 +920,10 @@
       </div>
     </section>
 
-    <!-- شريط مطور الويب (محمد عصام) أسفل الموقع -->
+    <!-- شريط مطور الويب (محمد عصام) أسفل الموقع مع صورته الدائرية التفاعلية -->
     <footer class="developer-bar">
       <div class="dev-profile">
-        <!-- الصورة الدائرية الصغيرة التي تكبر بالضغط -->
-        <div class="dev-avatar-wrap" onclick="openDevModal()" title="اضغط لعرض بروفايل المطور">
+        <div class="dev-avatar-wrap" onclick="openDevModal()" title="اضغط لتكبير صورة وبروفايل المطور">
           <div id="devAvatarSmallBox" class="dev-img">
             <i class="fa-solid fa-code"></i>
           </div>
@@ -819,7 +933,7 @@
             محمد عصام
             <span class="dev-badge"><i class="fa-solid fa-laptop-code"></i> مطور الويب</span>
           </h4>
-          <p>تصميم وتطوير منصة الأستاذ محمد العكل</p>
+          <p>تصميم وبرمجة منصة الأستاذ محمد العكل</p>
         </div>
       </div>
       <div>
@@ -831,12 +945,12 @@
 
   </div>
 
-  <!-- النافذة المنبثقة: تكبير صورة المطور الدائرية في منتصف الشاشة مع صفحاته -->
+  <!-- نافذة تكبير صورة وبروفايل المطور الدائرية في منتصف الشاشة -->
   <div id="devModal" onclick="closeDevModalOnBg(event)">
     <div class="dev-modal-content">
       <button class="modal-close-btn" onclick="closeDevModal()"><i class="fa-solid fa-xmark"></i></button>
       
-      <!-- الدائرة المكبرة في المنتصف -->
+      <!-- دائرة الصورة المكبرة في المنتصف -->
       <div class="dev-zoom-avatar">
         <div id="devAvatarBigBox" class="dev-zoom-img">
           <i class="fa-solid fa-code"></i>
@@ -846,10 +960,9 @@
       <h2 style="font-size: 1.35rem; color: #fff; margin-bottom: 4px;">محمد عصام</h2>
       <p style="color: #38bdf8; font-weight: 700; font-size: 0.95rem;">مطور ومهندس هذا الموقع الإلكتروني</p>
       <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 6px;">
-        تم بناء وبرمجة هذه المنصة التعليمية السحابية بأحدث المعايير البرمجية.
+        تم تصميم وتطوير هذه المنصة التعليمية بأحدث التقنيات السحابية.
       </p>
 
-      <!-- روابط المطور -->
       <div class="dev-modal-links">
         <a id="devModalFb" href="#" target="_blank" class="dev-social-link fb">
           <i class="fa-brands fa-facebook-f"></i> صفحتي على الفيسبوك
@@ -864,15 +977,15 @@
     </div>
   </div>
 
-  <!-- شريط الموبايل السفلي للتنقل -->
+  <!-- شريط الموبايل السفلي -->
   <div class="bottom-nav">
     <button class="nav-item active" onclick="goToSection('sec-home', this)">
       <i class="fa-solid fa-house"></i>
       <span>الرئيسية</span>
     </button>
-    <button class="nav-item" onclick="goToSection('sec-onboarding', this)">
+    <button class="nav-item" id="navAuthBtn" onclick="goToSection('sec-auth', this)">
       <i class="fa-solid fa-id-card"></i>
-      <span>صفّي وسنّي</span>
+      <span>حسابي</span>
     </button>
     <button class="nav-item" onclick="goToSection('sec-videos', this)">
       <i class="fa-solid fa-circle-play"></i>
@@ -884,7 +997,7 @@
     </button>
   </div>
 
-  <!-- نافذة تسجيل دخول المستر -->
+  <!-- نافذة دخول المستر / المطور -->
   <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:2000; align-items:center; justify-content:center; padding:16px;">
     <div class="card" style="width:100%; max-width:340px; background:#111a28;">
       <h3 style="margin-bottom:12px;"><i class="fa-solid fa-lock" style="color:var(--primary-light);"></i> كلمة مرور لوحة المستر</h3>
@@ -897,16 +1010,17 @@
   </div>
 
   <script>
-    // تهيئة التخزين
     if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
+    if (!localStorage.getItem('dev_master_pwd')) localStorage.setItem('dev_master_pwd', 'Essam@Dev2026');
     if (!localStorage.getItem('local_videos')) localStorage.setItem('local_videos', JSON.stringify([]));
     if (!localStorage.getItem('local_quizzes')) localStorage.setItem('local_quizzes', JSON.stringify([]));
     if (!localStorage.getItem('registered_students')) localStorage.setItem('registered_students', JSON.stringify([]));
 
     let timerInterval = null;
     let currentQuiz = null;
+    let pendingOtp = null;
+    let pendingPhone = null;
 
-    // التنقل بين الأقسام
     function goToSection(id, btn = null) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       const target = document.getElementById(id);
@@ -931,21 +1045,56 @@
       document.getElementById('toastTitle').innerText = title;
       document.getElementById('toastBody').innerText = msg;
       toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 5000);
+      setTimeout(() => { toast.style.display = 'none'; }, 6500);
     }
 
-    /* ---- تحكم بنافذة المطور المكبرة ---- */
-    function openDevModal() {
-      document.getElementById('devModal').style.display = 'flex';
-    }
-    function closeDevModal() {
-      document.getElementById('devModal').style.display = 'none';
-    }
-    function closeDevModalOnBg(e) {
-      if (e.target.id === 'devModal') closeDevModal();
+    /* ---- قفل وفتح إعدادات المطور الخاصة (محمد عصام) ---- */
+    function unlockDevSettings() {
+      const input = document.getElementById('devAuthPassInput').value.trim();
+      const actualDevPass = localStorage.getItem('dev_master_pwd') || 'Essam@Dev2026';
+
+      if (input === actualDevPass) {
+        document.getElementById('devLockedArea').style.display = 'none';
+        document.getElementById('devUnlockedArea').style.display = 'block';
+        alert('أهلاً بك يا باشمهندس محمد عصام! تم فتح خانة إعدادات المطور بنجاح.');
+      } else {
+        alert('كلمة سر المطور غير صحيحة! هذا القسم مخصص لمهندس الموقع فقط.');
+      }
     }
 
-    /* ---- تحديث وعرض بروفايل المستر ---- */
+    /* ---- تحديث وعرض صورة وبروفايل المطور ---- */
+    function previewDevImg(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          localStorage.setItem('dev_pic', e.target.result);
+          renderProfiles();
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function handleDevProfileUpdate(e) {
+      e.preventDefault();
+      const url = document.getElementById('devPicUrl').value.trim();
+      if (url) localStorage.setItem('dev_pic', url);
+
+      const devSocial = {
+        fb: document.getElementById('devFbUrl').value.trim(),
+        wa: document.getElementById('devWaNum').value.trim(),
+        extra: document.getElementById('devExtraUrl').value.trim()
+      };
+      localStorage.setItem('dev_social', JSON.stringify(devSocial));
+      renderProfiles();
+      alert('تم تحديث صورتك الشخصية وروابطك بنجاح!');
+    }
+
+    /* ---- نافذة تكبير صورة المطور ---- */
+    function openDevModal() { document.getElementById('devModal').style.display = 'flex'; }
+    function closeDevModal() { document.getElementById('devModal').style.display = 'none'; }
+    function closeDevModalOnBg(e) { if (e.target.id === 'devModal') closeDevModal(); }
+
+    /* ---- تحديث صورة وبروفايل المستر ---- */
     function previewTeacherImg(input) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -973,35 +1122,8 @@
       alert('تم حفظ صورة وبروفايل المستر بنجاح!');
     }
 
-    /* ---- تحديث وعرض بروفايل المطور (محمد عصام) ---- */
-    function previewDevImg(input) {
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          localStorage.setItem('dev_pic', e.target.result);
-          renderProfiles();
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    function handleDevProfileUpdate(e) {
-      e.preventDefault();
-      const url = document.getElementById('devPicUrl').value.trim();
-      if (url) localStorage.setItem('dev_pic', url);
-
-      const devSocial = {
-        fb: document.getElementById('devFbUrl').value.trim(),
-        wa: document.getElementById('devWaNum').value.trim(),
-        extra: document.getElementById('devExtraUrl').value.trim()
-      };
-      localStorage.setItem('dev_social', JSON.stringify(devSocial));
-      renderProfiles();
-      alert('تم تحديث بياناتك وصورتك بنجاح!');
-    }
-
     function renderProfiles() {
-      // 1. بروفايل المستر
+      // صورة المستر
       const tPic = localStorage.getItem('teacher_pic');
       const tBox = document.getElementById('teacherAvatarBox');
       if (tPic) {
@@ -1014,7 +1136,7 @@
       if (tSocial.tg) document.getElementById('btnTeacherTg').href = tSocial.tg;
       if (tSocial.wa) document.getElementById('btnTeacherWa').href = `https://wa.me/2${tSocial.wa.replace(/[^0-9]/g, '')}`;
 
-      // 2. بروفايل المطور محمد عصام
+      // صورة المطور محمد عصام
       const devPic = localStorage.getItem('dev_pic');
       const devSmall = document.getElementById('devAvatarSmallBox');
       const devBig = document.getElementById('devAvatarBigBox');
@@ -1023,7 +1145,7 @@
         devBig.innerHTML = `<img src="${devPic}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="محمد عصام" />`;
       }
 
-      const dSocial = JSON.parse(localStorage.getItem('dev_social') || '{"fb":"https://facebook.com","wa":"201000000000"}');
+      const dSocial = JSON.parse(localStorage.getItem('dev_social') || '{"fb":"#","wa":"201000000000"}');
       if (dSocial.fb) document.getElementById('devModalFb').href = dSocial.fb;
       if (dSocial.wa) document.getElementById('devModalWa').href = `https://wa.me/2${dSocial.wa.replace(/[^0-9]/g, '')}`;
       if (dSocial.extra) {
@@ -1046,41 +1168,178 @@
       document.getElementById('devExtraUrl').value = dSocial.extra || '';
     }
 
-    /* ---- تسجيل وإدارة بيانات الطلاب ---- */
-    function handleStudentSave(e) {
+    /* ---- نظام الحسابات وتسجيل الدخول واستعادة الباسورد ---- */
+    function switchAuthTab(type) {
+      cancelForgotPassword();
+      if (type === 'login') {
+        document.getElementById('tabBtnLogin').classList.add('active');
+        document.getElementById('tabBtnRegister').classList.remove('active');
+        document.getElementById('formLogin').style.display = 'block';
+        document.getElementById('formRegister').style.display = 'none';
+      } else {
+        document.getElementById('tabBtnRegister').classList.add('active');
+        document.getElementById('tabBtnLogin').classList.remove('active');
+        document.getElementById('formRegister').style.display = 'block';
+        document.getElementById('formLogin').style.display = 'none';
+      }
+    }
+
+    function handleStudentRegister(e) {
       e.preventDefault();
-      const student = {
+      const phone = document.getElementById('reg_phone').value.trim();
+      const pass = document.getElementById('reg_pass').value.trim();
+      const name = document.getElementById('reg_name').value.trim();
+      const grade = document.getElementById('reg_grade').value;
+      const age = document.getElementById('reg_age').value;
+
+      const allStudents = JSON.parse(localStorage.getItem('registered_students') || '[]');
+      const existing = allStudents.find(s => s.phone === phone);
+      if (existing) {
+        alert('هذا الرقم مسجل بالفعل! يمكنك تسجيل الدخول مباشرة.');
+        switchAuthTab('login');
+        return;
+      }
+
+      const newStudent = {
         id: Date.now(),
-        name: document.getElementById('stu_name').value.trim(),
-        grade: document.getElementById('stu_grade').value,
-        age: document.getElementById('stu_age').value,
-        phone: document.getElementById('stu_phone').value.trim(),
+        name: name,
+        grade: grade,
+        age: age,
+        phone: phone,
+        pass: pass,
         registeredAt: new Date().toLocaleDateString('ar-EG')
       };
 
-      localStorage.setItem('active_student', JSON.stringify(student));
-
-      const allStudents = JSON.parse(localStorage.getItem('registered_students') || '[]');
-      const existingIndex = allStudents.findIndex(s => s.phone === student.phone);
-      if (existingIndex > -1) {
-        allStudents[existingIndex] = student;
-      } else {
-        allStudents.unshift(student);
-      }
+      allStudents.unshift(newStudent);
       localStorage.setItem('registered_students', JSON.stringify(allStudents));
+      localStorage.setItem('active_student', JSON.stringify(newStudent));
 
-      refreshStudentData();
-      showLiveToast('تم التسجيل بنجاح', `أهلاً بك يا ${student.name}، تم حفظ بياناتك وجارٍ نقلك للشروحات.`);
+      showLiveToast('تم إنشاء الحساب بنجاح', `أهلاً بك يا ${name}! تم تسجيل حسابك.`);
+      refreshStudentUI();
       goToSection('sec-videos');
     }
 
-    function refreshStudentData() {
+    function handleStudentLogin(e) {
+      e.preventDefault();
+      const phone = document.getElementById('login_phone').value.trim();
+      const pass = document.getElementById('login_pass').value.trim();
+
+      const allStudents = JSON.parse(localStorage.getItem('registered_students') || '[]');
+      const student = allStudents.find(s => s.phone === phone);
+
+      if (!student) {
+        alert('هذا الرقم غير مسجل! يرجى إنشاء حساب جديد أولاً.');
+        switchAuthTab('register');
+        return;
+      }
+
+      if (student.pass !== pass) {
+        alert('كلمة المرور غير صحيحة!');
+        return;
+      }
+
+      localStorage.setItem('active_student', JSON.stringify(student));
+      showLiveToast('تم تسجيل الدخول', `مرحباً بعودتك يا ${student.name}!`);
+      refreshStudentUI();
+      goToSection('sec-videos');
+    }
+
+    function showForgotPasswordFlow() {
+      document.getElementById('formLogin').style.display = 'none';
+      document.getElementById('formRegister').style.display = 'none';
+      document.getElementById('authTabsContainer').style.display = 'none';
+      document.getElementById('forgotPassArea').style.display = 'block';
+      document.getElementById('otpStep1').style.display = 'block';
+      document.getElementById('otpStep2').style.display = 'none';
+      document.getElementById('recovery_phone').value = document.getElementById('login_phone').value;
+    }
+
+    function cancelForgotPassword() {
+      document.getElementById('forgotPassArea').style.display = 'none';
+      document.getElementById('authTabsContainer').style.display = 'flex';
+      document.getElementById('formLogin').style.display = 'block';
+    }
+
+    function sendOtpToStudentPhone() {
+      const phone = document.getElementById('recovery_phone').value.trim();
+      if (!phone) {
+        alert('يرجى إدخال رقم هاتفك.');
+        return;
+      }
+
+      const allStudents = JSON.parse(localStorage.getItem('registered_students') || '[]');
+      const student = allStudents.find(s => s.phone === phone);
+
+      if (!student) {
+        alert('عذراً، هذا الرقم غير مسجل في المنصة.');
+        return;
+      }
+
+      pendingOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      pendingPhone = phone;
+
+      document.getElementById('otpStep1').style.display = 'none';
+      document.getElementById('otpStep2').style.display = 'block';
+
+      showLiveToast('رسالة SMS إلى هاتفك 📩', `كود التحقق الخاص بك هو: [ ${pendingOtp} ] لاستعادة حسابك في منصة الأحياء.`);
+    }
+
+    function verifyOtpAndChangePass() {
+      const code = document.getElementById('input_otp_code').value.trim();
+      const newPass = document.getElementById('recovery_new_pass').value.trim();
+
+      if (!code || !newPass) {
+        alert('يرجى إدخال كود التحقق وكلمة المرور الجديدة.');
+        return;
+      }
+
+      if (code !== pendingOtp) {
+        alert('كود التحقق غير صحيح! راجع الكود في الرسالة.');
+        return;
+      }
+
+      const allStudents = JSON.parse(localStorage.getItem('registered_students') || '[]');
+      const idx = allStudents.findIndex(s => s.phone === pendingPhone);
+
+      if (idx > -1) {
+        allStudents[idx].pass = newPass;
+        localStorage.setItem('registered_students', JSON.stringify(allStudents));
+        localStorage.setItem('active_student', JSON.stringify(allStudents[idx]));
+
+        alert('مبروك! تم تغيير كلمة المرور بنجاح ودخول المنصة.');
+        pendingOtp = null;
+        pendingPhone = null;
+        cancelForgotPassword();
+        refreshStudentUI();
+        goToSection('sec-videos');
+      }
+    }
+
+    function logoutStudent() {
+      localStorage.removeItem('active_student');
+      refreshStudentUI();
+      goToSection('sec-home');
+      showLiveToast('تم تسجيل الخروج', 'نراك قريباً لمتابعة شروحاتك!');
+    }
+
+    function refreshStudentUI() {
       const saved = localStorage.getItem('active_student');
       const box = document.getElementById('studentInfoText');
+      const logoutBtn = document.getElementById('headerLogoutBtn');
+      const heroBtn = document.getElementById('heroActionBtn');
+
       if (saved) {
         const s = JSON.parse(saved);
-        box.innerHTML = `<strong>الاسم:</strong> ${s.name} | <strong>الصف:</strong> ${getGradeText(s.grade)} | <strong>السن:</strong> ${s.age} سنة | <strong>الهاتف:</strong> ${s.phone}`;
+        box.innerHTML = `<strong>الطالب:</strong> ${s.name} | <strong>الصف:</strong> ${getGradeText(s.grade)} | <strong>الهاتف:</strong> ${s.phone}`;
         document.getElementById('gradeFilter').value = s.grade;
+        logoutBtn.style.display = 'inline-flex';
+        heroBtn.innerHTML = `<i class="fa-solid fa-circle-play"></i> متابعة محاضرات الصف ${s.grade}`;
+        heroBtn.onclick = () => goToSection('sec-videos');
+      } else {
+        box.innerHTML = `لم يتم تسجيل الدخول. سجل الآن للوصول الكامل للمحاضرات والكويزات.`;
+        logoutBtn.style.display = 'none';
+        heroBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول / حساب جديد`;
+        heroBtn.onclick = () => goToSection('sec-auth');
       }
     }
 
@@ -1090,6 +1349,7 @@
       return 'الصف الثالث الثانوي';
     }
 
+    /* ---- جدول الطلاب والـ CSV ---- */
     function renderStudentsTable() {
       const allStudents = JSON.parse(localStorage.getItem('registered_students') || '[]');
       const tbody = document.getElementById('studentsTableBody');
@@ -1159,7 +1419,7 @@
       if (type === 'device') {
         const fileInput = document.getElementById('vFile');
         if (fileInput.files.length === 0) {
-          alert('يرجى تحديد ملف فيديو من جهازك أولاً.');
+          alert('يرجى تحديد ملف فيديو أولاً.');
           return;
         }
         finalSrc = URL.createObjectURL(fileInput.files[0]);
@@ -1208,7 +1468,7 @@
       const filtered = selectedGrade === 'all' ? vids : vids.filter(v => v.grade == selectedGrade);
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">لا توجد محاضرات مرفوعة لهذا الصف حالياً. بمجرد رفع المستر لمحاضرة ستظهر هنا تلقائياً.</div>`;
+        container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">لا توجد محاضرات مرفوعة لهذا الصف حالياً.</div>`;
         return;
       }
 
@@ -1242,7 +1502,7 @@
       window.scrollTo({ top: box.offsetTop - 70, behavior: 'smooth' });
     }
 
-    /* ---- الكويزات المؤقتة ---- */
+    /* ---- الكويزات ---- */
     function handleQuizCreate(e) {
       e.preventDefault();
       const title = document.getElementById('qTitle').value;
@@ -1273,7 +1533,7 @@
       const quizzes = JSON.parse(localStorage.getItem('local_quizzes') || '[]');
 
       if (quizzes.length === 0) {
-        container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">لا توجد أي كويزات حالياً. عندما يرفع المستر كويزاً جديداً سيظهر هنا فوراً.</div>`;
+        container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">لا توجد أي كويزات حالياً.</div>`;
         return;
       }
 
@@ -1352,15 +1612,15 @@
       renderQuizList();
     }
 
-    /* ---- أمان ودخول لوحة المستر والمطور ---- */
+    /* ---- لوحة المستر / المطور ---- */
     function openAdminModal() { document.getElementById('authModal').style.display = 'flex'; }
     function closeAdminModal() { document.getElementById('authModal').style.display = 'none'; document.getElementById('inputPass').value = ''; }
     function checkAdminPass() {
       const pass = document.getElementById('inputPass').value;
       const actual = localStorage.getItem('admin_pwd') || '123456';
+      const devMaster = localStorage.getItem('dev_master_pwd') || 'Essam@Dev2026';
       
-      // الدخول بكلمة سر المستر أو بكلمة سر الطوارئ الخاصة بك كمطور
-      if (pass === actual || pass === 'Essam@Dev2026') {
+      if (pass === actual || pass === devMaster) {
         closeAdminModal();
         goToSection('sec-admin');
       } else {
@@ -1383,7 +1643,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      refreshStudentData();
+      refreshStudentUI();
       renderProfiles();
     });
   </script>
