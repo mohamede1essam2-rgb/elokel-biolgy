@@ -36,28 +36,6 @@
       line-height: 1.6;
     }
 
-    #cloudStatusBadge {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: rgba(18, 24, 38, 0.95);
-      border: 1px solid var(--sakr-card-border);
-      color: var(--sakr-muted);
-      font-size: 0.72rem;
-      padding: 6px 14px;
-      border-radius: 20px;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #10b981;
-    }
-
     .sakr-header {
       background: rgba(11, 15, 25, 0.95);
       backdrop-filter: blur(12px);
@@ -582,11 +560,6 @@
 </head>
 <body>
 
-  <div id="cloudStatusBadge">
-    <div class="status-dot"></div>
-    <span id="syncText">سحابي: جارِ المزامنة...</span>
-  </div>
-
   <div id="liveToast" style="display:none; position:fixed; top:15px; left:15px; right:15px; max-width:420px; margin:auto; background:var(--sakr-gold-gradient); color:#000; padding:14px 18px; border-radius:12px; z-index:9999; font-weight:bold; box-shadow:0 10px 30px rgba(0,0,0,0.8);">
     <i class="fa-solid fa-message"></i> <span id="toastMsgText"></span>
   </div>
@@ -884,11 +857,16 @@
     <div class="admin-navbar">
       <div style="display:flex; align-items:center; gap:10px;">
         <i class="fa-solid fa-sliders" style="color:var(--sakr-gold); font-size:1.3rem;"></i>
-        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل (مزامنة سحابية حقيقية)</strong>
+        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل</strong>
       </div>
-      <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="closeAdminScreen()">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج من اللوحة
-      </button>
+      <div style="display:flex; gap:10px;">
+        <button class="btn-sm-action" style="background:var(--sakr-gold); color:#000;" onclick="exportUpdatedCodeToClipboard()">
+          <i class="fa-solid fa-copy"></i> نسخ كود التحديث المباشر للمنصة
+        </button>
+        <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="closeAdminScreen()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج
+        </button>
+      </div>
     </div>
 
     <div class="admin-body-layout">
@@ -942,7 +920,7 @@
                 <input type="text" id="cDesc" class="form-control" placeholder="شرح مبسط لمحتوى الكورس وما يقدمه للطالب" required />
               </div>
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
-                <i class="fa-solid fa-check"></i> حفظ ونشر الكورس عند كل الطلاب فوراً
+                <i class="fa-solid fa-check"></i> حفظ ونشر الكورس
               </button>
             </form>
           </div>
@@ -972,7 +950,7 @@
                 <input type="text" id="lecVideoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." required />
               </div>
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
-                <i class="fa-solid fa-video"></i> نشر المحاضرة سحابياً للطلاب
+                <i class="fa-solid fa-video"></i> نشر المحاضرة في الكورس المحدد
               </button>
             </form>
           </div>
@@ -1018,7 +996,7 @@
               </div>
 
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem; margin-top:10px;">
-                <i class="fa-solid fa-check"></i> حفظ وربط الكويز سحابياً فوراً
+                <i class="fa-solid fa-check"></i> حفظ وربط الكويز بالفيديو فوراً
               </button>
             </form>
           </div>
@@ -1097,7 +1075,7 @@
               </div>
 
               <button type="submit" class="btn-sakr-cta" style="padding:10px 28px; font-size:0.95rem; margin-top:16px;">
-                <i class="fa-solid fa-floppy-disk"></i> حفظ ونشر النصوص عند كل الطلاب
+                <i class="fa-solid fa-floppy-disk"></i> حفظ وتحديث نصوص الواجهة والمربعات
               </button>
             </form>
           </div>
@@ -1120,7 +1098,7 @@
                 <input type="text" id="statInputTop" class="form-control" required />
               </div>
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
-                حفظ وتحديث الإحصائيات سحابياً
+                حفظ وتحديث الإحصائيات
               </button>
             </form>
           </div>
@@ -1129,7 +1107,7 @@
         <div id="viewDev" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card" style="border-color:var(--sakr-gold);">
             <h3 style="color:var(--sakr-gold); margin-bottom:10px;"><i class="fa-solid fa-lock"></i> قسم مطور الويب (محمد عصام)</h3>
-            <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom:14px;">هذا القسم محمي بكلمة مرور خاصة (خمس تلاتات: 33333) ولا يمكن لأحد تعديل بياناتك سواك:</p>
+            <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom:14px;">هذا القسم محمي بكلمة مرور خاصة (خمس تلاتات: 33333):</p>
 
             <div id="devLockShield">
               <div class="form-group" style="max-width:300px;">
@@ -1167,12 +1145,9 @@
 
   <script>
     /* =========================================================================
-       قاعدة البيانات السحابية المركزية المباشرة (Firebase Cloud Realtime Engine)
-       تسمح للمستر بالحفظ وللطلاب بالقراءة الفورية من أي هاتف أو كمبيوتر في مصر
+       البيانات المركزية المضمنة في المنصة مباشرة لضمان ظهورها عند الجميع
        ========================================================================= */
-    const CLOUD_FIREBASE_URL = 'https://elokel-biology-default-rtdb.firebaseio.com/platformData.json';
-
-    let currentCloudData = {
+    let currentMasterData = {
       texts: {
         brandName: 'الأستاذ محمد العكل',
         heroBadge: 'منصة الكيمياء والأحياء للثانوية العامة',
@@ -1237,50 +1212,32 @@
       }
     };
 
-    // مزامنة حية من السحابة فوراً
-    async function syncFromCloud() {
-      const syncText = document.getElementById('syncText');
-      if (syncText) syncText.innerText = 'سحابي: جارِ جلب تعديلات المستر...';
-      try {
-        const cached = localStorage.getItem('cloud_app_data_v2');
-        if (cached) {
-          currentCloudData = JSON.parse(cached);
-          renderFrontView();
-        }
-
-        const res = await fetch(CLOUD_FIREBASE_URL);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && typeof data === 'object') {
-            currentCloudData = data;
-            localStorage.setItem('cloud_app_data_v2', JSON.stringify(currentCloudData));
-            if (syncText) syncText.innerText = 'سحابي: متصل ومحدث عند كل الطلاب';
-            renderFrontView();
-          }
-        }
-      } catch (e) {
-        if (syncText) syncText.innerText = 'سحابي: تم تحميل النسخة المحلية';
+    function loadPersistedData() {
+      const saved = localStorage.getItem('master_platform_data');
+      if (saved) {
+        try { currentMasterData = JSON.parse(saved); } catch(e){}
       }
+      renderFrontView();
     }
 
-    // حفظ ونشر التعديل سحابياً
-    async function saveToCloud() {
-      const syncText = document.getElementById('syncText');
-      if (syncText) syncText.innerText = 'سحابي: جارِ نشر التعديل لكل الأجهزة...';
-      localStorage.setItem('cloud_app_data_v2', JSON.stringify(currentCloudData));
+    function saveMasterData() {
+      localStorage.setItem('master_platform_data', JSON.stringify(currentMasterData));
       renderFrontView();
+      toast('تم حفظ التعديل! لنشره عند كل الطلاب اضغط زر "نسخ كود التحديث" والصقه في GitHub.');
+    }
 
-      try {
-        await fetch(CLOUD_FIREBASE_URL, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(currentCloudData)
-        });
-        if (syncText) syncText.innerText = 'سحابي: تم الحفظ والتحديث عند جميع الطلاب!';
-        toast('تم نشر التعديلات سحابياً وظهرت فوراً عند كل الطلاب!');
-      } catch (err) {
-        if (syncText) syncText.innerText = 'تم الحفظ محلياً وستنشر فور توفر اتصال';
-      }
+    /* ميزة نسخ كود التحديث المباشر للمنصة */
+    function exportUpdatedCodeToClipboard() {
+      saveMasterData();
+      const serializedData = JSON.stringify(currentMasterData);
+      const fullDoc = document.documentElement.outerHTML;
+      const updatedCode = fullDoc.replace(/let currentMasterData = \{[\s\S]*?\};\s*function loadPersistedData/, `let currentMasterData = ${serializedData};\n\n    function loadPersistedData`);
+
+      navigator.clipboard.writeText(updatedCode).then(() => {
+        alert('تم نسخ الكود المحدث بالكامل إلى الحافظة!\n\nكل ما عليك الآن: فتح ملف index.html في GitHub ولصق الكود (Ctrl + V) ثم حفظ، وسيظهر التعديل عند كل طلاب مصر فوراً وبشكل دائم 100%!');
+      }).catch(() => {
+        alert('يرجى حفظ التعديلات ثم نسخ الكود.');
+      });
     }
 
     if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
@@ -1302,7 +1259,7 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     function renderFrontView() {
-      const t = currentCloudData.texts;
+      const t = currentMasterData.texts;
       if (t) {
         document.getElementById('brandNameDisplay').innerText = t.brandName || 'الأستاذ محمد العكل';
         document.getElementById('heroBadgeText').innerHTML = `<i class="fa-solid fa-circle-check"></i> ${t.heroBadge || ''}`;
@@ -1319,16 +1276,16 @@
         document.getElementById('featDesc4').innerText = t.featDesc4 || '';
       }
 
-      const s = currentCloudData.stats;
+      const s = currentMasterData.stats;
       if (s) {
         document.getElementById('statDisplayYt').innerText = s.yt || '+1.3M';
         document.getElementById('statDisplayStudents').innerText = s.students || '+50,000';
         document.getElementById('statDisplayTop').innerText = s.top || 'أوائل جمهورية';
       }
 
-      const courses = currentCloudData.courses || [];
-      const lectures = currentCloudData.lectures || [];
-      const quizzes = currentCloudData.quizzes || [];
+      const courses = currentMasterData.courses || [];
+      const lectures = currentMasterData.lectures || [];
+      const quizzes = currentMasterData.quizzes || [];
 
       const container = document.getElementById('coursesGridArea');
       container.innerHTML = courses.map(c => {
@@ -1535,7 +1492,7 @@
     }
 
     function startQuiz(quizId) {
-      const quizzes = currentCloudData.quizzes || [];
+      const quizzes = currentMasterData.quizzes || [];
       currentQuizData = quizzes.find(q => q.id === quizId);
       if (!currentQuizData) return;
 
@@ -1626,8 +1583,8 @@
     }
 
     function refreshAdminSelectors() {
-      const courses = currentCloudData.courses || [];
-      const lectures = currentCloudData.lectures || [];
+      const courses = currentMasterData.courses || [];
+      const lectures = currentMasterData.lectures || [];
 
       document.getElementById('lecTargetCourse').innerHTML = courses.map(c => `
         <option value="${c.id}">${c.title} (${getGradeText(c.grade)})</option>
@@ -1654,18 +1611,18 @@
       const price = document.getElementById('cPrice').value.trim();
       const desc = document.getElementById('cDesc').value.trim();
 
-      if (!currentCloudData.courses) currentCloudData.courses = [];
-      currentCloudData.courses.unshift({ id: 'course_' + Date.now(), title, grade, price, desc });
+      if (!currentMasterData.courses) currentMasterData.courses = [];
+      currentMasterData.courses.unshift({ id: 'course_' + Date.now(), title, grade, price, desc });
 
-      saveToCloud();
+      saveMasterData();
       e.target.reset();
       refreshAdminSelectors();
     }
 
     function deleteCourse(id) {
-      if (!confirm('هل أنت متأكد من حذف هذا الكورس سحابياً؟')) return;
-      currentCloudData.courses = currentCloudData.courses.filter(c => c.id !== id);
-      saveToCloud();
+      if (!confirm('هل أنت متأكد من حذف هذا الكورس؟')) return;
+      currentMasterData.courses = currentMasterData.courses.filter(c => c.id !== id);
+      saveMasterData();
       refreshAdminSelectors();
     }
 
@@ -1675,10 +1632,10 @@
       const courseId = document.getElementById('lecTargetCourse').value;
       const video = document.getElementById('lecVideoUrl').value.trim();
 
-      if (!currentCloudData.lectures) currentCloudData.lectures = [];
-      currentCloudData.lectures.push({ id: 'lec_' + Date.now(), courseId, title, video });
+      if (!currentMasterData.lectures) currentMasterData.lectures = [];
+      currentMasterData.lectures.push({ id: 'lec_' + Date.now(), courseId, title, video });
 
-      saveToCloud();
+      saveMasterData();
       e.target.reset();
       refreshAdminSelectors();
     }
@@ -1717,15 +1674,15 @@
         if (prompt && opts.length > 0) questions.push({ prompt, options: opts, correct: ans });
       });
 
-      if (!currentCloudData.quizzes) currentCloudData.quizzes = [];
-      currentCloudData.quizzes.push({ id: 'quiz_' + Date.now(), lectureId, title, duration, questions });
+      if (!currentMasterData.quizzes) currentMasterData.quizzes = [];
+      currentMasterData.quizzes.push({ id: 'quiz_' + Date.now(), lectureId, title, duration, questions });
 
-      saveToCloud();
+      saveMasterData();
       e.target.reset();
     }
 
     function loadContentTextsToInputs() {
-      const t = currentCloudData.texts || {};
+      const t = currentMasterData.texts || {};
       document.getElementById('editBrandName').value = t.brandName || '';
       document.getElementById('editHeroBadge').value = t.heroBadge || '';
       document.getElementById('editHeroHeading').value = t.heroHeading || '';
@@ -1743,7 +1700,7 @@
 
     function handleSaveContentTexts(e) {
       e.preventDefault();
-      currentCloudData.texts = {
+      currentMasterData.texts = {
         brandName: document.getElementById('editBrandName').value.trim(),
         heroBadge: document.getElementById('editHeroBadge').value.trim(),
         heroHeading: document.getElementById('editHeroHeading').value.trim(),
@@ -1758,11 +1715,11 @@
         featDesc4: document.getElementById('editFeatDesc4').value.trim()
       };
 
-      saveToCloud();
+      saveMasterData();
     }
 
     function loadStatsInputs() {
-      const stats = currentCloudData.stats || {};
+      const stats = currentMasterData.stats || {};
       document.getElementById('statInputYt').value = stats.yt || '+1.3M';
       document.getElementById('statInputStudents').value = stats.students || '+50,000';
       document.getElementById('statInputTop').value = stats.top || 'أوائل جمهورية';
@@ -1770,13 +1727,13 @@
 
     function handleSaveStats(e) {
       e.preventDefault();
-      currentCloudData.stats = {
+      currentMasterData.stats = {
         yt: document.getElementById('statInputYt').value.trim(),
         students: document.getElementById('statInputStudents').value.trim(),
         top: document.getElementById('statInputTop').value.trim()
       };
 
-      saveToCloud();
+      saveMasterData();
     }
 
     function unlockDevSection() {
@@ -1785,11 +1742,11 @@
       if (input === actual) {
         document.getElementById('devLockShield').style.display = 'none';
         document.getElementById('devUnlockedEditor').style.display = 'block';
-        document.getElementById('devFbField').value = currentCloudData.dev?.fb || '';
-        document.getElementById('devWaField').value = currentCloudData.dev?.wa || '';
+        document.getElementById('devFbField').value = currentMasterData.dev?.fb || '';
+        document.getElementById('devWaField').value = currentMasterData.dev?.wa || '';
         alert('أهلاً بك يا باشمهندس محمد عصام! تم فتح قفل إعدادات المطور بنجاح.');
       } else {
-        alert('كلمة سر المطور غير صحيحة! هذا القسم مخصص لمهندس الموقع فقط.');
+        alert('كلمة سر المطور غير صحيحة!');
       }
     }
 
@@ -1797,8 +1754,8 @@
       if (input.files && input.files[0]) {
         const r = new FileReader();
         r.onload = e => {
-          if (!currentCloudData.dev) currentCloudData.dev = {};
-          currentCloudData.dev.photo = e.target.result;
+          if (!currentMasterData.dev) currentMasterData.dev = {};
+          currentMasterData.dev.photo = e.target.result;
           renderDevVisuals();
         };
         r.readAsDataURL(input.files[0]);
@@ -1806,15 +1763,15 @@
     }
 
     function saveDevData() {
-      if (!currentCloudData.dev) currentCloudData.dev = {};
-      currentCloudData.dev.fb = document.getElementById('devFbField').value.trim();
-      currentCloudData.dev.wa = document.getElementById('devWaField').value.trim();
+      if (!currentMasterData.dev) currentMasterData.dev = {};
+      currentMasterData.dev.fb = document.getElementById('devFbField').value.trim();
+      currentMasterData.dev.wa = document.getElementById('devWaField').value.trim();
 
-      saveToCloud();
+      saveMasterData();
     }
 
     function renderDevVisuals() {
-      const dev = currentCloudData.dev || {};
+      const dev = currentMasterData.dev || {};
       const thumb = document.getElementById('devThumbBox');
       const big = document.getElementById('devBigImgBox');
 
@@ -1834,7 +1791,7 @@
     function closeDevModalOnBg(e) { if (e.target.id === 'devModal') closeDevModal(); }
 
     window.addEventListener('DOMContentLoaded', () => {
-      syncFromCloud();
+      loadPersistedData();
     });
   </script>
 </body>
