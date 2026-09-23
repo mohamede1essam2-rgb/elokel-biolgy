@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>منصة الأحياء | أ. محمد العكل</title>
+  
+  <!-- خط تجوال وأيقونات -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-dark: #064e3b;
+      --primary-light: #10b981;
+      --accent: #0284c7;
+      --bg: #090e17;
+      --card-bg: #111a28;
+      --card-border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Tajawal', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* شريط التنبيهات المنبثق السريع */
+    #liveToast {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      left: 15px;
+      max-width: 420px;
+      margin: auto;
+      background: linear-gradient(135deg, #059669, #0f766e);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      display: none;
+      z-index: 9999;
+      animation: slideDown 0.3s ease;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-25px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    header {
+      background: rgba(17, 26, 40, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+    .brand i { color: var(--primary-light); font-size: 1.4rem; }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-secondary { background: #334155; }
+    .btn-danger { background: #e11d48; }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    .section.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+      text-align: right;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+    }
+    .form-control {
+      width: 100%;
+      background: #090e17;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .form-control:focus {
+      border-color: var(--primary-light);
+    }
+
+    .video-box {
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    video, iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: none;
+      display: block;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background: rgba(17, 26, 40, 0.98);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      z-index: 1000;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .nav-item.active {
+      color: var(--primary-light);
+      font-weight: 700;
+    }
+    .nav-item i { font-size: 1.2rem; }
+
+    .timer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(225, 29, 72, 0.2);
+      color: #fb7185;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+  </style>
+
+  <!-- استدعاء Firebase SDK للربط السحابي الحقيقي -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+    // إعدادات الربط السحابي (ضع مفاتيح حسابك المجاني هنا ليعمل حياً بالكامل)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDummyKey_ReplaceWithYours",
+      authDomain: "mohamed-elakl-biology.firebaseapp.com",
+      projectId: "mohamed-elakl-biology",
+      storageBucket: "mohamed-elakl-biology.appspot.com",
+      messagingSenderId: "1234567890",
+      appId: "1:1234567890:web:abcdef123456"
+    };
+
+    let db = null;
+    let isCloudActive = false;
+
+    try {
+      if (firebaseConfig.apiKey !== "AIzaSyDummyKey_ReplaceWithYours") {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        isCloudActive = true;
+        console.log("Firebase Connected Successfully");
+      }
+    } catch(err) {
+      console.warn("Using Local fallback mode", err);
+    }
+
+    window.CloudDB = { db, isCloudActive, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc };
+  </script>
+</head>
+<body>
+
+  <!-- تنبيه الفيديوهات الجديدة -->
+  <div id="liveToast">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <i class="fa-solid fa-bell fa-lg"></i>
+      <div>
+        <strong id="toastTitle">إشعار جديد!</strong>
+        <p id="toastBody" style="font-size:0.85rem; margin-top:2px;"></p>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="brand">
+      <i class="fa-solid fa-dna"></i>
+      <span>الأستاذ محمد العكل</span>
+    </div>
+    <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;" onclick="openAdminModal()">
+      <i class="fa-solid fa-user-gear"></i> لوحة المستر
+    </button>
+  </header>
+
+  <div class="container">
+    
+    <!-- 1. الرئيسية والترحيب -->
+    <section id="sec-home" class="section active">
+      <div class="card" style="text-align: center; padding: 32px 18px; border: 1px solid #10b98133; background: linear-gradient(180deg, #112233, #111a28);">
+        <i class="fa-solid fa-microscope" style="font-size: 3rem; color: var(--primary-light); margin-bottom: 12px;"></i>
+        <h1 style="font-size: 1.8rem; margin-bottom: 8px;">منصة الأحياء للمرحلة الثانوية</h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 22px;">
+          مع <strong>الأستاذ محمد العكل</strong> — فهم عميق للمنهج، محاضرات متجددة، واختبارات دورية لقياس المستوى.
+        </p>
+        <button class="btn" style="width: 100%; max-width: 280px; margin: auto;" onclick="goToSection('sec-onboarding')">
+          <i class="fa-solid fa-arrow-left"></i> ابدأ بتحديد صفك وسنك
+        </button>
+      </div>
+
+      <div class="card">
+        <h3><i class="fa-solid fa-circle-user" style="color: var(--primary-light); margin-left: 8px;"></i>بياناتك</h3>
+        <p id="studentInfoText" style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">لم يتم تسجيل بيانات الطالب بعد.</p>
+      </div>
+    </section>
+
+    <!-- 2. تحديد الصف والسن -->
+    <section id="sec-onboarding" class="section">
+      <div class="card">
+        <h2 style="margin-bottom: 16px;"><i class="fa-solid fa-graduation-cap" style="color: var(--primary); margin-left: 8px;"></i>تسجيل بيانات الطالب</h2>
+        <form onsubmit="handleStudentSave(event)">
+          <div class="form-group">
+            <label>اسم الطالب رباعي</label>
+            <input type="text" id="stu_name" class="form-control" placeholder="اكتب اسمك كاملاً" required />
+          </div>
+          <div class="form-group">
+            <label>الصف الدراسي</label>
+            <select id="stu_grade" class="form-control" required>
+              <option value="1">الصف الأول الثانوي</option>
+              <option value="2">الصف الثاني الثانوي</option>
+              <option value="3">الصف الثالث الثانوي</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>العمر (السن)</label>
+            <input type="number" id="stu_age" class="form-control" placeholder="مثال: 16" min="13" max="25" required />
+          </div>
+          <div class="form-group">
+            <label>رقم هاتف الطالب</label>
+            <input type="tel" id="stu_phone" class="form-control" placeholder="01xxxxxxxxx" required />
+          </div>
+          <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">
+            <i class="fa-solid fa-check"></i> حفظ ومتابعة للمحاضرات
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. المحاضرات والفيديوهات -->
+    <section id="sec-videos" class="section">
+      <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h3>المحاضرات والشروحات</h3>
+          <span id="gradeFilterLabel" style="font-size:0.8rem; color:var(--text-muted);">عرض محاضرات صفك</span>
+        </div>
+        <select id="gradeFilter" class="form-control" style="width:auto; padding:6px 12px;" onchange="renderVideoList()">
+          <option value="all">كل الصفوف</option>
+          <option value="1">أولى ثانوي</option>
+          <option value="2">ثانية ثانوي</option>
+          <option value="3">ثالثة ثانوي</option>
+        </select>
+      </div>
+
+      <!-- مشغل الفيديو النشط -->
+      <div id="videoPlayerBox" style="display:none;">
+        <div class="video-box" id="mediaContainer">
+          <video id="nativePlayer" controls playsinline></video>
+        </div>
+        <div class="card" style="margin-top:-6px;">
+          <h3 id="currentVidTitle" style="color:var(--primary-light);">عنوان المحاضرة</h3>
+          <p id="currentVidDesc" style="color:var(--text-muted); font-size:0.85rem; margin-top:4px;"></p>
+        </div>
+      </div>
+
+      <div id="videoCardsContainer"></div>
+    </section>
+
+    <!-- 4. الكويزات المقيدة بوقت -->
+    <section id="sec-quizzes" class="section">
+      <div class="card">
+        <h2><i class="fa-solid fa-stopwatch" style="color: #f59e0b; margin-left: 8px;"></i>الاختبارات الإلكترونية المؤقتة</h2>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">تُطرح الاختبارات من قِبل مستر محمد العكل بوقت وتصحيح تلقائي.</p>
+      </div>
+
+      <div id="quizListCards"></div>
+
+      <!-- واجهة أداء الكويز -->
+      <div id="quizTakingArea" class="card" style="display: none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--card-border); padding-bottom:10px; margin-bottom:15px;">
+          <h3 id="runningQuizTitle">عنوان الاختبار</h3>
+          <span class="timer-badge"><i class="fa-solid fa-clock"></i> <span id="clockBox">00:00</span></span>
+        </div>
+        <div id="quizQuestionsArea"></div>
+        <button class="btn" style="width: 100%; margin-top: 15px;" onclick="finishQuiz()">
+          <i class="fa-solid fa-paper-plane"></i> إنهاء وتسليم الإجابة
+        </button>
+      </div>
+
+      <!-- بطاقة النتيجة -->
+      <div id="scoreBox" class="card" style="display: none; text-align: center; padding: 25px;">
+        <i class="fa-solid fa-trophy" style="font-size: 3rem; color: #fbbf24; margin-bottom: 10px;"></i>
+        <h3>تم تقييم الاختبار!</h3>
+        <p id="finalScore" style="font-size: 1.4rem; font-weight: bold; color: var(--primary-light); margin: 10px 0;"></p>
+        <button class="btn btn-secondary" onclick="closeScoreBoard()">العودة لقائمة الكويزات</button>
+      </div>
+    </section>
+
+    <!-- 5. لوحة تحكم الأستاذ محمد العكل -->
+    <section id="sec-admin" class="section">
+      <div class="card" style="border-right: 4px solid var(--primary-light); display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h2>لوحة تحكم الأستاذ محمد العكل</h2>
+          <span style="font-size:0.8rem; color:var(--text-muted);">إدارة المحاضرات والكويزات وكلمة المرور</span>
+        </div>
+        <button class="btn btn-danger" style="padding:6px 12px; font-size:0.8rem;" onclick="logoutAdmin()">خروج</button>
+      </div>
+
+      <!-- تغيير كلمة المرور -->
+      <div class="card">
+        <h3><i class="fa-solid fa-key" style="margin-left: 8px;"></i>تعديل كلمة مرور اللوحة</h3>
+        <form onsubmit="handlePassUpdate(event)" style="margin-top: 12px;">
+          <div class="form-group">
+            <label>كلمة المرور الحالية</label>
+            <input type="password" id="oldPass" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>كلمة المرور الجديدة</label>
+            <input type="password" id="newPass" class="form-control" required />
+          </div>
+          <button type="submit" class="btn btn-secondary">تحديث كلمة المرور</button>
+        </form>
+      </div>
+
+      <!-- رفع فيديو جديد -->
+      <div class="card">
+        <h3><i class="fa-solid fa-upload" style="margin-left: 8px;"></i>إضافة محاضرة فيديو جديدة</h3>
+        <form onsubmit="handleVideoUpload(event)" style="margin-top: 12px;">
+          <div class="form-group">
+            <label>عنوان المحاضرة</label>
+            <input type="text" id="vTitle" class="form-control" placeholder="مثال: النظرية الخلوية والميكروسكوبات" required />
+          </div>
+          <div class="form-group">
+            <label>الصف المستهدف</label>
+            <select id="vGrade" class="form-control" required>
+              <option value="1">الصف الأول الثانوي</option>
+              <option value="2">الصف الثاني الثانوي</option>
+              <option value="3">الصف الثالث الثانوي</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>طريقة إضافة الفيديو</label>
+            <select id="vType" class="form-control" onchange="toggleUploadInputs(this.value)">
+              <option value="device">اختيار ملف من الجهاز (هاتف / لابتوب)</option>
+              <option value="url">إدخال رابط فيديو (YouTube أو رابط MP4 مباشر)</option>
+            </select>
+          </div>
+          <div class="form-group" id="groupDeviceFile">
+            <label>اختر الفيديو من ذاكرة جهازك</label>
+            <input type="file" id="vFile" class="form-control" accept="video/*" />
+          </div>
+          <div class="form-group" id="groupUrl" style="display: none;">
+            <label>رابط الفيديو</label>
+            <input type="text" id="vUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=... أو رابط مباشر" />
+          </div>
+          <button type="submit" class="btn" style="width: 100%;">
+            <i class="fa-solid fa-cloud-arrow-up"></i> نشر المحاضرة وتنبيه كل الطلبة فوراً
+          </button>
+        </form>
+      </div>
+
+      <!-- إنشاء كويز جديد بوقت -->
+      <div class="card">
+        <h3><i class="fa-solid fa-file-circle-plus" style="margin-left: 8px;"></i>إنشاء كويز بوقت محدد</h3>
+        <form onsubmit="handleQuizCreate(event)" style="margin-top: 12px;">
+          <div class="form-group">
+            <label>عنوان الكويز</label>
+            <input type="text" id="qTitle" class="form-control" placeholder="مثال: كويز التركيب الكيميائي لأجسام الكائنات الحية" required />
+          </div>
+          <div class="form-group">
+            <label>الصف الموجه إليه</label>
+            <select id="qGrade" class="form-control" required>
+              <option value="1">الصف الأول الثانوي</option>
+              <option value="2">الصف الثاني الثانوي</option>
+              <option value="3">الصف الثالث الثانوي</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>مدة الاختبار (بالدقائق)</label>
+            <input type="number" id="qDuration" class="form-control" value="10" min="1" max="120" required />
+          </div>
+
+          <div style="background:#090e17; padding:12px; border-radius:10px; margin-bottom:12px; border:1px solid var(--card-border);">
+            <div class="form-group">
+              <label>نص السؤال</label>
+              <input type="text" id="qPrompt" class="form-control" placeholder="اكتب صيغة السؤال البيولوجي هنا..." required />
+            </div>
+            <div class="form-group">
+              <label>الخيارات (مفصولة بفاصلة)</label>
+              <input type="text" id="qOptions" class="form-control" placeholder="الخيار أ, الخيار ب, الخيار ج, الخيار د" required />
+            </div>
+            <div class="form-group">
+              <label>رقم الاختيار الصحيح (1 أو 2 أو 3 أو 4)</label>
+              <input type="number" id="qCorrect" class="form-control" min="1" max="4" required />
+            </div>
+          </div>
+
+          <button type="submit" class="btn" style="width: 100%;">
+            <i class="fa-solid fa-paper-plane"></i> نشر الكويز للطلبة
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- شريط الموبايل السفلي -->
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="goToSection('sec-home', this)">
+      <i class="fa-solid fa-house"></i>
+      <span>الرئيسية</span>
+    </button>
+    <button class="nav-item" onclick="goToSection('sec-onboarding', this)">
+      <i class="fa-solid fa-id-card"></i>
+      <span>صفّي وسنّي</span>
+    </button>
+    <button class="nav-item" onclick="goToSection('sec-videos', this)">
+      <i class="fa-solid fa-circle-play"></i>
+      <span>المحاضرات</span>
+    </button>
+    <button class="nav-item" onclick="goToSection('sec-quizzes', this)">
+      <i class="fa-solid fa-stopwatch"></i>
+      <span>الكويزات</span>
+    </button>
+  </div>
+
+  <!-- نافذة تسجيل دخول المستر -->
+  <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:2000; align-items:center; justify-content:center; padding:16px;">
+    <div class="card" style="width:100%; max-width:340px; background:#111a28;">
+      <h3 style="margin-bottom:12px;"><i class="fa-solid fa-lock" style="color:var(--primary-light);"></i> كلمة مرور لوحة المستر</h3>
+      <input type="password" id="inputPass" class="form-control" placeholder="أدخل كلمة المرور" style="margin-bottom:12px;" />
+      <div style="display:flex; gap:8px;">
+        <button class="btn" style="flex:1;" onclick="checkAdminPass()">دخول</button>
+        <button class="btn btn-secondary" onclick="closeAdminModal()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // تهيئة البيانات
+    if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
+    if (!localStorage.getItem('local_videos')) localStorage.setItem('local_videos', JSON.stringify([]));
+    if (!localStorage.getItem('local_quizzes')) localStorage.setItem('local_quizzes', JSON.stringify([]));
+
+    let timerInterval = null;
+    let currentQuiz = null;
+
+    // التنقل بين الأقسام
+    function goToSection(id, btn = null) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+
+      if (btn) {
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      if (id === 'sec-videos') renderVideoList();
+      if (id === 'sec-quizzes') renderQuizList();
+      window.scrollTo(0, 0);
+    }
+
+    function showLiveToast(title, msg) {
+      const toast = document.getElementById('liveToast');
+      document.getElementById('toastTitle').innerText = title;
+      document.getElementById('toastBody').innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 5000);
+    }
+
+    // حفظ بيانات الطالب
+    function handleStudentSave(e) {
+      e.preventDefault();
+      const student = {
+        name: document.getElementById('stu_name').value,
+        grade: document.getElementById('stu_grade').value,
+        age: document.getElementById('stu_age').value,
+        phone: document.getElementById('stu_phone').value
+      };
+      localStorage.setItem('active_student', JSON.stringify(student));
+      refreshStudentData();
+      showLiveToast('تم الحفظ بنجاح', `أهلاً بك يا ${student.name}، تم توجيهك إلى فيديوهات صفك.`);
+      goToSection('sec-videos');
+    }
+
+    function refreshStudentData() {
+      const saved = localStorage.getItem('active_student');
+      const box = document.getElementById('studentInfoText');
+      if (saved) {
+        const s = JSON.parse(saved);
+        box.innerHTML = `<strong>الاسم:</strong> ${s.name} | <strong>الصف:</strong> ${getGradeText(s.grade)} | <strong>السن:</strong> ${s.age} سنة`;
+        document.getElementById('gradeFilter').value = s.grade;
+      }
+    }
+
+    function getGradeText(g) {
+      if (g == '1') return 'الصف الأول الثانوي';
+      if (g == '2') return 'الصف الثاني الثانوي';
+      return 'الصف الثالث الثانوي';
+    }
+
+    function toggleUploadInputs(val) {
+      document.getElementById('groupDeviceFile').style.display = val === 'device' ? 'block' : 'none';
+      document.getElementById('groupUrl').style.display = val === 'url' ? 'block' : 'none';
+    }
+
+    // رفع فيديو جديد
+    function handleVideoUpload(e) {
+      e.preventDefault();
+      const title = document.getElementById('vTitle').value;
+      const grade = document.getElementById('vGrade').value;
+      const type = document.getElementById('vType').value;
+      let finalSrc = '';
+      let isEmbed = false;
+
+      if (type === 'device') {
+        const fileInput = document.getElementById('vFile');
+        if (fileInput.files.length === 0) {
+          alert('يرجى تحديد ملف فيديو من جهازك أولاً.');
+          return;
+        }
+        finalSrc = URL.createObjectURL(fileInput.files[0]);
+      } else {
+        const url = document.getElementById('vUrl').value.trim();
+        if (!url) {
+          alert('يرجى كتابة الرابط.');
+          return;
+        }
+        // معالجة روابط يوتيوب التلقائية
+        if (url.includes('youtube.com/watch?v=') || url.includes('youtu.be/')) {
+          let vidId = '';
+          if (url.includes('youtu.be/')) {
+            vidId = url.split('youtu.be/')[1].split('?')[0];
+          } else {
+            vidId = new URL(url).searchParams.get('v');
+          }
+          finalSrc = `https://www.youtube.com/embed/${vidId}`;
+          isEmbed = true;
+        } else {
+          finalSrc = url;
+        }
+      }
+
+      const vids = JSON.parse(localStorage.getItem('local_videos') || '[]');
+      vids.unshift({
+        id: Date.now(),
+        title: title,
+        grade: grade,
+        src: finalSrc,
+        isEmbed: isEmbed,
+        date: new Date().toLocaleDateString('ar-EG')
+      });
+      localStorage.setItem('local_videos', JSON.stringify(vids));
+
+      alert('تم نشر المحاضرة بنجاح!');
+      showLiveToast('محاضرة جديدة الآن!', `تم نشر محاضرة لـ ${getGradeText(grade)}: "${title}"`);
+      e.target.reset();
+      goToSection('sec-videos');
+    }
+
+    // عرض قائمة الفيديوهات
+    function renderVideoList() {
+      const container = document.getElementById('videoCardsContainer');
+      const selectedGrade = document.getElementById('gradeFilter').value;
+      const vids = JSON.parse(localStorage.getItem('local_videos') || '[]');
+
+      const filtered = selectedGrade === 'all' ? vids : vids.filter(v => v.grade == selectedGrade);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">لا توجد محاضرات مرفوعة لهذا الصف حالياً. بمجرد رفع المستر لمحاضرة ستظهر هنا تلقائياً.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(v => `
+        <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h4>${v.title}</h4>
+            <span style="font-size:0.8rem; color:var(--text-muted);">${getGradeText(v.grade)} • ${v.date}</span>
+          </div>
+          <button class="btn" style="padding:6px 14px; font-size:0.85rem;" onclick="playSelectedVideo('${encodeURIComponent(v.src)}', '${encodeURIComponent(v.title)}', '${v.grade}', ${v.isEmbed})">
+            <i class="fa-solid fa-play"></i> مشاهدة
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function playSelectedVideo(src, title, grade, isEmbed) {
+      const box = document.getElementById('videoPlayerBox');
+      const media = document.getElementById('mediaContainer');
+      box.style.display = 'block';
+
+      const decodedSrc = decodeURIComponent(src);
+      if (isEmbed) {
+        media.innerHTML = `<iframe src="${decodedSrc}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      } else {
+        media.innerHTML = `<video controls playsinline autoplay src="${decodedSrc}"></video>`;
+      }
+
+      document.getElementById('currentVidTitle').innerText = decodeURIComponent(title);
+      document.getElementById('currentVidDesc').innerText = `أحياء • ${getGradeText(grade)}`;
+      window.scrollTo({ top: box.offsetTop - 70, behavior: 'smooth' });
+    }
+
+    // إنشاء كويز جديد
+    function handleQuizCreate(e) {
+      e.preventDefault();
+      const title = document.getElementById('qTitle').value;
+      const grade = document.getElementById('qGrade').value;
+      const duration = parseInt(document.getElementById('qDuration').value);
+      const prompt = document.getElementById('qPrompt').value;
+      const options = document.getElementById('qOptions').value.split(',').map(o => o.trim());
+      const correct = parseInt(document.getElementById('qCorrect').value) - 1;
+
+      const quizzes = JSON.parse(localStorage.getItem('local_quizzes') || '[]');
+      quizzes.unshift({
+        id: Date.now(),
+        title: title,
+        grade: grade,
+        duration: duration,
+        questions: [{ prompt, options, correct }]
+      });
+      localStorage.setItem('local_quizzes', JSON.stringify(quizzes));
+
+      alert('تم نشر الكويز بنجاح!');
+      showLiveToast('كويز جديد!', `نشر الأستاذ كويزاً لـ ${getGradeText(grade)}: "${title}"`);
+      e.target.reset();
+      goToSection('sec-quizzes');
+    }
+
+    function renderQuizList() {
+      const container = document.getElementById('quizListCards');
+      const quizzes = JSON.parse(localStorage.getItem('local_quizzes') || '[]');
+
+      if (quizzes.length === 0) {
+        container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">لا توجد أي كويزات حالياً. عندما يرفع المستر كويزاً جديداً سيظهر هنا فوراً.</div>`;
+        return;
+      }
+
+      container.innerHTML = quizzes.map((q, idx) => `
+        <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h4>${q.title}</h4>
+            <span style="font-size:0.8rem; color:var(--text-muted);">${getGradeText(q.grade)} • مدة الاختبار: ${q.duration} دقيقة</span>
+          </div>
+          <button class="btn" style="padding:6px 14px; font-size:0.85rem;" onclick="launchQuiz(${idx})">
+            <i class="fa-solid fa-pen-nib"></i> بدء الكويز
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function launchQuiz(idx) {
+      const quizzes = JSON.parse(localStorage.getItem('local_quizzes') || '[]');
+      currentQuiz = quizzes[idx];
+      if (!currentQuiz) return;
+
+      document.getElementById('quizListCards').style.display = 'none';
+      document.getElementById('quizTakingArea').style.display = 'block';
+      document.getElementById('runningQuizTitle').innerText = currentQuiz.title;
+
+      const qBox = document.getElementById('quizQuestionsArea');
+      qBox.innerHTML = currentQuiz.questions.map((q, qIdx) => `
+        <div style="margin-bottom:16px;">
+          <p style="font-weight:700; margin-bottom:8px;">س${qIdx + 1}: ${q.prompt}</p>
+          ${q.options.map((opt, oIdx) => `
+            <label style="display:flex; align-items:center; gap:8px; margin-bottom:6px; cursor:pointer;">
+              <input type="radio" name="opt_${qIdx}" value="${oIdx}" />
+              <span>${opt}</span>
+            </label>
+          `).join('')}
+        </div>
+      `).join('');
+
+      let timeLeft = currentQuiz.duration * 60;
+      refreshTimerClock(timeLeft);
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        refreshTimerClock(timeLeft);
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert('انتهى الوقت المحدد للاختبار!');
+          finishQuiz();
+        }
+      }, 1000);
+    }
+
+    function refreshTimerClock(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      document.getElementById('clockBox').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      let marks = 0;
+      currentQuiz.questions.forEach((q, i) => {
+        const picked = document.querySelector(`input[name="opt_${i}"]:checked`);
+        if (picked && parseInt(picked.value) === q.correct) marks++;
+      });
+
+      document.getElementById('quizTakingArea').style.display = 'none';
+      document.getElementById('scoreBox').style.display = 'block';
+      document.getElementById('finalScore').innerText = `${marks} من ${currentQuiz.questions.length}`;
+    }
+
+    function closeScoreBoard() {
+      document.getElementById('scoreBox').style.display = 'none';
+      document.getElementById('quizListCards').style.display = 'block';
+      renderQuizList();
+    }
+
+    // إدارة كلمة السر ولوحة المستر
+    function openAdminModal() { document.getElementById('authModal').style.display = 'flex'; }
+    function closeAdminModal() { document.getElementById('authModal').style.display = 'none'; document.getElementById('inputPass').value = ''; }
+    function checkAdminPass() {
+      const pass = document.getElementById('inputPass').value;
+      const actual = localStorage.getItem('admin_pwd') || '123456';
+      if (pass === actual) {
+        closeAdminModal();
+        goToSection('sec-admin');
+      } else {
+        alert('كلمة المرور غير صحيحة!');
+      }
+    }
+    function logoutAdmin() { goToSection('sec-home'); }
+    function handlePassUpdate(e) {
+      e.preventDefault();
+      const oldP = document.getElementById('oldPass').value;
+      const newP = document.getElementById('newPass').value;
+      const current = localStorage.getItem('admin_pwd') || '123456';
+      if (oldP !== current) {
+        alert('كلمة المرور الحالية غير صحيحة!');
+        return;
+      }
+      localStorage.setItem('admin_pwd', newP);
+      alert('تم تغيير كلمة المرور بنجاح.');
+      e.target.reset();
+    }
+
+    window.addEventListener('DOMContentLoaded', refreshStudentData);
+  </script>
+</body>
+</html>
