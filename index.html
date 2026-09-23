@@ -36,6 +36,29 @@
       line-height: 1.6;
     }
 
+    /* مؤشر المزامنة السحابية الحي */
+    #cloudSyncStatus {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid var(--sakr-card-border);
+      color: var(--sakr-muted);
+      font-size: 0.72rem;
+      padding: 5px 12px;
+      border-radius: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
     /* الهيدر العلوي */
     .sakr-header {
       background: rgba(11, 15, 25, 0.95);
@@ -82,9 +105,7 @@
       gap: 8px;
       transition: 0.2s;
     }
-    .btn-account-top:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
+    .btn-account-top:hover { background: rgba(255, 255, 255, 0.15); }
 
     .btn-admin-top {
       background: rgba(245, 158, 11, 0.12);
@@ -129,9 +150,7 @@
       margin-bottom: 12px;
       color: #fff;
     }
-    .hero-section h1 span {
-      color: var(--sakr-gold);
-    }
+    .hero-section h1 span { color: var(--sakr-gold); }
     .hero-section p {
       color: var(--sakr-muted);
       font-size: 1.05rem;
@@ -209,7 +228,7 @@
       margin-top: 4px;
     }
 
-    /* مميزات المنصة (قابلة للتحكم والتعديل بالكامل) */
+    /* مميزات المنصة */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -575,7 +594,13 @@
 </head>
 <body>
 
-  <!-- تنبيه الرسائل والتحقق OTP -->
+  <!-- مؤشر المزامنة السحابية الحي -->
+  <div id="cloudSyncStatus">
+    <div class="sync-dot"></div>
+    <span id="syncText">سحابي: متصل ومحدث</span>
+  </div>
+
+  <!-- تنبيه حي -->
   <div id="liveToast" style="display:none; position:fixed; top:15px; left:15px; right:15px; max-width:420px; margin:auto; background:var(--sakr-gold-gradient); color:#000; padding:14px 18px; border-radius:12px; z-index:9999; font-weight:bold; box-shadow:0 10px 30px rgba(0,0,0,0.8);">
     <i class="fa-solid fa-message"></i> <span id="toastMsgText"></span>
   </div>
@@ -602,7 +627,7 @@
     </div>
   </header>
 
-  <!-- قسم الهيرو الرئيسي (نصوصه قابلة للتعديل بالكامل من اللوحة) -->
+  <!-- قسم الهيرو الرئيسي -->
   <section class="hero-section">
     <div class="hero-badge" id="heroBadgeText">
       <i class="fa-solid fa-circle-check"></i> منصة الكيمياء والأحياء للثانوية العامة
@@ -612,7 +637,7 @@
       سواء كنت في أولى، تانية، أو تالتة ثانوي، هنا هتلاقي كل اللي تحتاجه علشان تتفوق، وتفهم المنهج صح، وتطبق عليه بسهولة.
     </p>
 
-    <!-- زر اشترك دلوقتي (يفتح اختيار الصف أولاً) -->
+    <!-- زر اشترك دلوقتي -->
     <button class="btn-sakr-cta" onclick="startSubscriptionFlow()">
       <i class="fa-solid fa-fire"></i> اشترك دلوقتي !
     </button>
@@ -645,7 +670,7 @@
 
   <div class="container">
     
-    <!-- قسم ليه تشترك معانا؟ (مربعات قابلة للتعديل بنصوصها من اللوحة) -->
+    <!-- قسم ليه تشترك معانا؟ -->
     <div class="section-title">
       <h2 id="featuresTitleText">ليه تشترك معانا؟</h2>
       <p id="featuresSubText">طريقة تدريس مبتكرة مبنية على الفهم والتطبيق التفاعلي</p>
@@ -684,12 +709,12 @@
 
   </div>
 
-  <!-- نافذة تدفق الاشتراك: الخطوة 1: اختيار الصف الدراسي -->
+  <!-- نافذة اختيار الصف الدراسي -->
   <div id="gradePickerModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card">
       <button class="modal-close-btn" onclick="closeModal('gradePickerModal')"><i class="fa-solid fa-xmark"></i></button>
       <h3 style="color:var(--sakr-gold); text-align:center; margin-bottom:6px;">اختر صفك الدراسي للاشتراك</h3>
-      <p style="color:var(--sakr-muted); font-size:0.85rem; text-align:center;">حدد مرحلتك الدراسية ليتم فتح المحاضرات والكورسات الخاصة بك:</p>
+      <p style="color:var(--sakr-muted); font-size:0.85rem; text-align:center;">حدد مرحلتك الدراسية لفتح الكورسات والمحاضرات الخاصة بك:</p>
 
       <div class="grade-select-grid">
         <div class="grade-option-card" onclick="selectGradeToRegister('1')">
@@ -704,7 +729,7 @@
           <i class="fa-solid fa-2"></i>
           <div>
             <strong style="color:#fff; font-size:1.05rem;">الصف الثاني الثانوي</strong>
-            <p style="font-size:0.8rem; color:var(--sakr-muted); margin:0;">شرح وافي للمنهج وتطبيقات تفاعلية دورية</p>
+            <p style="font-size:0.8rem; color:var(--sakr-muted); margin:0;">شرح وافي وتطبيقات تفاعلية دورية</p>
           </div>
         </div>
 
@@ -712,57 +737,59 @@
           <i class="fa-solid fa-3"></i>
           <div>
             <strong style="color:#fff; font-size:1.05rem;">الصف الثالث الثانوي (الشهادة)</strong>
-            <p style="font-size:0.8rem; color:var(--sakr-muted); margin:0;">رحلة التفوق وحصد الدرجة النهائية حتى ليلة الامتحان</p>
+            <p style="font-size:0.8rem; color:var(--sakr-muted); margin:0;">رحلة التفوق وحصد الدرجة النهائية</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- نافذة تسجيل البيانات والتحقق بكود الهاتف (OTP) -->
-  <div id="registerOtpModal" class="sakr-modal-backdrop">
+  <!-- نافذة تسجيل البيانات الفوري المباشر -->
+  <div id="registerModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card">
-      <button class="modal-close-btn" onclick="closeModal('registerOtpModal')"><i class="fa-solid fa-xmark"></i></button>
+      <button class="modal-close-btn" onclick="closeModal('registerModal')"><i class="fa-solid fa-xmark"></i></button>
       
-      <!-- مرحلة كتابة البيانات -->
-      <div id="regStepData">
-        <h3 style="color:var(--sakr-gold); text-align:center; margin-bottom:4px;">تسجيل بيانات الطالب</h3>
-        <p style="color:var(--sakr-yellow); font-size:0.85rem; text-align:center; margin-bottom:16px;" id="regSelectedGradeBadge"></p>
+      <h3 style="color:var(--sakr-gold); text-align:center; margin-bottom:4px;">إنشاء حساب طالب جديد</h3>
+      <p style="color:var(--sakr-yellow); font-size:0.85rem; text-align:center; margin-bottom:16px;" id="regSelectedGradeBadge"></p>
 
-        <form onsubmit="handleSendOtpCode(event)">
-          <div class="form-group">
-            <label>اسم الطالب رباعي</label>
-            <input type="text" id="stuNameInput" class="form-control" placeholder="اكتب اسمك كاملاً" required />
-          </div>
-          <div class="form-group">
-            <label>رقم هاتف الطالب (لتلقي كود التأكيد)</label>
-            <input type="tel" id="stuPhoneInput" class="form-control" placeholder="01xxxxxxxxx" required />
-          </div>
-          <div class="form-group">
-            <label>كلمة المرور لحسابك</label>
-            <input type="password" id="stuPassInput" class="form-control" placeholder="اختر كلمة سر قوية" required />
-          </div>
-          <button type="submit" class="btn-sakr-cta" style="width: 100%; justify-content:center; margin-top:10px;">
-            إرسال كود التأكيد للهاتف <i class="fa-solid fa-arrow-left"></i>
-          </button>
-        </form>
-      </div>
-
-      <!-- مرحلة إدخال كود التحقق OTP -->
-      <div id="regStepOtp" style="display: none; text-align: center;">
-        <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: var(--sakr-gold); margin-bottom: 10px;"></i>
-        <h3 style="color:#fff; margin-bottom: 6px;">تأكيد رقم الهاتف</h3>
-        <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom: 16px;">تم إرسال كود تحقق مكون من 4 أرقام لهاتفك، اكتبه بالأسفل لتفعيل حسابك:</p>
-
-        <input type="text" id="inputOtpVerification" class="form-control" placeholder="أدخل كود الـ 4 أرقام" style="text-align:center; font-size:1.3rem; letter-spacing:6px; max-width:260px; margin:0 auto 16px;" maxlength="4" />
-        <button class="btn-sakr-cta" style="width: 100%; justify-content:center;" onclick="verifyOtpAndActivateAccount()">
-          تأكيد الكود وتفعيل الحساب <i class="fa-solid fa-check"></i>
+      <form onsubmit="handleDirectRegister(event)">
+        <div class="form-group">
+          <label>اسم الطالب رباعي</label>
+          <input type="text" id="stuNameInput" class="form-control" placeholder="اكتب اسمك كاملاً" required />
+        </div>
+        <div class="form-group">
+          <label>رقم هاتف الطالب (واتساب)</label>
+          <input type="tel" id="stuPhoneInput" class="form-control" placeholder="01xxxxxxxxx" required />
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور لحسابك</label>
+          <input type="password" id="stuPassInput" class="form-control" placeholder="اختر كلمة سر سهلة التذكر" required />
+        </div>
+        <button type="submit" class="btn-sakr-cta" style="width: 100%; justify-content:center; margin-top:10px;">
+          تأكيد التسجيل والدخول فوراً <i class="fa-solid fa-arrow-left"></i>
         </button>
-      </div>
+      </form>
     </div>
   </div>
 
-  <!-- نافذة خانة حسابي للطالب (عرض البيانات وتغيير كلمة السر) -->
+  <!-- نافذة نجاح التسجيل ورسالة الواتساب -->
+  <div id="welcomeSuccessModal" class="sakr-modal-backdrop">
+    <div class="sakr-modal-card" style="text-align: center;">
+      <i class="fa-solid fa-circle-check" style="font-size:3rem; color:#10b981; margin-bottom:12px;"></i>
+      <h3 style="color:#fff; margin-bottom:6px;">تم تسجيل حسابك بنجاح!</h3>
+      <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom:16px;" id="welcomeStudentGreet"></p>
+
+      <a id="btnWhatsAppWelcomeMsg" href="#" target="_blank" class="btn-sakr-cta" style="width:100%; justify-content:center; background:#25d366; color:#fff; margin-bottom:10px;">
+        <i class="fa-brands fa-whatsapp"></i> فتح رسالة الترحيب على واتساب
+      </a>
+
+      <button class="btn-sm-action" style="width:100%; justify-content:center; padding:10px;" onclick="closeModal('welcomeSuccessModal')">
+        متابعة وتصفح الكورسات والمحاضرات
+      </button>
+    </div>
+  </div>
+
+  <!-- نافذة حسابي للطالب -->
   <div id="studentAccountModal" class="sakr-modal-backdrop">
     <div class="sakr-modal-card">
       <button class="modal-close-btn" onclick="closeModal('studentAccountModal')"><i class="fa-solid fa-xmark"></i></button>
@@ -796,7 +823,7 @@
         </button>
       </div>
 
-      <!-- في حالة عدم تسجيل الدخول (فورم تسجيل دخول سريع) -->
+      <!-- في حالة عدم تسجيل الدخول -->
       <div id="accountLoginFormView">
         <h3 style="color:var(--sakr-gold); text-align:center; margin-bottom:8px;">تسجيل الدخول لحسابك</h3>
         <p style="color:var(--sakr-muted); font-size:0.85rem; text-align:center; margin-bottom:16px;">اكتب رقم هاتفك وكلمة المرور لمتابعة محاضراتك:</p>
@@ -886,13 +913,13 @@
   </div>
 
   <!-- =========================================================
-       لوحة تحكم المستر الكبيرة والاحترافية بنظام الشاشات
+       لوحة تحكم المستر الكبيرة بنظام الشاشات
        ========================================================= -->
   <div id="adminScreen">
     <div class="admin-navbar">
       <div style="display:flex; align-items:center; gap:10px;">
         <i class="fa-solid fa-sliders" style="color:var(--sakr-gold); font-size:1.3rem;"></i>
-        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل</strong>
+        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل (مزامنة سحابية مباشرة)</strong>
       </div>
       <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="closeAdminScreen()">
         <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج من اللوحة
@@ -925,7 +952,7 @@
       <!-- منطقة العمل الرئيسية -->
       <main class="admin-main-view">
         
-        <!-- تبويب 1: إدارة الكورسات والأسعار مع تحديد الصف بدقة -->
+        <!-- تبويب 1: إدارة الكورسات والأسعار -->
         <div id="viewCourses" class="admin-tab-view">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-plus-circle"></i> إضافة كورس جديد وتحديد سعره وصفه الدراسي</h3>
@@ -953,7 +980,7 @@
                 <input type="text" id="cDesc" class="form-control" placeholder="شرح مبسط لمحتوى الكورس وما يقدمه للطالب" required />
               </div>
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
-                <i class="fa-solid fa-check"></i> حفظ ونشر الكورس
+                <i class="fa-solid fa-check"></i> حفظ ونشر سحابياً عند كل الطلاب
               </button>
             </form>
           </div>
@@ -984,7 +1011,7 @@
                 <input type="text" id="lecVideoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." required />
               </div>
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
-                <i class="fa-solid fa-video"></i> نشر المحاضرة في الكورس المحدد
+                <i class="fa-solid fa-video"></i> نشر المحاضرة سحابياً للطلاب
               </button>
             </form>
           </div>
@@ -1032,13 +1059,13 @@
               </div>
 
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem; margin-top:10px;">
-                <i class="fa-solid fa-check"></i> حفظ وربط الكويز بالفيديو فوراً
+                <i class="fa-solid fa-check"></i> حفظ وربط الكويز سحابياً فوراً
               </button>
             </form>
           </div>
         </div>
 
-        <!-- تبويب 4: تعديل نصوص الواجهة ومربعات "ليه تشترك معانا؟" بالكامل -->
+        <!-- تبويب 4: تعديل نصوص ومميزات الواجهة -->
         <div id="viewContent" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-pen-nib"></i> تعديل نصوص الواجهة ومربعات "ليه تشترك معانا؟"</h3>
@@ -1066,7 +1093,6 @@
               <h4 style="color:var(--sakr-yellow); margin-bottom:12px;"><i class="fa-solid fa-table-cells-large"></i> نصوص مربعات "ليه تشترك معانا؟" الأربعة:</h4>
 
               <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
-                <!-- المربع 1 -->
                 <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px;">
                   <div class="form-group">
                     <label>عنوان المربع 1</label>
@@ -1078,7 +1104,6 @@
                   </div>
                 </div>
 
-                <!-- المربع 2 -->
                 <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px;">
                   <div class="form-group">
                     <label>عنوان المربع 2</label>
@@ -1090,7 +1115,6 @@
                   </div>
                 </div>
 
-                <!-- المربع 3 -->
                 <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px;">
                   <div class="form-group">
                     <label>عنوان المربع 3</label>
@@ -1102,7 +1126,6 @@
                   </div>
                 </div>
 
-                <!-- المربع 4 -->
                 <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px;">
                   <div class="form-group">
                     <label>عنوان المربع 4</label>
@@ -1116,7 +1139,7 @@
               </div>
 
               <button type="submit" class="btn-sakr-cta" style="padding:10px 28px; font-size:0.95rem; margin-top:16px;">
-                <i class="fa-solid fa-floppy-disk"></i> حفظ وتحديث نصوص الواجهة والمربعات فوراً
+                <i class="fa-solid fa-floppy-disk"></i> حفظ ونشر النصوص عند كل الطلاب
               </button>
             </form>
           </div>
@@ -1140,7 +1163,7 @@
                 <input type="text" id="statInputTop" class="form-control" required />
               </div>
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
-                حفظ وتحديث الإحصائيات في الخارج
+                حفظ وتحديث الإحصائيات سحابياً
               </button>
             </form>
           </div>
@@ -1187,14 +1210,15 @@
   </div>
 
   <script>
-    // تهيئة البيانات
-    if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
-    if (!localStorage.getItem('dev_pass')) localStorage.setItem('dev_pass', '33333');
-    if (!localStorage.getItem('registered_students')) localStorage.setItem('registered_students', JSON.stringify([]));
+    /* =========================================================================
+       محرك المزامنة السحابية المركزي (Cloud Real-time Engine)
+       يضمن أن أي تعديل يقوم به المستر يظهر فوراً عند جميع الطلاب على أي جهاز
+       ========================================================================= */
+    const CLOUD_BIN_ID = '66f1b3e8acd3cb34a889b12e'; // معرف التخزين السحابي المباشر
+    const CLOUD_API_KEY = '$2a$10$7p8p.4jT1yVnE3kGqC2/d.uH8U7e9e5X7k5x8w4V8p0K6m2q9r.';
 
-    // نصوص ومربعات الواجهة الافتراضية
-    if (!localStorage.getItem('platform_texts')) {
-      localStorage.setItem('platform_texts', JSON.stringify({
+    let currentCloudData = {
+      texts: {
         brandName: 'الأستاذ محمد العكل',
         heroBadge: 'منصة الكيمياء والأحياء للثانوية العامة',
         heroHeading: 'أهلاً بيك في بيتك التاني!',
@@ -1207,21 +1231,9 @@
         featDesc3: 'كويزات إلكترونية مقيدة بوقت وتصحيح فوري على كل محاضرة.',
         featTitle4: '4. مرونة كاملة في المذاكرة',
         featDesc4: 'محاضراتك متاحة 24 ساعة من موبايلك أو لابتوبك أينما كنت.'
-      }));
-    }
-
-    // الإحصائيات الافتراضية
-    if (!localStorage.getItem('sakr_stats')) {
-      localStorage.setItem('sakr_stats', JSON.stringify({
-        yt: '+1.3M',
-        students: '+50,000',
-        top: 'أوائل جمهورية'
-      }));
-    }
-
-    // الكورسات الافتراضية
-    if (!localStorage.getItem('platform_courses')) {
-      const initCourses = [
+      },
+      stats: { yt: '+1.3M', students: '+50,000', top: 'أوائل جمهورية' },
+      courses: [
         {
           id: 'course_1',
           title: 'كورس الباب الأول: العناصر الانتقالية',
@@ -1236,13 +1248,8 @@
           price: 'كورس مجاني ⏰',
           desc: 'كورس شامل لمراجعة المفاهيم والأساسيات مع كويزات تقييمية.'
         }
-      ];
-      localStorage.setItem('platform_courses', JSON.stringify(initCourses));
-    }
-
-    // المحاضرات الافتراضية
-    if (!localStorage.getItem('platform_lectures')) {
-      const initLectures = [
+      ],
+      lectures: [
         {
           id: 'lec_1',
           courseId: 'course_1',
@@ -1255,13 +1262,8 @@
           title: 'المحاضرة 1: الجزيئات البيولوجية الكبيرة',
           video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         }
-      ];
-      localStorage.setItem('platform_lectures', JSON.stringify(initLectures));
-    }
-
-    // الكويزات الافتراضية
-    if (!localStorage.getItem('platform_quizzes')) {
-      const initQuizzes = [
+      ],
+      quizzes: [
         {
           id: 'quiz_1',
           lectureId: 'lec_1',
@@ -1272,14 +1274,73 @@
             { prompt: 'تتميز جميع عناصر السلسلة الانتقالية الأولى بـ؟', options: ['تعدد حالات التأكسد', 'البارامغناطيسية لجميع مركباتها', 'الملونة دائماً', 'النشاط الكيميائي الشديد'], correct: 0 }
           ]
         }
-      ];
-      localStorage.setItem('platform_quizzes', JSON.stringify(initQuizzes));
+      ],
+      dev: {
+        photo: '',
+        fb: 'https://facebook.com',
+        wa: '201000000000'
+      }
+    };
+
+    // جلب البيانات السحابية المركزية فور فتح الموقع
+    async function syncFromCloud() {
+      const syncText = document.getElementById('syncText');
+      if (syncText) syncText.innerText = 'سحابي: جارِ جلب أحدث تعديلات المستر...';
+      try {
+        const cached = localStorage.getItem('cloud_app_data');
+        if (cached) {
+          currentCloudData = JSON.parse(cached);
+          renderFrontView();
+        }
+
+        const res = await fetch('https://api.jsonbin.io/v3/b/' + CLOUD_BIN_ID + '/latest', {
+          headers: { 'X-Master-Key': CLOUD_API_KEY }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.record) {
+            currentCloudData = data.record;
+            localStorage.setItem('cloud_app_data', JSON.stringify(currentCloudData));
+            if (syncText) syncText.innerText = 'سحابي: متصل ومحدث عند الجميع';
+            renderFrontView();
+          }
+        }
+      } catch (e) {
+        if (syncText) syncText.innerText = 'سحابي: متصل محلياً';
+      }
     }
+
+    // حفظ البيانات في السحابة لتصل لكل الطلاب فوراً
+    async function saveToCloud() {
+      const syncText = document.getElementById('syncText');
+      if (syncText) syncText.innerText = 'سحابي: جارِ نشر التعديل لجميع الطلاب...';
+      localStorage.setItem('cloud_app_data', JSON.stringify(currentCloudData));
+      renderFrontView();
+
+      try {
+        await fetch('https://api.jsonbin.io/v3/b/' + CLOUD_BIN_ID, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': CLOUD_API_KEY
+          },
+          body: JSON.stringify(currentCloudData)
+        });
+        if (syncText) syncText.innerText = 'سحابي: تم النشر لكل الأجهزة بنجاح!';
+        toast('تم نشر التعديلات سحابياً ووصلت لجميع الطلاب فوراً!');
+      } catch (err) {
+        if (syncText) syncText.innerText = 'تم الحفظ في جهازك وسينشر سحابياً فور توفر الإنترنت';
+      }
+    }
+
+    // تهيئة كلمات السر
+    if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
+    if (!localStorage.getItem('dev_pass')) localStorage.setItem('dev_pass', '33333');
+    if (!localStorage.getItem('registered_students')) localStorage.setItem('registered_students', JSON.stringify([]));
 
     let activeQuizTimer = null;
     let currentQuizData = null;
-    let pendingOtp = null;
-    let tempStudentRegistration = null;
+    let tempGrade = '1';
 
     function toast(msg) {
       const t = document.getElementById('liveToast');
@@ -1291,34 +1352,35 @@
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    /* ---- عرض الواجهة الخارجية والنصوص التفاعلية ---- */
+    /* ---- عرض الواجهة الخارجية بناءً على السحابة ---- */
     function renderFrontView() {
-      // نصوص الواجهة
-      const t = JSON.parse(localStorage.getItem('platform_texts') || '{}');
-      if (t.brandName) document.getElementById('brandNameDisplay').innerText = t.brandName;
-      if (t.heroBadge) document.getElementById('heroBadgeText').innerHTML = `<i class="fa-solid fa-circle-check"></i> ${t.heroBadge}`;
-      if (t.heroHeading) document.getElementById('heroHeadingText').innerHTML = t.heroHeading.includes('بيتك التاني') ? t.heroHeading.replace('بيتك التاني', '<span>بيتك التاني!</span>') : t.heroHeading;
-      if (t.heroDesc) document.getElementById('heroDescText').innerText = t.heroDesc;
+      const t = currentCloudData.texts;
+      if (t) {
+        document.getElementById('brandNameDisplay').innerText = t.brandName || 'الأستاذ محمد العكل';
+        document.getElementById('heroBadgeText').innerHTML = `<i class="fa-solid fa-circle-check"></i> ${t.heroBadge || ''}`;
+        document.getElementById('heroHeadingText').innerHTML = (t.heroHeading || '').includes('بيتك التاني') ? t.heroHeading.replace('بيتك التاني', '<span>بيتك التاني!</span>') : t.heroHeading;
+        document.getElementById('heroDescText').innerText = t.heroDesc || '';
 
-      if (t.featTitle1) document.getElementById('featTitle1').innerText = t.featTitle1;
-      if (t.featDesc1) document.getElementById('featDesc1').innerText = t.featDesc1;
-      if (t.featTitle2) document.getElementById('featTitle2').innerText = t.featTitle2;
-      if (t.featDesc2) document.getElementById('featDesc2').innerText = t.featDesc2;
-      if (t.featTitle3) document.getElementById('featTitle3').innerText = t.featTitle3;
-      if (t.featDesc3) document.getElementById('featDesc3').innerText = t.featDesc3;
-      if (t.featTitle4) document.getElementById('featTitle4').innerText = t.featTitle4;
-      if (t.featDesc4) document.getElementById('featDesc4').innerText = t.featDesc4;
+        document.getElementById('featTitle1').innerText = t.featTitle1 || '';
+        document.getElementById('featDesc1').innerText = t.featDesc1 || '';
+        document.getElementById('featTitle2').innerText = t.featTitle2 || '';
+        document.getElementById('featDesc2').innerText = t.featDesc2 || '';
+        document.getElementById('featTitle3').innerText = t.featTitle3 || '';
+        document.getElementById('featDesc3').innerText = t.featDesc3 || '';
+        document.getElementById('featTitle4').innerText = t.featTitle4 || '';
+        document.getElementById('featDesc4').innerText = t.featDesc4 || '';
+      }
 
-      // الإحصائيات
-      const stats = JSON.parse(localStorage.getItem('sakr_stats') || '{}');
-      document.getElementById('statDisplayYt').innerText = stats.yt || '+1.3M';
-      document.getElementById('statDisplayStudents').innerText = stats.students || '+50,000';
-      document.getElementById('statDisplayTop').innerText = stats.top || 'أوائل جمهورية';
+      const s = currentCloudData.stats;
+      if (s) {
+        document.getElementById('statDisplayYt').innerText = s.yt || '+1.3M';
+        document.getElementById('statDisplayStudents').innerText = s.students || '+50,000';
+        document.getElementById('statDisplayTop').innerText = s.top || 'أوائل جمهورية';
+      }
 
-      // الكورسات والمحاضرات
-      const courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
-      const lectures = JSON.parse(localStorage.getItem('platform_lectures') || '[]');
-      const quizzes = JSON.parse(localStorage.getItem('platform_quizzes') || '[]');
+      const courses = currentCloudData.courses || [];
+      const lectures = currentCloudData.lectures || [];
+      const quizzes = currentCloudData.quizzes || [];
 
       const container = document.getElementById('coursesGridArea');
       container.innerHTML = courses.map(c => {
@@ -1361,6 +1423,7 @@
         `;
       }).join('');
 
+      renderDevVisuals();
       refreshStudentHeaderButton();
     }
 
@@ -1370,7 +1433,7 @@
       return 'الصف الثالث الثانوي';
     }
 
-    /* ---- مسار زر "اشترك دلوقتي !": اختيار الصف ثم البيانات ثم OTP ---- */
+    /* ---- مسار التسجيل المباشر بدون كود + رسالة واتساب ---- */
     function startSubscriptionFlow() {
       const active = localStorage.getItem('active_student');
       if (active) {
@@ -1382,16 +1445,12 @@
 
     function selectGradeToRegister(grade) {
       closeModal('gradePickerModal');
-      tempStudentRegistration = { grade: grade };
-
+      tempGrade = grade;
       document.getElementById('regSelectedGradeBadge').innerText = `المرحلة المختارة: ${getGradeText(grade)}`;
-      document.getElementById('regStepData').style.display = 'block';
-      document.getElementById('regStepOtp').style.display = 'none';
-
-      openModal('registerOtpModal');
+      openModal('registerModal');
     }
 
-    function handleSendOtpCode(e) {
+    function handleDirectRegister(e) {
       e.preventDefault();
       const name = document.getElementById('stuNameInput').value.trim();
       const phone = document.getElementById('stuPhoneInput').value.trim();
@@ -1399,38 +1458,17 @@
 
       const students = JSON.parse(localStorage.getItem('registered_students') || '[]');
       if (students.some(s => s.phone === phone)) {
-        alert('هذا الرقم مسجل بالفعل! يمكنك تسجيل الدخول مباشرة من خانة "حسابي".');
-        closeModal('registerOtpModal');
+        alert('هذا الرقم مسجل بالفعل! يمكنك تسجيل الدخول مباشرة.');
+        closeModal('registerModal');
         openStudentAccountModal();
         return;
       }
 
-      tempStudentRegistration.name = name;
-      tempStudentRegistration.phone = phone;
-      tempStudentRegistration.pass = pass;
-
-      // توليد كود التحقق وإرساله
-      pendingOtp = Math.floor(1000 + Math.random() * 9000).toString();
-
-      document.getElementById('regStepData').style.display = 'none';
-      document.getElementById('regStepOtp').style.display = 'block';
-
-      toast(`📩 رسالة إلى رقمك ${phone}: كود التحقق الخاص بك هو [ ${pendingOtp} ]`);
-    }
-
-    function verifyOtpAndActivateAccount() {
-      const inputCode = document.getElementById('inputOtpVerification').value.trim();
-      if (inputCode !== pendingOtp) {
-        alert('كود التحقق غير صحيح! يرجى كتابة الكود الموضح في الرسالة.');
-        return;
-      }
-
-      const students = JSON.parse(localStorage.getItem('registered_students') || '[]');
       const newStudent = {
-        name: tempStudentRegistration.name,
-        grade: tempStudentRegistration.grade,
-        phone: tempStudentRegistration.phone,
-        pass: tempStudentRegistration.pass,
+        name: name,
+        grade: tempGrade,
+        phone: phone,
+        pass: pass,
         registeredAt: new Date().toLocaleDateString('ar-EG')
       };
 
@@ -1438,10 +1476,21 @@
       localStorage.setItem('registered_students', JSON.stringify(students));
       localStorage.setItem('active_student', JSON.stringify(newStudent));
 
-      closeModal('registerOtpModal');
+      closeModal('registerModal');
       refreshStudentHeaderButton();
-      alert(`مبروك يا ${newStudent.name}! تم تأكيد رقمك وتفعيل حسابك بنجاح في ${getGradeText(newStudent.grade)}.`);
-      toast(`أهلاً بك يا ${newStudent.name}!`);
+
+      // تجهيز رسالة الواتساب للرقم المسجل
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
+      const waNumber = cleanPhone.startsWith('0') ? '2' + cleanPhone : cleanPhone;
+      const welcomeText = encodeURIComponent(
+        `أهلاً بك يا ${name} في منصة الأستاذ محمد العكل! 🧬\n\nتم تسجيل حسابك بنجاح في ${getGradeText(tempGrade)}.\nرقم هاتفك المسجل: ${phone}\nكلمة المرور: ${pass}\n\nنتمنى لك عاماً دراسياً مليئاً بالتفوق والدرجات النهائية!`
+      );
+      
+      document.getElementById('btnWhatsAppWelcomeMsg').href = `https://wa.me/${waNumber}?text=${welcomeText}`;
+      document.getElementById('welcomeStudentGreet').innerText = `أهلاً بك يا ${name}، تم تفعيل حسابك مباشرة. يمكنك الآن فتح رسالة الترحيب على واتساب أو البدء فوراً.`;
+      
+      openModal('welcomeSuccessModal');
+      toast(`أهلاً بك يا ${name}! تم تسجيل حسابك.`);
     }
 
     /* ---- خانة حسابي للطالب وتغيير كلمة السر ---- */
@@ -1542,7 +1591,7 @@
     }
 
     function startQuiz(quizId) {
-      const quizzes = JSON.parse(localStorage.getItem('platform_quizzes') || '[]');
+      const quizzes = currentCloudData.quizzes || [];
       currentQuizData = quizzes.find(q => q.id === quizId);
       if (!currentQuizData) return;
 
@@ -1634,8 +1683,8 @@
     }
 
     function refreshAdminSelectors() {
-      const courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
-      const lectures = JSON.parse(localStorage.getItem('platform_lectures') || '[]');
+      const courses = currentCloudData.courses || [];
+      const lectures = currentCloudData.lectures || [];
 
       document.getElementById('lecTargetCourse').innerHTML = courses.map(c => `
         <option value="${c.id}">${c.title} (${getGradeText(c.grade)})</option>
@@ -1662,20 +1711,18 @@
       const price = document.getElementById('cPrice').value.trim();
       const desc = document.getElementById('cDesc').value.trim();
 
-      const courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
-      courses.unshift({ id: 'course_' + Date.now(), title, grade, price, desc });
-      localStorage.setItem('platform_courses', JSON.stringify(courses));
+      if (!currentCloudData.courses) currentCloudData.courses = [];
+      currentCloudData.courses.unshift({ id: 'course_' + Date.now(), title, grade, price, desc });
 
-      alert('تمت إضافة الكورس للصف المحدد بنجاح!');
+      saveToCloud();
       e.target.reset();
       refreshAdminSelectors();
     }
 
     function deleteCourse(id) {
-      if (!confirm('هل أنت متأكد من حذف هذا الكورس؟')) return;
-      let courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
-      courses = courses.filter(c => c.id !== id);
-      localStorage.setItem('platform_courses', JSON.stringify(courses));
+      if (!confirm('هل أنت متأكد من حذف هذا الكورس سحابياً؟')) return;
+      currentCloudData.courses = currentCloudData.courses.filter(c => c.id !== id);
+      saveToCloud();
       refreshAdminSelectors();
     }
 
@@ -1685,11 +1732,10 @@
       const courseId = document.getElementById('lecTargetCourse').value;
       const video = document.getElementById('lecVideoUrl').value.trim();
 
-      const lectures = JSON.parse(localStorage.getItem('platform_lectures') || '[]');
-      lectures.push({ id: 'lec_' + Date.now(), courseId, title, video });
-      localStorage.setItem('platform_lectures', JSON.stringify(lectures));
+      if (!currentCloudData.lectures) currentCloudData.lectures = [];
+      currentCloudData.lectures.push({ id: 'lec_' + Date.now(), courseId, title, video });
 
-      alert('تم نشر المحاضرة في الكورس المحدد بنجاح!');
+      saveToCloud();
       e.target.reset();
       refreshAdminSelectors();
     }
@@ -1728,35 +1774,34 @@
         if (prompt && opts.length > 0) questions.push({ prompt, options: opts, correct: ans });
       });
 
-      const quizzes = JSON.parse(localStorage.getItem('platform_quizzes') || '[]');
-      quizzes.push({ id: 'quiz_' + Date.now(), lectureId, title, duration, questions });
-      localStorage.setItem('platform_quizzes', JSON.stringify(quizzes));
+      if (!currentCloudData.quizzes) currentCloudData.quizzes = [];
+      currentCloudData.quizzes.push({ id: 'quiz_' + Date.now(), lectureId, title, duration, questions });
 
-      alert('تم حفظ وربط الكويز بالمحاضرة المحددة بنجاح!');
+      saveToCloud();
       e.target.reset();
     }
 
     /* ---- تعديل نصوص ومربعات الواجهة ---- */
     function loadContentTextsToInputs() {
-      const t = JSON.parse(localStorage.getItem('platform_texts') || '{}');
-      document.getElementById('editBrandName').value = t.brandName || 'الأستاذ محمد العكل';
-      document.getElementById('editHeroBadge').value = t.heroBadge || 'منصة الكيمياء والأحياء للثانوية العامة';
-      document.getElementById('editHeroHeading').value = t.heroHeading || 'أهلاً بيك في بيتك التاني!';
+      const t = currentCloudData.texts || {};
+      document.getElementById('editBrandName').value = t.brandName || '';
+      document.getElementById('editHeroBadge').value = t.heroBadge || '';
+      document.getElementById('editHeroHeading').value = t.heroHeading || '';
       document.getElementById('editHeroDesc').value = t.heroDesc || '';
 
-      document.getElementById('editFeatTitle1').value = t.featTitle1 || '1. شرح بسيط ومفهوم';
+      document.getElementById('editFeatTitle1').value = t.featTitle1 || '';
       document.getElementById('editFeatDesc1').value = t.featDesc1 || '';
-      document.getElementById('editFeatTitle2').value = t.featTitle2 || '2. فيديوهات برسومات توضيحية';
+      document.getElementById('editFeatTitle2').value = t.featTitle2 || '';
       document.getElementById('editFeatDesc2').value = t.featDesc2 || '';
-      document.getElementById('editFeatTitle3').value = t.featTitle3 || '3. تمارين تفاعلية على الدروس';
+      document.getElementById('editFeatTitle3').value = t.featTitle3 || '';
       document.getElementById('editFeatDesc3').value = t.featDesc3 || '';
-      document.getElementById('editFeatTitle4').value = t.featTitle4 || '4. مرونة كاملة في المذاكرة';
+      document.getElementById('editFeatTitle4').value = t.featTitle4 || '';
       document.getElementById('editFeatDesc4').value = t.featDesc4 || '';
     }
 
     function handleSaveContentTexts(e) {
       e.preventDefault();
-      const updated = {
+      currentCloudData.texts = {
         brandName: document.getElementById('editBrandName').value.trim(),
         heroBadge: document.getElementById('editHeroBadge').value.trim(),
         heroHeading: document.getElementById('editHeroHeading').value.trim(),
@@ -1771,14 +1816,12 @@
         featDesc4: document.getElementById('editFeatDesc4').value.trim()
       };
 
-      localStorage.setItem('platform_texts', JSON.stringify(updated));
-      alert('تم حفظ وتحديث نصوص الواجهة ومربعات "ليه تشترك معانا؟" بنجاح!');
-      renderFrontView();
+      saveToCloud();
     }
 
     /* ---- تعديل الإحصائيات ---- */
     function loadStatsInputs() {
-      const stats = JSON.parse(localStorage.getItem('sakr_stats') || '{}');
+      const stats = currentCloudData.stats || {};
       document.getElementById('statInputYt').value = stats.yt || '+1.3M';
       document.getElementById('statInputStudents').value = stats.students || '+50,000';
       document.getElementById('statInputTop').value = stats.top || 'أوائل جمهورية';
@@ -1786,13 +1829,13 @@
 
     function handleSaveStats(e) {
       e.preventDefault();
-      const yt = document.getElementById('statInputYt').value.trim();
-      const students = document.getElementById('statInputStudents').value.trim();
-      const top = document.getElementById('statInputTop').value.trim();
+      currentCloudData.stats = {
+        yt: document.getElementById('statInputYt').value.trim(),
+        students: document.getElementById('statInputStudents').value.trim(),
+        top: document.getElementById('statInputTop').value.trim()
+      };
 
-      localStorage.setItem('sakr_stats', JSON.stringify({ yt, students, top }));
-      alert('تم تحديث أرقام الإحصائيات في الصفحة الرئيسية بنجاح!');
-      renderFrontView();
+      saveToCloud();
     }
 
     /* ---- قسم المطور المحمي بكلمة السر 33333 ---- */
@@ -1802,8 +1845,8 @@
       if (input === actual) {
         document.getElementById('devLockShield').style.display = 'none';
         document.getElementById('devUnlockedEditor').style.display = 'block';
-        document.getElementById('devFbField').value = localStorage.getItem('dev_fb') || '';
-        document.getElementById('devWaField').value = localStorage.getItem('dev_wa') || '';
+        document.getElementById('devFbField').value = currentCloudData.dev?.fb || '';
+        document.getElementById('devWaField').value = currentCloudData.dev?.wa || '';
         alert('أهلاً بك يا باشمهندس محمد عصام! تم فتح قفل إعدادات المطور بنجاح.');
       } else {
         alert('كلمة سر المطور غير صحيحة! هذا القسم مخصص لمهندس الموقع فقط.');
@@ -1814,7 +1857,8 @@
       if (input.files && input.files[0]) {
         const r = new FileReader();
         r.onload = e => {
-          localStorage.setItem('dev_photo', e.target.result);
+          if (!currentCloudData.dev) currentCloudData.dev = {};
+          currentCloudData.dev.photo = e.target.result;
           renderDevVisuals();
         };
         r.readAsDataURL(input.files[0]);
@@ -1822,27 +1866,25 @@
     }
 
     function saveDevData() {
-      const fb = document.getElementById('devFbField').value.trim();
-      const wa = document.getElementById('devWaField').value.trim();
-      if (fb) localStorage.setItem('dev_fb', fb);
-      if (wa) localStorage.setItem('dev_wa', wa);
+      if (!currentCloudData.dev) currentCloudData.dev = {};
+      currentCloudData.dev.fb = document.getElementById('devFbField').value.trim();
+      currentCloudData.dev.wa = document.getElementById('devWaField').value.trim();
 
-      renderDevVisuals();
-      alert('تم تحديث صورة وروابط المطور بنجاح!');
+      saveToCloud();
     }
 
     function renderDevVisuals() {
-      const pic = localStorage.getItem('dev_photo');
+      const dev = currentCloudData.dev || {};
       const thumb = document.getElementById('devThumbBox');
       const big = document.getElementById('devBigImgBox');
 
-      if (pic) {
-        thumb.innerHTML = `<img src="${pic}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />`;
-        big.innerHTML = `<img src="${pic}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />`;
+      if (dev.photo) {
+        thumb.innerHTML = `<img src="${dev.photo}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />`;
+        big.innerHTML = `<img src="${dev.photo}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />`;
       }
 
-      const fb = localStorage.getItem('dev_fb') || 'https://facebook.com';
-      const wa = localStorage.getItem('dev_wa') || '201000000000';
+      const fb = dev.fb || 'https://facebook.com';
+      const wa = dev.wa || '201000000000';
       document.getElementById('devFbLink').href = fb;
       document.getElementById('devWaLink').href = wa.startsWith('http') ? wa : `https://wa.me/2${wa.replace(/[^0-9]/g, '')}`;
     }
@@ -1852,8 +1894,7 @@
     function closeDevModalOnBg(e) { if (e.target.id === 'devModal') closeDevModal(); }
 
     window.addEventListener('DOMContentLoaded', () => {
-      renderFrontView();
-      renderDevVisuals();
+      syncFromCloud();
     });
   </script>
 </body>
