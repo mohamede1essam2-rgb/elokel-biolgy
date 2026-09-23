@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>منصة الأستاذ محمد العكل | الصفحة الرئيسية</title>
+  <title>منصة الأستاذ محمد العكل | كيمياء وأحياء الثانوية العامة</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,8 +16,8 @@
       --sakr-card: #121826;
       --sakr-card-border: #1f293d;
       --sakr-gold: #f59e0b;
-      --sakr-gold-hover: #d97706;
       --sakr-yellow: #fbbf24;
+      --sakr-gold-gradient: linear-gradient(135deg, #f59e0b, #d97706);
       --sakr-text: #f8fafc;
       --sakr-muted: #94a3b8;
     }
@@ -34,13 +34,12 @@
       background-color: var(--sakr-bg);
       color: var(--sakr-text);
       line-height: 1.6;
-      padding-bottom: 70px;
     }
 
-    /* الهيدر العلوي بنمط منصة صقر */
+    /* الهيدر العلوي */
     .sakr-header {
       background: rgba(11, 15, 25, 0.95);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--sakr-card-border);
       padding: 14px 24px;
       display: flex;
@@ -63,15 +62,14 @@
       font-size: 1.6rem;
     }
 
-    /* الإضافة 1: زر لوحة المستر فوق في الجنب */
     .btn-admin-top {
       background: rgba(245, 158, 11, 0.12);
       border: 1px solid var(--sakr-gold);
       color: var(--sakr-yellow);
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -83,7 +81,7 @@
       color: #000;
     }
 
-    /* قسم الهيرو الرئيسي - نفس نص وشكل خالد صقر تماماً */
+    /* قسم الهيرو */
     .hero-section {
       text-align: center;
       padding: 55px 20px 45px;
@@ -117,7 +115,7 @@
       margin: 0 auto 28px;
     }
     .btn-sakr-cta {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
+      background: var(--sakr-gold-gradient);
       color: #000;
       font-weight: 800;
       padding: 13px 36px;
@@ -132,11 +130,9 @@
       text-decoration: none;
       transition: transform 0.2s;
     }
-    .btn-sakr-cta:hover {
-      transform: translateY(-2px);
-    }
+    .btn-sakr-cta:hover { transform: translateY(-2px); }
 
-    /* إحصائيات منصة صقر */
+    /* الإحصائيات (قابلة للتعديل من اللوحة) */
     .sakr-stats {
       display: flex;
       justify-content: center;
@@ -171,7 +167,7 @@
     .container {
       max-width: 1080px;
       margin: 0 auto;
-      padding: 45px 16px;
+      padding: 45px 16px 85px;
     }
 
     .section-title {
@@ -189,7 +185,7 @@
       margin-top: 4px;
     }
 
-    /* قسم ليه تشترك معانا؟ */
+    /* مميزات المنصة */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -230,10 +226,10 @@
       color: var(--sakr-muted);
     }
 
-    /* شبكة الكورسات بنمط صقر */
+    /* شبكة الكورسات */
     .courses-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 22px;
     }
     .course-card {
@@ -245,26 +241,24 @@
       flex-direction: column;
       transition: 0.2s;
     }
-    .course-card:hover {
-      border-color: var(--sakr-gold);
-    }
+    .course-card:hover { border-color: var(--sakr-gold); }
     .course-header {
       padding: 20px;
       border-bottom: 1px solid var(--sakr-card-border);
       background: linear-gradient(180deg, rgba(245, 158, 11, 0.08), transparent);
     }
-    .course-badge {
+    .course-price-tag {
       display: inline-block;
       background: var(--sakr-gold);
       color: #000;
       font-weight: 800;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       padding: 4px 12px;
       border-radius: 6px;
       margin-bottom: 10px;
     }
     .course-header h3 {
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       color: #fff;
       margin-bottom: 6px;
     }
@@ -279,68 +273,38 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .course-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-    }
-    .btn-course-action {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.06);
+    .lesson-row {
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--sakr-card-border);
-      color: #fff;
-      padding: 10px;
       border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
+      padding: 10px 14px;
+      margin-bottom: 10px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-sm-action {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--sakr-gold);
+      color: var(--sakr-yellow);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
       gap: 6px;
       transition: 0.2s;
     }
-    .btn-course-action:hover {
+    .btn-sm-action:hover {
       background: var(--sakr-gold);
       color: #000;
-      border-color: var(--sakr-gold);
     }
 
-    /* مشغل الفيديو */
-    #playerModal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 2500;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .player-box {
-      width: 100%;
-      max-width: 800px;
-      background: var(--sakr-card);
-      border: 1px solid var(--sakr-card-border);
-      border-radius: 14px;
-      padding: 16px;
-    }
-    .video-viewport {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 12px;
-    }
-    video, iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* الإضافة 2: مربع صغير ملحوظ تحت في أقصى الشاشة لبيانات المطور */
+    /* مربع المطور الصغير بالأسفل */
     .dev-bottom-box {
       position: fixed;
       bottom: 15px;
@@ -357,9 +321,7 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
       transition: transform 0.2s;
     }
-    .dev-bottom-box:hover {
-      transform: scale(1.06);
-    }
+    .dev-bottom-box:hover { transform: scale(1.06); }
     .dev-thumb-circle {
       width: 34px;
       height: 34px;
@@ -370,7 +332,6 @@
       align-items: center;
       justify-content: center;
       font-size: 0.95rem;
-      object-fit: cover;
       overflow: hidden;
     }
     .dev-text-preview {
@@ -388,7 +349,7 @@
       color: var(--sakr-yellow);
     }
 
-    /* نافذة تكبير صورة وبيانات المطور في منتصف الشاشة */
+    /* نافذة تكبير المطور */
     #devModal {
       display: none;
       position: fixed;
@@ -426,17 +387,14 @@
       align-items: center;
       justify-content: center;
     }
-    .modal-close-btn:hover {
-      background: #ef4444;
-      color: #fff;
-    }
+    .modal-close-btn:hover { background: #ef4444; color: #fff; }
     .dev-big-avatar {
       width: 130px;
       height: 130px;
       border-radius: 50%;
       margin: 0 auto 16px;
       padding: 4px;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
+      background: var(--sakr-gold-gradient);
       box-shadow: 0 0 30px rgba(245, 158, 11, 0.45);
     }
     .dev-big-avatar-inner {
@@ -472,76 +430,158 @@
       gap: 8px;
       transition: 0.2s;
     }
-    .dev-btn-link:hover {
-      background: var(--sakr-gold);
-      color: #000;
-    }
+    .dev-btn-link:hover { background: var(--sakr-gold); color: #000; }
 
-    /* نافذة لوحة تحكم المستر */
-    #adminModal {
+    /* مشغل الفيديو والكويز */
+    #playerModal, #quizModal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0, 0, 0, 0.88);
       backdrop-filter: blur(8px);
-      z-index: 2800;
+      z-index: 2500;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
-    .admin-card {
+    .player-card {
+      width: 100%;
+      max-width: 820px;
       background: var(--sakr-card);
       border: 1px solid var(--sakr-card-border);
       border-radius: 14px;
+      padding: 16px;
+    }
+    .video-viewport {
       width: 100%;
-      max-width: 550px;
-      max-height: 90vh;
-      overflow-y: auto;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    video, iframe { width: 100%; height: 100%; border: none; }
+
+    /* =========================================================
+       لوحة تحكم المستر الكبيرة والاحترافية بنظام الشاشات
+       ========================================================= */
+    #adminScreen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #080c16;
+      z-index: 3500;
+      overflow: hidden;
+      flex-direction: column;
+    }
+    .admin-navbar {
+      height: 60px;
+      background: #0f1626;
+      border-bottom: 1px solid var(--sakr-card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .admin-body-layout {
+      flex: 1;
+      display: flex;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+    .admin-sidebar {
+      width: 250px;
+      background: #0d1322;
+      border-left: 1px solid var(--sakr-card-border);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 16px 10px;
+    }
+    .admin-tab-btn {
+      background: none;
+      border: none;
+      color: var(--sakr-muted);
+      padding: 12px 14px;
+      border-radius: 10px;
+      text-align: right;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+    }
+    .admin-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+    }
+    .admin-tab-btn.active {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--sakr-gold);
+      border-right: 3px solid var(--sakr-gold);
+    }
+    .admin-main-view {
+      flex: 1;
       padding: 24px;
-      position: relative;
+      overflow-y: auto;
+    }
+    .admin-panel-card {
+      background: var(--sakr-card);
+      border: 1px solid var(--sakr-card-border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
     }
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       text-align: right;
     }
     .form-group label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: var(--sakr-muted);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .form-control {
       width: 100%;
       background: #090d17;
       border: 1px solid var(--sakr-card-border);
       color: var(--sakr-text);
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-radius: 10px;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       outline: none;
     }
-    .form-control:focus {
-      border-color: var(--sakr-gold);
+    .form-control:focus { border-color: var(--sakr-gold); }
+
+    .q-item-box {
+      background: #090e18;
+      border: 1px dashed var(--sakr-card-border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
     }
   </style>
 </head>
 <body>
 
-  <!-- الهيدر العلوي بنمط منصة صقر -->
+  <!-- شريط منصة صقر العلوي -->
   <header class="sakr-header">
     <div class="sakr-brand">
       <i class="fa-solid fa-atom"></i>
       <span>الأستاذ محمد العكل</span>
     </div>
 
-    <!-- الإضافة 1: زر لوحة المستر فوق في الجنب -->
-    <button class="btn-admin-top" onclick="openAdminModal()">
-      <i class="fa-solid fa-user-gear"></i>
+    <!-- زر لوحة المستر في الأعلى -->
+    <button class="btn-admin-top" onclick="promptAdminLogin()">
+      <i class="fa-solid fa-sliders"></i>
       <span>لوحة المستر</span>
     </button>
   </header>
 
-  <!-- قسم الهيرو الرئيسي - نفس نص وشكل خالد صقر تماماً -->
+  <!-- قسم الهيرو الرئيسي -->
   <section class="hero-section">
     <div class="hero-badge">
       <i class="fa-solid fa-circle-check"></i> منصة الكيمياء والأحياء للثانوية العامة
@@ -554,26 +594,26 @@
       <i class="fa-solid fa-fire"></i> اشترك دلوقتي !
     </a>
 
-    <!-- إحصائيات صقر المليونية -->
+    <!-- إحصائيات المنصة (يتم تعديلها مباشرة من اللوحة) -->
     <div class="sakr-stats">
       <div class="stat-pill">
         <i class="fa-brands fa-youtube"></i>
         <div class="stat-pill-info">
-          <strong>+1.3M</strong>
+          <strong id="statDisplayYt">+1.3M</strong>
           <span>متابعين على اليوتيوب</span>
         </div>
       </div>
       <div class="stat-pill">
         <i class="fa-solid fa-user-graduate"></i>
         <div class="stat-pill-info">
-          <strong>+50,000</strong>
+          <strong id="statDisplayStudents">+50,000</strong>
           <span>طالب في جميع المحافظات</span>
         </div>
       </div>
       <div class="stat-pill">
         <i class="fa-solid fa-award"></i>
         <div class="stat-pill-info">
-          <strong>أوائل جمهورية</strong>
+          <strong id="statDisplayTop">أوائل جمهورية</strong>
           <span>دفعة بعد دفعة</span>
         </div>
       </div>
@@ -597,12 +637,12 @@
       <div class="feature-card">
         <div class="feature-icon"><i class="fa-solid fa-film"></i></div>
         <h3>2. فيديوهات برسومات توضيحية</h3>
-        <p>جرافيك عالي الجودة ومجسمات توضيحية تجعلك ترى المفاهيم بنفسك.</p>
+        <p>جرافيك عالي الجودة ومجسمات تفاعلية تجعلك ترى التجارب بنفسك.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><i class="fa-solid fa-stopwatch-20"></i></div>
         <h3>3. تمارين تفاعلية على الدروس</h3>
-        <p>كويزات إلكترونية بعد كل محاضرة تقيس مستواك وتصحح أخطاءك فورياً.</p>
+        <p>كويزات إلكترونية مقيدة بوقت وتصحيح فوري على كل محاضرة.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><i class="fa-solid fa-mobile-screen"></i></div>
@@ -611,19 +651,17 @@
       </div>
     </div>
 
-    <!-- شبكة الكورسات -->
+    <!-- شبكة الكورسات والمحاضرات الفعالة -->
     <div id="coursesSection" class="section-title">
       <h2>الكورسات والمحاضرات المتاحة</h2>
-      <p>اختر صفك الدراسي واستكمل محاضراتك واختباراتك</p>
+      <p>اختر صفك الدراسي واستكمل محاضراتك وكويزاتك</p>
     </div>
 
-    <div class="courses-grid" id="coursesList">
-      <!-- تحميل الكورسات تلقائياً -->
-    </div>
+    <div class="courses-grid" id="coursesGridArea"></div>
 
   </div>
 
-  <!-- الإضافة 2: مربع صغير ملحوظ تحت في أقصى الشاشة لبيانات المطور -->
+  <!-- مربع المطور الصغير بالأسفل -->
   <div class="dev-bottom-box" onclick="openDevModal()" title="اضغط لعرض بيانات المطور">
     <div id="devThumbBox" class="dev-thumb-circle">
       <i class="fa-solid fa-code"></i>
@@ -634,7 +672,7 @@
     </div>
   </div>
 
-  <!-- نافذة تكبير صورة وبيانات المطور في منتصف الشاشة -->
+  <!-- نافذة تكبير صورة وبيانات المطور الدائرية في المنتصف -->
   <div id="devModal" onclick="closeDevModalOnBg(event)">
     <div class="dev-modal-content">
       <button class="modal-close-btn" onclick="closeDevModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -648,7 +686,7 @@
       <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 2px;">محمد عصام</h3>
       <p style="color: var(--sakr-gold); font-size: 0.95rem; font-weight: 700;">مطور ومهندس هذا الموقع الإلكتروني</p>
       <p style="color: var(--sakr-muted); font-size: 0.85rem; margin-top: 6px;">
-        تصميم وبرمجة وتطوير منصة الأستاذ محمد العكل بأحدث المعايير البرمجية.
+        تصميم وتطوير وبرمجة منصة الأستاذ محمد العكل بأحدث المعايير البرمجية.
       </p>
 
       <div class="dev-links">
@@ -664,159 +702,370 @@
 
   <!-- مشغل الفيديو -->
   <div id="playerModal">
-    <div class="player-box">
+    <div class="player-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <h4 id="videoPlayTitle" style="color:#fff; font-size:1.05rem;">عنوان المحاضرة</h4>
+        <h4 id="videoPlayTitle" style="color:#fff;">عنوان المحاضرة</h4>
         <button class="modal-close-btn" style="position:static;" onclick="closePlayer()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="video-viewport" id="videoContainer"></div>
     </div>
   </div>
 
-  <!-- نافذة لوحة تحكم المستر -->
-  <div id="adminModal">
-    <div class="admin-card">
-      <button class="modal-close-btn" onclick="closeAdminModal()"><i class="fa-solid fa-xmark"></i></button>
-      
-      <!-- قفل الباسورد -->
-      <div id="adminLockScreen" style="text-align: center; padding: 20px 0;">
-        <i class="fa-solid fa-lock" style="font-size: 2.5rem; color: var(--sakr-gold); margin-bottom: 12px;"></i>
-        <h3 style="color:#fff; margin-bottom: 8px;">دخول لوحة المستر</h3>
-        <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom: 16px;">أدخل كلمة المرور للتحكم في المنصة والمحتوى</p>
-        <input type="password" id="adminPassInput" class="form-control" placeholder="كلمة المرور" style="max-width: 280px; margin: 0 auto 14px;" />
-        <button class="btn-sakr-cta" style="width: 100%; max-width: 280px; justify-content:center;" onclick="checkAdminPassword()">دخول اللوحة</button>
+  <!-- نافذة الكويز التفاعلي للطلاب -->
+  <div id="quizModal">
+    <div class="player-card" style="max-width: 600px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid var(--sakr-card-border); padding-bottom:10px;">
+        <h4 id="quizTitleHeading" style="color:var(--sakr-gold);">كويز المحاضرة</h4>
+        <span id="quizTimerClock" style="background:rgba(239, 68, 68, 0.2); color:#f87171; padding:4px 12px; border-radius:14px; font-weight:bold;">10:00</span>
       </div>
+      <div id="quizQuestionsContainer" style="max-height: 60vh; overflow-y: auto;"></div>
+      <button class="btn-sakr-cta" style="width: 100%; justify-content: center; margin-top: 14px;" onclick="submitStudentQuiz()">
+        تسليم الإجابات واعتماد النتيجة
+      </button>
+    </div>
+  </div>
 
-      <!-- محتوى اللوحة بعد فك القفل -->
-      <div id="adminDashboard" style="display: none;">
-        <div style="border-bottom: 1px solid var(--sakr-card-border); padding-bottom: 12px; margin-bottom: 16px;">
-          <h3 style="color: var(--sakr-gold);"><i class="fa-solid fa-sliders"></i> لوحة التحكم والإدارة</h3>
-          <p style="font-size:0.85rem; color:var(--sakr-muted);">إضافة المحاضرات، الكورسات، وتعديل بيانات المنصة والمطور</p>
-        </div>
-
-        <!-- إضافة كورس جديد -->
-        <div style="background:#090d17; border:1px solid var(--sakr-card-border); border-radius:12px; padding:16px; margin-bottom:16px;">
-          <h4 style="color:#fff; font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-plus-circle" style="color:var(--sakr-gold);"></i> إضافة كورس / محاضرة جديدة</h4>
-          <form onsubmit="handleCreateCourse(event)">
-            <div class="form-group">
-              <label>عنوان الكورس / المحاضرة</label>
-              <input type="text" id="cTitle" class="form-control" placeholder="مثال: كورس الباب الأول - التحليل الكيميائي" required />
-            </div>
-            <div class="form-group">
-              <label>الصف الدراسي</label>
-              <select id="cGrade" class="form-control" required>
-                <option value="1">الصف الأول الثانوي</option>
-                <option value="2">الصف الثاني الثانوي</option>
-                <option value="3">الصف الثالث الثانوي</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>السعر أو الحالة</label>
-              <input type="text" id="cPrice" class="form-control" placeholder="مثال: كورس مجاني أو 150 جنيه" required />
-            </div>
-            <div class="form-group">
-              <label>رابط فيديو المحاضرة (YouTube أو رابط مباشر)</label>
-              <input type="text" id="cVideo" class="form-control" placeholder="https://www.youtube.com/watch?v=..." required />
-            </div>
-            <button type="submit" class="btn-sakr-cta" style="width: 100%; justify-content:center;"><i class="fa-solid fa-upload"></i> نشر الكورس للطلاب</button>
-          </form>
-        </div>
-
-        <!-- إعدادات المطور -->
-        <div style="background:#090d17; border:1px solid var(--sakr-gold); border-radius:12px; padding:16px; margin-bottom:16px;">
-          <h4 style="color:var(--sakr-gold); font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-code"></i> إعدادات وصورة المطور (محمد عصام)</h4>
-          <div class="form-group">
-            <label>رفع صورة المطور من جهازك (لتكبر في منتصف الشاشة)</label>
-            <input type="file" id="devFileInput" class="form-control" accept="image/*" onchange="previewDevPhoto(this)" />
-          </div>
-          <div class="form-group">
-            <label>أو ضع رابط مباشر لصورتك</label>
-            <input type="text" id="devPhotoUrl" class="form-control" placeholder="https://..." />
-          </div>
-          <div class="form-group">
-            <label>رابط فيسبوك المطور</label>
-            <input type="text" id="devFbField" class="form-control" placeholder="https://facebook.com/..." />
-          </div>
-          <div class="form-group">
-            <label>رقم واتساب المطور</label>
-            <input type="text" id="devWaField" class="form-control" placeholder="201xxxxxxxxx" />
-          </div>
-          <button type="button" class="btn-sakr-cta" style="width: 100%; justify-content:center;" onclick="saveDevData()"><i class="fa-solid fa-check"></i> حفظ بيانات المطور</button>
-        </div>
-
-        <!-- تعديل باسورد اللوحة -->
-        <div style="background:#090d17; border:1px solid var(--sakr-card-border); border-radius:12px; padding:16px;">
-          <h4 style="color:#fff; font-size:0.95rem; margin-bottom:10px;"><i class="fa-solid fa-key"></i> تعديل كلمة سر لوحة المستر</h4>
-          <form onsubmit="handleChangePassword(event)">
-            <div class="form-group">
-              <label>كلمة المرور الجديدة</label>
-              <input type="password" id="newAdminPass" class="form-control" placeholder="أدخل كلمة المرور الجديدة" required />
-            </div>
-            <button type="submit" class="btn-course-action" style="width: 100%;"><i class="fa-solid fa-lock"></i> تحديث كلمة المرور</button>
-          </form>
-        </div>
+  <!-- =========================================================
+       لوحة تحكم المستر الكبيرة والاحترافية بنظام الشاشات
+       ========================================================= -->
+  <div id="adminScreen">
+    <div class="admin-navbar">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <i class="fa-solid fa-sliders" style="color:var(--sakr-gold); font-size:1.3rem;"></i>
+        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل</strong>
       </div>
+      <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="closeAdminScreen()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج من اللوحة
+      </button>
+    </div>
+
+    <div class="admin-body-layout">
+      <!-- الشريط الجانبي -->
+      <aside class="admin-sidebar">
+        <button class="admin-tab-btn active" onclick="switchAdminTab('courses', this)">
+          <i class="fa-solid fa-graduation-cap"></i> إدارة الكورسات والأسعار
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('lectures', this)">
+          <i class="fa-solid fa-video"></i> رفع الفيديوهات والمحاضرات
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('quizzes', this)">
+          <i class="fa-solid fa-stopwatch"></i> إنشاء وربط الكويزات
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('stats', this)">
+          <i class="fa-solid fa-chart-line"></i> إحصائيات الصفحة الرئيسية
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('dev', this)">
+          <i class="fa-solid fa-shield-halved"></i> إدارة المطور (خاص: 33333)
+        </button>
+      </aside>
+
+      <!-- منطقة العمل الرئيسية الواسعة -->
+      <main class="admin-main-view">
+        
+        <!-- تبويب 1: إدارة الكورسات والأسعار -->
+        <div id="viewCourses" class="admin-tab-view">
+          <div class="admin-panel-card">
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-plus-circle"></i> إضافة كورس جديد وتحديد سعره</h3>
+            <form onsubmit="handleCreateCourse(event)">
+              <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:14px;">
+                <div class="form-group">
+                  <label>اسم الكورس / الباب</label>
+                  <input type="text" id="cTitle" class="form-control" placeholder="مثال: كورس الباب الأول - التحليل الكيميائي" required />
+                </div>
+                <div class="form-group">
+                  <label>الصف الدراسي</label>
+                  <select id="cGrade" class="form-control" required>
+                    <option value="1">الصف الأول الثانوي</option>
+                    <option value="2">الصف الثاني الثانوي</option>
+                    <option value="3">الصف الثالث الثانوي</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>سعر الكورس (بتحكمك الكامل)</label>
+                  <input type="text" id="cPrice" class="form-control" placeholder="مثال: 150 جنيه أو كورس مجاني" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>وصف الكورس</label>
+                <input type="text" id="cDesc" class="form-control" placeholder="شرح مبسط لمحتوى الكورس وما يقدمه للطالب" required />
+              </div>
+              <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
+                <i class="fa-solid fa-check"></i> حفظ ونشر الكورس
+              </button>
+            </form>
+          </div>
+
+          <div class="admin-panel-card">
+            <h4 style="color:#fff; margin-bottom:12px;">الكورسات الحالية المنشورة:</h4>
+            <div id="adminCoursesListTable"></div>
+          </div>
+        </div>
+
+        <!-- تبويب 2: رفع الفيديوهات والمحاضرات وربطها بالكورس -->
+        <div id="viewLectures" class="admin-tab-view" style="display:none;">
+          <div class="admin-panel-card">
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-cloud-arrow-up"></i> رفع محاضرة فيديو وربطها بكورس وصف محدد</h3>
+            <form onsubmit="handleCreateLecture(event)">
+              <div style="display:grid; grid-template-columns: 2fr 1fr; gap:14px;">
+                <div class="form-group">
+                  <label>عنوان المحاضرة</label>
+                  <input type="text" id="lecTitle" class="form-control" placeholder="مثال: المحاضرة 1 - تركيب الذرة والجدول الدوري" required />
+                </div>
+                <div class="form-group">
+                  <label>أضف المحاضرة لأي كورس؟</label>
+                  <select id="lecTargetCourse" class="form-control" required></select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>رابط فيديو المحاضرة (YouTube أو رابط مباشر)</label>
+                <input type="text" id="lecVideoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." required />
+              </div>
+              <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
+                <i class="fa-solid fa-video"></i> نشر المحاضرة في الكورس المحدد
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- تبويب 3: إنشاء الكويزات وربطها بالكورس والفيديو -->
+        <div id="viewQuizzes" class="admin-tab-view" style="display:none;">
+          <div class="admin-panel-card">
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-file-circle-question"></i> إنشاء كويز تحت محاضرة وفيديو محدد</h3>
+            <form onsubmit="handleCreateQuiz(event)">
+              <div style="display:grid; grid-template-columns: 2fr 2fr 1fr; gap:14px;">
+                <div class="form-group">
+                  <label>عنوان الكويز</label>
+                  <input type="text" id="qTitle" class="form-control" placeholder="مثال: كويز المحاضرة الأولى" required />
+                </div>
+                <div class="form-group">
+                  <label>الكويز يتبع أنهي محاضرة وفيديو؟</label>
+                  <select id="qTargetLecture" class="form-control" required></select>
+                </div>
+                <div class="form-group">
+                  <label>المدة (بالدقائق)</label>
+                  <input type="number" id="qDuration" class="form-control" value="10" min="1" max="120" required />
+                </div>
+              </div>
+
+              <!-- بناء الأسئلة المتعددة -->
+              <div style="display:flex; justify-content:space-between; align-items:center; margin:16px 0 8px;">
+                <strong style="color:#fff;">أسئلة الكويز:</strong>
+                <button type="button" class="btn-sm-action" onclick="addQuestionItem()"><i class="fa-solid fa-plus"></i> إضافة سؤال آخر</button>
+              </div>
+
+              <div id="questionsBuilderArea">
+                <div class="q-item-box">
+                  <div class="form-group">
+                    <input type="text" class="form-control q-prompt" placeholder="اكتب نص السؤال هنا..." required />
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control q-opts" placeholder="الخيارات مفصولة بفاصلة (مثال: الخيار أ, الخيار ب, الخيار ج, الخيار د)" required />
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label>رقم الاختيار الصحيح (1 أو 2 أو 3 أو 4):</label>
+                    <input type="number" class="form-control q-ans" min="1" max="4" value="1" required />
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem; margin-top:10px;">
+                <i class="fa-solid fa-check"></i> حفظ وربط الكويز بالفيديو فوراً
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- تبويب 4: تعديل إحصائيات الصفحة الرئيسية -->
+        <div id="viewStats" class="admin-tab-view" style="display:none;">
+          <div class="admin-panel-card">
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-pen-to-square"></i> تعديل أرقام الإحصائيات بالصفحة الرئيسية</h3>
+            <form onsubmit="handleSaveStats(event)">
+              <div class="form-group">
+                <label>رقم متابعين اليوتيوب المعروض</label>
+                <input type="text" id="statInputYt" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label>رقم عدد الطلاب المعروض</label>
+                <input type="text" id="statInputStudents" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label>نص أو رقم الإحصائية الثالثة</label>
+                <input type="text" id="statInputTop" class="form-control" required />
+              </div>
+              <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
+                حفظ وتحديث الإحصائيات في الخارج
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- تبويب 5: إدارة المطور (محمي بكلمة السر 33333) -->
+        <div id="viewDev" class="admin-tab-view" style="display:none;">
+          <div class="admin-panel-card" style="border-color:var(--sakr-gold);">
+            <h3 style="color:var(--sakr-gold); margin-bottom:10px;"><i class="fa-solid fa-lock"></i> قسم مطور الويب (محمد عصام)</h3>
+            <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom:14px;">هذا القسم محمي بكلمة مرور خاصة (خمس تلاتات: 33333) ولا يمكن لأحد تعديل بياناتك سواك:</p>
+
+            <div id="devLockShield">
+              <div class="form-group" style="max-width:300px;">
+                <label>كلمة سر المطور الخاصة</label>
+                <input type="password" id="devSecretPassInput" class="form-control" placeholder="أدخل كلمة السر" />
+              </div>
+              <button class="btn-sakr-cta" style="padding:8px 20px; font-size:0.88rem;" onclick="unlockDevSection()">
+                فتح إعدادات المطور
+              </button>
+            </div>
+
+            <div id="devUnlockedEditor" style="display:none; margin-top:16px;">
+              <div class="form-group">
+                <label>رفع صورتك الشخصية (لتظهر وتتكبر في منتصف الشاشة):</label>
+                <input type="file" id="devPhotoUpload" class="form-control" accept="image/*" onchange="previewDevPhoto(this)" />
+              </div>
+              <div class="form-group">
+                <label>رابط صفحتك على الفيسبوك</label>
+                <input type="text" id="devFbField" class="form-control" placeholder="https://facebook.com/..." />
+              </div>
+              <div class="form-group">
+                <label>رقم الواتساب الخاص بك</label>
+                <input type="text" id="devWaField" class="form-control" placeholder="201xxxxxxxxx" />
+              </div>
+              <button class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;" onclick="saveDevData()">
+                حفظ بيانات المطور
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </main>
     </div>
   </div>
 
   <script>
+    // تهيئة البيانات
     if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
-    if (!localStorage.getItem('sakr_courses')) {
-      const defaultCourses = [
+    if (!localStorage.getItem('dev_pass')) localStorage.setItem('dev_pass', '33333'); // خمس تلاتات
+
+    // الإحصائيات الافتراضية
+    if (!localStorage.getItem('sakr_stats')) {
+      localStorage.setItem('sakr_stats', JSON.stringify({
+        yt: '+1.3M',
+        students: '+50,000',
+        top: 'أوائل جمهورية'
+      }));
+    }
+
+    // الكورسات الافتراضية
+    if (!localStorage.getItem('platform_courses')) {
+      const initCourses = [
         {
-          id: 'c1',
-          title: 'كورس الامتحان التأسيسي 2027',
+          id: 'course_1',
+          title: 'كورس الباب الأول: العناصر الانتقالية',
+          grade: '3',
+          price: '180 جنيه',
+          desc: 'شرح تفصيلي للمنهج مع حل أسئلة الأنماط الجديدة والأفكار العليا.'
+        },
+        {
+          id: 'course_2',
+          title: 'كورس الأساس الكيميائي والخلوي للحياة',
           grade: '1',
           price: 'كورس مجاني ⏰',
-          desc: 'شامل مراجعة الأساسيات وأهم المفاهيم المطلوبة للعام الدراسي الجديد.',
+          desc: 'كورس شامل لمراجعة المفاهيم والأساسيات مع كويزات تقييمية.'
+        }
+      ];
+      localStorage.setItem('platform_courses', JSON.stringify(initCourses));
+    }
+
+    // المحاضرات الافتراضية
+    if (!localStorage.getItem('platform_lectures')) {
+      const initLectures = [
+        {
+          id: 'lec_1',
+          courseId: 'course_1',
+          title: 'المحاضرة 1: الخصائص العامة لعناصر السلسلة الأولى',
           video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         },
         {
-          id: 'c2',
-          title: 'كورس الباب الأول والثاني - عام وأزهر',
-          grade: '3',
-          price: '450 جنيه',
-          desc: 'شرح تفصيلي للمنهج بالكامل مع حل تدريبات واختبارات دورية على كل حصة.',
-          video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-        },
-        {
-          id: 'c3',
-          title: 'كورس الشهر الأول - ثانوية عامة 2027',
-          grade: '2',
-          price: '180 جنيه',
-          desc: 'محاضرات أسبوعية مكثفة مع واجب إلكتروني وكويز مقيد بوقت بعد كل محاضرة.',
+          id: 'lec_2',
+          courseId: 'course_2',
+          title: 'المحاضرة 1: الجزيئات البيولوجية الكبيرة',
           video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         }
       ];
-      localStorage.setItem('sakr_courses', JSON.stringify(defaultCourses));
+      localStorage.setItem('platform_lectures', JSON.stringify(initLectures));
     }
 
-    function renderCourses() {
-      const courses = JSON.parse(localStorage.getItem('sakr_courses') || '[]');
-      const container = document.getElementById('coursesList');
+    // الكويزات الافتراضية المرتبطة بالمحاضرات
+    if (!localStorage.getItem('platform_quizzes')) {
+      const initQuizzes = [
+        {
+          id: 'quiz_1',
+          lectureId: 'lec_1',
+          title: 'كويز المحاضرة 1: الخصائص العامة',
+          duration: 10,
+          questions: [
+            { prompt: 'أي من العناصر التالية يحتوي على أعلى حالة تأكسد؟', options: ['الكروم', 'المنجنيز', 'الحديد', 'الفاناديوم'], correct: 1 },
+            { prompt: 'تتميز جميع عناصر السلسلة الانتقالية الأولى بـ؟', options: ['تعدد حالات التأكسد ما عدا السكانديوم والخارصين', 'البارامغناطيسية لجميع مركباتها', 'الملونة دائماً', 'النشاط الكيميائي الشديد'], correct: 0 }
+          ]
+        }
+      ];
+      localStorage.setItem('platform_quizzes', JSON.stringify(initQuizzes));
+    }
 
-      container.innerHTML = courses.map(c => `
-        <div class="course-card">
-          <div class="course-header">
-            <span class="course-badge">${c.price}</span>
-            <h3>${c.title}</h3>
-            <p>${c.desc}</p>
-          </div>
-          <div class="course-body">
-            <span style="font-size:0.8rem; color:var(--sakr-yellow); font-weight:bold;">
-              <i class="fa-solid fa-graduation-cap"></i> ${getGradeText(c.grade)}
-            </span>
-            <div class="course-actions">
-              <button class="btn-course-action" onclick="playCourseVideo('${encodeURIComponent(c.video)}', '${encodeURIComponent(c.title)}')">
-                <i class="fa-solid fa-circle-play"></i> مشاهدة المحتوى
-              </button>
-              <button class="btn-course-action" style="background:var(--sakr-gold); color:#000; border:none;" onclick="alert('أهلاً بك! الكورس متاح للمشاهدة بالضغط على مشاهدة المحتوى.')">
-                الدخول للكورس
-              </button>
+    let activeQuizTimer = null;
+    let currentQuizData = null;
+
+    /* ---- عرض الواجهة الخارجية ---- */
+    function renderFrontView() {
+      // 1. عرض الإحصائيات
+      const stats = JSON.parse(localStorage.getItem('sakr_stats') || '{}');
+      document.getElementById('statDisplayYt').innerText = stats.yt || '+1.3M';
+      document.getElementById('statDisplayStudents').innerText = stats.students || '+50,000';
+      document.getElementById('statDisplayTop').innerText = stats.top || 'أوائل جمهورية';
+
+      // 2. عرض الكورسات والمحاضرات والكويزات
+      const courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
+      const lectures = JSON.parse(localStorage.getItem('platform_lectures') || '[]');
+      const quizzes = JSON.parse(localStorage.getItem('platform_quizzes') || '[]');
+
+      const container = document.getElementById('coursesGridArea');
+      container.innerHTML = courses.map(c => {
+        const cLectures = lectures.filter(l => l.courseId === c.id);
+
+        return `
+          <div class="course-card">
+            <div class="course-header">
+              <span class="course-price-tag">${c.price}</span>
+              <h3>${c.title}</h3>
+              <p>${c.desc}</p>
+            </div>
+            <div class="course-body">
+              <div style="font-size:0.8rem; color:var(--sakr-yellow); font-weight:bold; margin-bottom:12px;">
+                <i class="fa-solid fa-graduation-cap"></i> ${getGradeText(c.grade)} • (${cLectures.length} محاضرات)
+              </div>
+
+              <div>
+                ${cLectures.map((lec, idx) => {
+                  const relatedQuiz = quizzes.find(q => q.lectureId === lec.id);
+                  return `
+                    <div class="lesson-row">
+                      <span style="font-size:0.85rem; color:#fff;"><strong>حصة ${idx + 1}:</strong>${lec.title}</span>
+                      <div style="display:flex; gap:6px;">
+                        <button class="btn-sm-action" onclick="playVideo('${encodeURIComponent(lec.video)}', '${encodeURIComponent(lec.title)}')">
+                          <i class="fa-solid fa-play"></i> مشاهدة
+                        </button>
+                        ${relatedQuiz ? `
+                          <button class="btn-sm-action" style="background:rgba(16, 185, 129, 0.2); border-color:#10b981; color:#10b981;" onclick="startQuiz('${relatedQuiz.id}')">
+                            <i class="fa-solid fa-stopwatch"></i> الكويز
+                          </button>
+                        ` : ''}
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function getGradeText(g) {
@@ -825,7 +1074,7 @@
       return 'الصف الثالث الثانوي';
     }
 
-    function playCourseVideo(encUrl, encTitle) {
+    function playVideo(encUrl, encTitle) {
       const url = decodeURIComponent(encUrl);
       const title = decodeURIComponent(encTitle);
 
@@ -849,28 +1098,120 @@
       document.getElementById('videoContainer').innerHTML = '';
     }
 
-    // لوحة تحكم المستر
-    function openAdminModal() {
-      document.getElementById('adminModal').style.display = 'flex';
-      document.getElementById('adminLockScreen').style.display = 'block';
-      document.getElementById('adminDashboard').style.display = 'none';
-      document.getElementById('adminPassInput').value = '';
+    /* ---- خوض الكويز ---- */
+    function startQuiz(quizId) {
+      const quizzes = JSON.parse(localStorage.getItem('platform_quizzes') || '[]');
+      currentQuizData = quizzes.find(q => q.id === quizId);
+      if (!currentQuizData) return;
+
+      document.getElementById('quizTitleHeading').innerText = currentQuizData.title;
+      const container = document.getElementById('quizQuestionsContainer');
+
+      container.innerHTML = currentQuizData.questions.map((q, idx) => `
+        <div style="background:#090e18; border:1px solid var(--sakr-card-border); padding:12px; border-radius:10px; margin-bottom:10px;">
+          <p style="font-weight:bold; color:#fff; font-size:0.9rem; margin-bottom:8px;">س${idx + 1}: ${q.prompt}</p>
+          ${q.options.map((opt, oIdx) => `
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; margin-bottom:6px; cursor:pointer;">
+              <input type="radio" name="opt_${idx}" value="${oIdx}" />
+              <span>${opt}</span>
+            </label>
+          `).join('')}
+        </div>
+      `).join('');
+
+      document.getElementById('quizModal').style.display = 'flex';
+
+      let timeLeft = currentQuizData.duration * 60;
+      updateQuizClock(timeLeft);
+      clearInterval(activeQuizTimer);
+      activeQuizTimer = setInterval(() => {
+        timeLeft--;
+        updateQuizClock(timeLeft);
+        if (timeLeft <= 0) {
+          clearInterval(activeQuizTimer);
+          alert('انتهى الوقت المحدد للاختبار!');
+          submitStudentQuiz();
+        }
+      }, 1000);
     }
 
-    function closeAdminModal() {
-      document.getElementById('adminModal').style.display = 'none';
+    function updateQuizClock(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      document.getElementById('quizTimerClock').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     }
 
-    function checkAdminPassword() {
-      const input = document.getElementById('adminPassInput').value;
+    function submitStudentQuiz() {
+      clearInterval(activeQuizTimer);
+      let marks = 0;
+      const total = currentQuizData.questions.length;
+
+      currentQuizData.questions.forEach((q, i) => {
+        const picked = document.querySelector(`input[name="opt_${i}"]:checked`);
+        if (picked && parseInt(picked.value) === q.correct) marks++;
+      });
+
+      const pct = Math.round((marks / total) * 100);
+      alert(`تم الانتهاء!\nدرجتك في الكويز: ${marks} من ${total} (${pct}%)`);
+      document.getElementById('quizModal').style.display = 'none';
+    }
+
+    /* ---- لوحة تحكم المستر الكبيرة ---- */
+    function promptAdminLogin() {
+      const pass = prompt('أدخل كلمة سر لوحة المستر:');
       const actual = localStorage.getItem('admin_pwd') || '123456';
-      if (input === actual || input === 'Essam@Dev2026') {
-        document.getElementById('adminLockScreen').style.display = 'none';
-        document.getElementById('adminDashboard').style.display = 'block';
-        loadDevInputs();
-      } else {
+      if (pass === actual || pass === 'Essam@Dev2026') {
+        openAdminScreen();
+      } else if (pass !== null) {
         alert('كلمة المرور غير صحيحة!');
       }
+    }
+
+    function openAdminScreen() {
+      document.getElementById('adminScreen').style.display = 'flex';
+      refreshAdminSelectors();
+      loadStatsInputs();
+    }
+
+    function closeAdminScreen() {
+      document.getElementById('adminScreen').style.display = 'none';
+      renderFrontView();
+    }
+
+    function switchAdminTab(tabName, btn) {
+      document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.getElementById('viewCourses').style.display = tabName === 'courses' ? 'block' : 'none';
+      document.getElementById('viewLectures').style.display = tabName === 'lectures' ? 'block' : 'none';
+      document.getElementById('viewQuizzes').style.display = tabName === 'quizzes' ? 'block' : 'none';
+      document.getElementById('viewStats').style.display = tabName === 'stats' ? 'block' : 'none';
+      document.getElementById('viewDev').style.display = tabName === 'dev' ? 'block' : 'none';
+    }
+
+    function refreshAdminSelectors() {
+      const courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
+      const lectures = JSON.parse(localStorage.getItem('platform_lectures') || '[]');
+
+      // قائمة الكورسات في سيلكت المحاضرات
+      document.getElementById('lecTargetCourse').innerHTML = courses.map(c => `
+        <option value="${c.id}">${c.title} (${getGradeText(c.grade)})</option>
+      `).join('');
+
+      // قائمة المحاضرات في سيلكت الكويزات
+      document.getElementById('qTargetLecture').innerHTML = lectures.map(l => {
+        const parentCourse = courses.find(c => c.id === l.courseId);
+        const courseName = parentCourse ? parentCourse.title : 'كورس';
+        return `<option value="${l.id}">${courseName} ➔ ${l.title}</option>`;
+      }).join('');
+
+      // جدول الكورسات الحالية
+      document.getElementById('adminCoursesListTable').innerHTML = courses.map((c, i) => `
+        <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:10px 14px; border-radius:8px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span>${i + 1}. <strong>${c.title}</strong> (${getGradeText(c.grade)}) - <span style="color:var(--sakr-gold);">${c.price}</span></span>
+          <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="deleteCourse('${c.id}')"><i class="fa-solid fa-trash"></i> حذف</button>
+        </div>
+      `).join('');
     }
 
     function handleCreateCourse(e) {
@@ -878,78 +1219,137 @@
       const title = document.getElementById('cTitle').value.trim();
       const grade = document.getElementById('cGrade').value;
       const price = document.getElementById('cPrice').value.trim();
-      const video = document.getElementById('cVideo').value.trim();
+      const desc = document.getElementById('cDesc').value.trim();
 
-      const courses = JSON.parse(localStorage.getItem('sakr_courses') || '[]');
-      courses.unshift({
-        id: 'c_' + Date.now(),
-        title,
-        grade,
-        price,
-        desc: 'محاضرات وكويزات شاملة تم نشرها عبر لوحة المستر.',
-        video
+      const courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
+      courses.unshift({ id: 'course_' + Date.now(), title, grade, price, desc });
+      localStorage.setItem('platform_courses', JSON.stringify(courses));
+
+      alert('تمت إضافة الكورس بنجاح!');
+      e.target.reset();
+      refreshAdminSelectors();
+    }
+
+    function deleteCourse(id) {
+      if (!confirm('هل أنت متأكد من حذف هذا الكورس؟')) return;
+      let courses = JSON.parse(localStorage.getItem('platform_courses') || '[]');
+      courses = courses.filter(c => c.id !== id);
+      localStorage.setItem('platform_courses', JSON.stringify(courses));
+      refreshAdminSelectors();
+    }
+
+    function handleCreateLecture(e) {
+      e.preventDefault();
+      const title = document.getElementById('lecTitle').value.trim();
+      const courseId = document.getElementById('lecTargetCourse').value;
+      const video = document.getElementById('lecVideoUrl').value.trim();
+
+      const lectures = JSON.parse(localStorage.getItem('platform_lectures') || '[]');
+      lectures.push({ id: 'lec_' + Date.now(), courseId, title, video });
+      localStorage.setItem('platform_lectures', JSON.stringify(lectures));
+
+      alert('تم نشر المحاضرة في الكورس المحدد بنجاح!');
+      e.target.reset();
+      refreshAdminSelectors();
+    }
+
+    function addQuestionItem() {
+      const area = document.getElementById('questionsBuilderArea');
+      const div = document.createElement('div');
+      div.className = 'q-item-box';
+      div.innerHTML = `
+        <div class="form-group">
+          <input type="text" class="form-control q-prompt" placeholder="نص السؤال" required />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control q-opts" placeholder="الخيارات مفصولة بفاصلة" required />
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>رقم الاختيار الصحيح (1-4):</label>
+          <input type="number" class="form-control q-ans" min="1" max="4" value="1" required />
+        </div>
+      `;
+      area.appendChild(div);
+    }
+
+    function handleCreateQuiz(e) {
+      e.preventDefault();
+      const title = document.getElementById('qTitle').value.trim();
+      const lectureId = document.getElementById('qTargetLecture').value;
+      const duration = parseInt(document.getElementById('qDuration').value) || 10;
+
+      const qBoxes = document.querySelectorAll('.q-item-box');
+      const questions = [];
+      qBoxes.forEach(b => {
+        const prompt = b.querySelector('.q-prompt').value.trim();
+        const opts = b.querySelector('.q-opts').value.split(',').map(o => o.trim());
+        const ans = parseInt(b.querySelector('.q-ans').value) - 1;
+        if (prompt && opts.length > 0) questions.push({ prompt, options: opts, correct: ans });
       });
 
-      localStorage.setItem('sakr_courses', JSON.stringify(courses));
-      renderCourses();
-      alert('تم نشر الكورس في المنصة بنجاح!');
+      const quizzes = JSON.parse(localStorage.getItem('platform_quizzes') || '[]');
+      quizzes.push({ id: 'quiz_' + Date.now(), lectureId, title, duration, questions });
+      localStorage.setItem('platform_quizzes', JSON.stringify(quizzes));
+
+      alert('تم حفظ وربط الكويز بالمحاضرة المحددة بنجاح!');
       e.target.reset();
     }
 
-    function handleChangePassword(e) {
+    function loadStatsInputs() {
+      const stats = JSON.parse(localStorage.getItem('sakr_stats') || '{}');
+      document.getElementById('statInputYt').value = stats.yt || '+1.3M';
+      document.getElementById('statInputStudents').value = stats.students || '+50,000';
+      document.getElementById('statInputTop').value = stats.top || 'أوائل جمهورية';
+    }
+
+    function handleSaveStats(e) {
       e.preventDefault();
-      const newP = document.getElementById('newAdminPass').value.trim();
-      if (!newP) return;
-      localStorage.setItem('admin_pwd', newP);
-      alert('تم تحديث كلمة المرور للوحة المستر بنجاح!');
-      e.target.reset();
+      const yt = document.getElementById('statInputYt').value.trim();
+      const students = document.getElementById('statInputStudents').value.trim();
+      const top = document.getElementById('statInputTop').value.trim();
+
+      localStorage.setItem('sakr_stats', JSON.stringify({ yt, students, top }));
+      alert('تم تحديث أرقام الإحصائيات في الصفحة الرئيسية بنجاح!');
     }
 
-    // إعدادات المطور
-    function openDevModal() {
-      document.getElementById('devModal').style.display = 'flex';
-    }
-
-    function closeDevModal() {
-      document.getElementById('devModal').style.display = 'none';
-    }
-
-    function closeDevModalOnBg(e) {
-      if (e.target.id === 'devModal') closeDevModal();
+    /* ---- قسم المطور المحمي بكلمة السر 33333 ---- */
+    function unlockDevSection() {
+      const input = document.getElementById('devSecretPassInput').value;
+      const actual = localStorage.getItem('dev_pass') || '33333';
+      if (input === actual) {
+        document.getElementById('devLockShield').style.display = 'none';
+        document.getElementById('devUnlockedEditor').style.display = 'block';
+        document.getElementById('devFbField').value = localStorage.getItem('dev_fb') || '';
+        document.getElementById('devWaField').value = localStorage.getItem('dev_wa') || '';
+        alert('أهلاً بك يا باشمهندس محمد عصام! تم فتح قفل إعدادات المطور بنجاح.');
+      } else {
+        alert('كلمة سر المطور غير صحيحة! هذا القسم مخصص لمهندس الموقع فقط.');
+      }
     }
 
     function previewDevPhoto(input) {
       if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          localStorage.setItem('dev_custom_photo', e.target.result);
+        const r = new FileReader();
+        r.onload = e => {
+          localStorage.setItem('dev_photo', e.target.result);
           renderDevVisuals();
         };
-        reader.readAsDataURL(input.files[0]);
+        r.readAsDataURL(input.files[0]);
       }
     }
 
     function saveDevData() {
-      const url = document.getElementById('devPhotoUrl').value.trim();
       const fb = document.getElementById('devFbField').value.trim();
       const wa = document.getElementById('devWaField').value.trim();
-
-      if (url) localStorage.setItem('dev_custom_photo', url);
-      if (fb) localStorage.setItem('dev_fb_link', fb);
-      if (wa) localStorage.setItem('dev_wa_num', wa);
+      if (fb) localStorage.setItem('dev_fb', fb);
+      if (wa) localStorage.setItem('dev_wa', wa);
 
       renderDevVisuals();
-      alert('تم حفظ صورة وبيانات المطور بنجاح!');
-    }
-
-    function loadDevInputs() {
-      document.getElementById('devPhotoUrl').value = localStorage.getItem('dev_custom_photo') || '';
-      document.getElementById('devFbField').value = localStorage.getItem('dev_fb_link') || '';
-      document.getElementById('devWaField').value = localStorage.getItem('dev_wa_num') || '';
+      alert('تم تحديث صورة وروابط المطور بنجاح!');
     }
 
     function renderDevVisuals() {
-      const pic = localStorage.getItem('dev_custom_photo');
+      const pic = localStorage.getItem('dev_photo');
       const thumb = document.getElementById('devThumbBox');
       const big = document.getElementById('devBigImgBox');
 
@@ -958,14 +1358,18 @@
         big.innerHTML = `<img src="${pic}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />`;
       }
 
-      const fb = localStorage.getItem('dev_fb_link') || 'https://facebook.com';
-      const wa = localStorage.getItem('dev_wa_num') || '201000000000';
+      const fb = localStorage.getItem('dev_fb') || 'https://facebook.com';
+      const wa = localStorage.getItem('dev_wa') || '201000000000';
       document.getElementById('devFbLink').href = fb;
       document.getElementById('devWaLink').href = wa.startsWith('http') ? wa : `https://wa.me/2${wa.replace(/[^0-9]/g, '')}`;
     }
 
+    function openDevModal() { document.getElementById('devModal').style.display = 'flex'; }
+    function closeDevModal() { document.getElementById('devModal').style.display = 'none'; }
+    function closeDevModalOnBg(e) { if (e.target.id === 'devModal') closeDevModal(); }
+
     window.addEventListener('DOMContentLoaded', () => {
-      renderCourses();
+      renderFrontView();
       renderDevVisuals();
     });
   </script>
