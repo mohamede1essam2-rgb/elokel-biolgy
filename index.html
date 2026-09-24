@@ -83,6 +83,22 @@
       font-size: 1.6rem;
     }
 
+    /* الدائرة المصغرة لصورة المستر في الهيدر */
+    .teacher-top-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--sakr-gold);
+      object-fit: cover;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .teacher-top-thumb:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
+    }
+
     .header-btns {
       display: flex;
       align-items: center;
@@ -124,12 +140,32 @@
       color: #000;
     }
 
+    /* قسم الهيرو مع تمويه صورة المستر بالخلفية */
     .hero-section {
+      position: relative;
       text-align: center;
       padding: 55px 20px 45px;
       background: radial-gradient(circle at 50% 15%, #1c2438 0%, var(--sakr-bg) 70%);
       border-bottom: 1px solid var(--sakr-card-border);
+      overflow: hidden;
     }
+    .hero-bg-watermark {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 20%;
+      opacity: 0.12;
+      filter: blur(2px) grayscale(20%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-inner-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
     .hero-badge {
       display: inline-block;
       background: rgba(245, 158, 11, 0.15);
@@ -483,6 +519,48 @@
     }
     video, iframe { width: 100%; height: 100%; border: none; }
 
+    /* تكبير صورة المستر */
+    #teacherBigPhotoModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 4500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .teacher-photo-card {
+      position: relative;
+      max-width: 420px;
+      width: 100%;
+      background: var(--sakr-card);
+      border: 2px solid var(--sakr-gold);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    }
+    .teacher-photo-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--sakr-card-border);
+    }
+    .teacher-photo-card h3 {
+      color: #fff;
+      margin-top: 12px;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+    .teacher-photo-card p {
+      color: var(--sakr-gold);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
     #adminScreen {
       display: none;
       position: fixed;
@@ -594,8 +672,19 @@
 
   <header class="sakr-header">
     <div class="sakr-brand">
-      <i class="fa-solid fa-atom"></i>
-      <span id="brandNameDisplay">الأستاذ محمد العكل</span>
+      <!-- دائرة صورة المستر الصغيرة (تتكبر بالضغط) -->
+      <img 
+        src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop&q=80" 
+        alt="صورة الأستاذ محمد العكل" 
+        class="teacher-top-thumb" 
+        id="teacherThumbImg" 
+        title="اضغط لتكبير صورة المستر"
+        onclick="openTeacherBigPhotoModal()"
+      />
+      <div>
+        <span id="brandNameDisplay">الأستاذ محمد العكل</span>
+        <div style="font-size:0.75rem; color:var(--sakr-gold); font-weight:700;">خبير مادة الأحياء والكيمياء</div>
+      </div>
     </div>
 
     <div class="header-btns">
@@ -611,39 +700,43 @@
     </div>
   </header>
 
+  <!-- قسم الهيرو مع صورة المستر المموهة خلف الكلام فقط -->
   <section class="hero-section">
-    <div class="hero-badge" id="heroBadgeText">
-      <i class="fa-solid fa-circle-check"></i> منصة الكيمياء والأحياء للثانوية العامة
-    </div>
-    <h1 id="heroHeadingText">أهلاً بيك في <span>بيتك التاني!</span></h1>
-    <p id="heroDescText">
-      سواء كنت في أولى، تانية، أو تالتة ثانوي، هنا هتلاقي كل اللي تحتاجه علشان تتفوق، وتفهم المنهج صح، وتطبق عليه بسهولة.
-    </p>
-
-    <button class="btn-sakr-cta" onclick="startSubscriptionFlow()">
-      <i class="fa-solid fa-fire"></i> اشترك دلوقتي !
-    </button>
-
-    <div class="sakr-stats">
-      <div class="stat-pill">
-        <i class="fa-brands fa-youtube"></i>
-        <div class="stat-pill-info">
-          <strong id="statDisplayYt">+1.3M</strong>
-          <span>متابعين على اليوتيوب</span>
-        </div>
+    <div class="hero-bg-watermark" id="heroWatermarkBg"></div>
+    <div class="hero-inner-content">
+      <div class="hero-badge" id="heroBadgeText">
+        <i class="fa-solid fa-circle-check"></i> منصة الكيمياء والأحياء للثانوية العامة
       </div>
-      <div class="stat-pill">
-        <i class="fa-solid fa-user-graduate"></i>
-        <div class="stat-pill-info">
-          <strong id="statDisplayStudents">+50,000</strong>
-          <span>طالب في جميع المحافظات</span>
+      <h1 id="heroHeadingText">أهلاً بيك في <span>بيتك التاني!</span></h1>
+      <p id="heroDescText">
+        سواء كنت في أولى، تانية، أو تالتة ثانوي، هنا هتلاقي كل اللي تحتاجه علشان تتفوق، وتفهم المنهج صح، وتطبق عليه بسهولة.
+      </p>
+
+      <button class="btn-sakr-cta" onclick="startSubscriptionFlow()">
+        <i class="fa-solid fa-fire"></i> اشترك دلوقتي !
+      </button>
+
+      <div class="sakr-stats">
+        <div class="stat-pill">
+          <i class="fa-brands fa-youtube"></i>
+          <div class="stat-pill-info">
+            <strong id="statDisplayYt">+1.3M</strong>
+            <span>متابعين على اليوتيوب</span>
+          </div>
         </div>
-      </div>
-      <div class="stat-pill">
-        <i class="fa-solid fa-award"></i>
-        <div class="stat-pill-info">
-          <strong id="statDisplayTop">أوائل جمهورية</strong>
-          <span>دفعة بعد دفعة</span>
+        <div class="stat-pill">
+          <i class="fa-solid fa-user-graduate"></i>
+          <div class="stat-pill-info">
+            <strong id="statDisplayStudents">+50,000</strong>
+            <span>طالب في جميع المحافظات</span>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <i class="fa-solid fa-award"></i>
+          <div class="stat-pill-info">
+            <strong id="statDisplayTop">أوائل جمهورية</strong>
+            <span>دفعة بعد دفعة</span>
+          </div>
         </div>
       </div>
     </div>
@@ -686,6 +779,16 @@
 
     <div class="courses-grid" id="coursesGridArea"></div>
 
+  </div>
+
+  <!-- النافذة المنبثقة لتكبير صورة المستر -->
+  <div id="teacherBigPhotoModal" onclick="closeTeacherBigPhotoModal()">
+    <div class="teacher-photo-card" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeTeacherBigPhotoModal()"><i class="fa-solid fa-xmark"></i></button>
+      <img src="" id="teacherModalBigImg" alt="صورة الأستاذ محمد العكل" />
+      <h3 id="teacherModalName">الأستاذ محمد العكل</h3>
+      <p>خبير تدريس الكيمياء والأحياء للثانوية العامة</p>
+    </div>
   </div>
 
   <div id="gradePickerModal" class="sakr-modal-backdrop">
@@ -903,6 +1006,9 @@
         <button class="admin-tab-btn" onclick="switchAdminTab('quizzes', this)">
           <i class="fa-solid fa-stopwatch"></i> إنشاء وربط الكويزات
         </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('photos', this)">
+          <i class="fa-solid fa-image"></i> صور المستر (الدائرة والخلفية)
+        </button>
         <button class="admin-tab-btn" onclick="switchAdminTab('content', this)">
           <i class="fa-solid fa-pen-ruler"></i> تعديل نصوص الواجهة والمميزات
         </button>
@@ -1020,6 +1126,27 @@
 
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem; margin-top:10px;">
                 <i class="fa-solid fa-check"></i> حفظ وربط الكويز سحابياً فوراً
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- قسم تعديل صور المستر سحابياً -->
+        <div id="viewPhotos" class="admin-tab-view" style="display:none;">
+          <div class="admin-panel-card">
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-image"></i> تحديث صور الأستاذ محمد العكل سحابياً</h3>
+            <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom:16px;">يمكنك وضع روابط مباشرة لصور المستر لتحديث الدائرة المصغرة العلوية والخلفية المموهة فوراً:</p>
+            <form onsubmit="handleSaveTeacherPhotos(event)">
+              <div class="form-group">
+                <label>رابط صورة المستر في الدائرة العلوية (URL)</label>
+                <input type="text" id="teacherThumbInput" class="form-control" placeholder="https://..." required />
+              </div>
+              <div class="form-group">
+                <label>رابط صورة المستر في خلفية الهيرو المموهة (URL)</label>
+                <input type="text" id="teacherHeroBgInput" class="form-control" placeholder="https://..." required />
+              </div>
+              <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> حفظ وتحديث الصور عند الجميع فوراً
               </button>
             </form>
           </div>
@@ -1174,6 +1301,10 @@
     const FIREBASE_ENDPOINT = 'https://elokel-bilogy-default-rtdb.firebaseio.com/mainData.json';
 
     let currentCloudData = {
+      teacherPhotos: {
+        thumb: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop&q=80',
+        heroBg: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1000&auto=format&fit=crop&q=80'
+      },
       texts: {
         brandName: 'الأستاذ محمد العكل',
         heroBadge: 'منصة الكيمياء والأحياء للثانوية العامة',
@@ -1254,11 +1385,16 @@
           const cloudRecord = await res.json();
           if (cloudRecord && typeof cloudRecord === 'object' && cloudRecord.courses) {
             currentCloudData = cloudRecord;
+            if (!currentCloudData.teacherPhotos) {
+              currentCloudData.teacherPhotos = {
+                thumb: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop&q=80',
+                heroBg: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1000&auto=format&fit=crop&q=80'
+              };
+            }
             localStorage.setItem('firebase_app_cached', JSON.stringify(currentCloudData));
             if (syncText) syncText.innerText = 'سحابي: Google Firebase متصل ومتزامن';
             renderFrontView();
           } else {
-            // أول مرة: رفع البيانات الافتراضية لقاعدة بياناتك
             saveToCloud();
           }
         }
@@ -1308,6 +1444,18 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     function renderFrontView() {
+      // تحديث صور المستر (الدائرة المصغرة والخلفية المموهة)
+      const p = currentCloudData.teacherPhotos || {
+        thumb: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop&q=80',
+        heroBg: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1000&auto=format&fit=crop&q=80'
+      };
+
+      const thumbImg = document.getElementById('teacherThumbImg');
+      if (thumbImg) thumbImg.src = p.thumb || p.heroBg;
+
+      const heroWatermark = document.getElementById('heroWatermarkBg');
+      if (heroWatermark) heroWatermark.style.backgroundImage = `url('${p.heroBg || p.thumb}')`;
+
       const t = currentCloudData.texts;
       if (t) {
         document.getElementById('brandNameDisplay').innerText = t.brandName || 'الأستاذ محمد العكل';
@@ -1357,7 +1505,7 @@
                   const relatedQuiz = quizzes.find(q => q.lectureId === lec.id);
                   return `
                     <div class="lesson-row">
-                      <span style="font-size:0.85rem; color:#fff;"><strong>حصة ${idx + 1}:</strong>${lec.title}</span>
+                      <span style="font-size:0.85rem; color:#fff;"><strong>حصة ${idx + 1}: </strong>${lec.title}</span>
                       <div style="display:flex; gap:6px;">
                         <button class="btn-sm-action" onclick="playVideo('${encodeURIComponent(lec.video)}', '${encodeURIComponent(lec.title)}')">
                           <i class="fa-solid fa-play"></i> مشاهدة
@@ -1379,6 +1527,18 @@
 
       renderDevVisuals();
       refreshStudentHeaderButton();
+    }
+
+    /* دوال تكبير صورة المستر */
+    function openTeacherBigPhotoModal() {
+      const p = currentCloudData.teacherPhotos || {};
+      const bigImg = document.getElementById('teacherModalBigImg');
+      bigImg.src = p.thumb || p.heroBg || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80';
+      document.getElementById('teacherBigPhotoModal').style.display = 'flex';
+    }
+
+    function closeTeacherBigPhotoModal() {
+      document.getElementById('teacherBigPhotoModal').style.display = 'none';
     }
 
     function getGradeText(g) {
@@ -1612,6 +1772,7 @@
       refreshAdminSelectors();
       loadContentTextsToInputs();
       loadStatsInputs();
+      loadPhotosInputs();
     }
 
     function closeAdminScreen() {
@@ -1626,6 +1787,7 @@
       document.getElementById('viewCourses').style.display = tabName === 'courses' ? 'block' : 'none';
       document.getElementById('viewLectures').style.display = tabName === 'lectures' ? 'block' : 'none';
       document.getElementById('viewQuizzes').style.display = tabName === 'quizzes' ? 'block' : 'none';
+      document.getElementById('viewPhotos').style.display = tabName === 'photos' ? 'block' : 'none';
       document.getElementById('viewContent').style.display = tabName === 'content' ? 'block' : 'none';
       document.getElementById('viewStats').style.display = tabName === 'stats' ? 'block' : 'none';
       document.getElementById('viewDev').style.display = tabName === 'dev' ? 'block' : 'none';
@@ -1728,6 +1890,21 @@
 
       saveToCloud();
       e.target.reset();
+    }
+
+    function loadPhotosInputs() {
+      const p = currentCloudData.teacherPhotos || {};
+      document.getElementById('teacherThumbInput').value = p.thumb || '';
+      document.getElementById('teacherHeroBgInput').value = p.heroBg || '';
+    }
+
+    function handleSaveTeacherPhotos(e) {
+      e.preventDefault();
+      currentCloudData.teacherPhotos = {
+        thumb: document.getElementById('teacherThumbInput').value.trim(),
+        heroBg: document.getElementById('teacherHeroBgInput').value.trim()
+      };
+      saveToCloud();
     }
 
     function loadContentTextsToInputs() {
