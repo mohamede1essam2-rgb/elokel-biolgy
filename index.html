@@ -36,7 +36,6 @@
       line-height: 1.6;
     }
 
-    /* مؤشر الاتصال السحابي المباشر */
     #cloudIndicator {
       position: fixed;
       bottom: 20px;
@@ -583,10 +582,10 @@
 </head>
 <body>
 
-  <!-- مؤشر السحابة المباشر -->
+  <!-- مؤشر اتصال قاعدة بيانات Firebase الحقيقي -->
   <div id="cloudIndicator">
     <div class="status-dot"></div>
-    <span id="syncText">سحابي: متصل ومباشر</span>
+    <span id="syncText">سحابي: Google Firebase متصل</span>
   </div>
 
   <div id="liveToast" style="display:none; position:fixed; top:15px; left:15px; right:15px; max-width:420px; margin:auto; background:var(--sakr-gold-gradient); color:#000; padding:14px 18px; border-radius:12px; z-index:9999; font-weight:bold; box-shadow:0 10px 30px rgba(0,0,0,0.8);">
@@ -886,16 +885,11 @@
     <div class="admin-navbar">
       <div style="display:flex; align-items:center; gap:10px;">
         <i class="fa-solid fa-sliders" style="color:var(--sakr-gold); font-size:1.3rem;"></i>
-        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل (مزامنة سحابية مباشرة)</strong>
+        <strong style="color:#fff; font-size:1.1rem;">لوحة إدارة منصة الأستاذ محمد العكل (Firebase Cloud)</strong>
       </div>
-      <div style="display:flex; gap:8px;">
-        <button class="btn-sm-action" style="background:var(--sakr-gold); color:#000;" onclick="forceManualCloudSync()">
-          <i class="fa-solid fa-rotate"></i> مزامنة وحفظ سحابي فوري
-        </button>
-        <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="closeAdminScreen()">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج
-        </button>
-      </div>
+      <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="closeAdminScreen()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج
+      </button>
     </div>
 
     <div class="admin-body-layout">
@@ -949,7 +943,7 @@
                 <input type="text" id="cDesc" class="form-control" placeholder="شرح مبسط لمحتوى الكورس وما يقدمه للطالب" required />
               </div>
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
-                <i class="fa-solid fa-check"></i> حفظ ونشر الكورس عند كل الطلاب فوراً
+                <i class="fa-solid fa-cloud-arrow-up"></i> حفظ ونشر في سحابة جوجل فوراً
               </button>
             </form>
           </div>
@@ -1174,10 +1168,10 @@
 
   <script>
     /* =========================================================================
-       نظام المزامنة السحابية المفتوح والسريع (Open Cloud REST Storage)
-       لا يحتاج GitHub نهائياً ويحدث هواتف كل الطلاب في نفس الثانية
+       قاعدة بيانات Google Firebase Realtime الرسمية الخاصة بك
+       https://elokel-bilogy-default-rtdb.firebaseio.com/
        ========================================================================= */
-    const CLOUD_STORAGE_ENDPOINT = 'https://api.npoint.io/46df7c6b9bb7c3d25684';
+    const FIREBASE_ENDPOINT = 'https://elokel-bilogy-default-rtdb.firebaseio.com/mainData.json';
 
     let currentCloudData = {
       texts: {
@@ -1244,68 +1238,55 @@
       }
     };
 
-    // جلب التعديلات من السحابة لكل طالب فور فتح الموقع
+    // جلب البيانات لحظياً من Firebase عند فتح الموقع لدى أي طالب
     async function syncFromCloud() {
       const syncText = document.getElementById('syncText');
-      if (syncText) syncText.innerText = 'سحابي: متصل بالسيرفر...';
+      if (syncText) syncText.innerText = 'سحابي: اتصال بـ Firebase...';
       try {
-        const cached = localStorage.getItem('cloud_app_data_live');
+        const cached = localStorage.getItem('firebase_app_cached');
         if (cached) {
           currentCloudData = JSON.parse(cached);
           renderFrontView();
         }
 
-        const res = await fetch(CLOUD_STORAGE_ENDPOINT, { cache: 'no-store' });
+        const res = await fetch(FIREBASE_ENDPOINT);
         if (res.ok) {
           const cloudRecord = await res.json();
           if (cloudRecord && typeof cloudRecord === 'object' && cloudRecord.courses) {
             currentCloudData = cloudRecord;
-            localStorage.setItem('cloud_app_data_live', JSON.stringify(currentCloudData));
-            if (syncText) syncText.innerText = 'سحابي: محدث ومتزامن عند الجميع';
+            localStorage.setItem('firebase_app_cached', JSON.stringify(currentCloudData));
+            if (syncText) syncText.innerText = 'سحابي: Google Firebase متصل ومتزامن';
             renderFrontView();
+          } else {
+            // أول مرة: رفع البيانات الافتراضية لقاعدة بياناتك
+            saveToCloud();
           }
         }
       } catch (err) {
-        if (syncText) syncText.innerText = 'سحابي: متصل محلياً';
+        if (syncText) syncText.innerText = 'سحابي: وضع العمل الاحتياطي';
       }
     }
 
-    // حفظ ونشر التعديل في السحابة فوراً من موبايل أو لابتوب المستر
+    // حفظ أي تعديل يجريه المستر مباشرة في Firebase
     async function saveToCloud() {
       const syncText = document.getElementById('syncText');
-      if (syncText) syncText.innerText = 'سحابي: جارِ نشر التعديل لجميع الطلاب...';
-      localStorage.setItem('cloud_app_data_live', JSON.stringify(currentCloudData));
+      if (syncText) syncText.innerText = 'سحابي: جارِ النشر لسحابة Google...';
+      localStorage.setItem('firebase_app_cached', JSON.stringify(currentCloudData));
       renderFrontView();
 
       try {
-        const res = await fetch(CLOUD_STORAGE_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(currentCloudData)
-        });
-        if (res.ok) {
-          if (syncText) syncText.innerText = 'سحابي: تم التحديث عند كل الطلاب فوراً!';
-          toast('تم نشر التعديل سحابياً وظهر الآن عند جميع الطلاب بدون فتح GitHub!');
-        } else {
-          fallbackCloudSave();
-        }
-      } catch (err) {
-        fallbackCloudSave();
-      }
-    }
-
-    async function fallbackCloudSave() {
-      try {
-        await fetch('https://api.npoint.io/46df7c6b9bb7c3d25684', {
+        const res = await fetch(FIREBASE_ENDPOINT, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(currentCloudData)
         });
-      } catch(e){}
-    }
-
-    function forceManualCloudSync() {
-      saveToCloud();
+        if (res.ok) {
+          if (syncText) syncText.innerText = 'سحابي: تم الحفظ والتحديث لكل الطلاب!';
+          toast('تم نشر التعديل في سحابة جوجل وظهر الآن عند جميع الطلاب فوراً وبدون GitHub!');
+        }
+      } catch (err) {
+        toast('تم الحفظ محلياً.');
+      }
     }
 
     if (!localStorage.getItem('admin_pwd')) localStorage.setItem('admin_pwd', '123456');
