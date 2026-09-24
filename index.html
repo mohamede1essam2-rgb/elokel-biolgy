@@ -3,20 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>منصة الأستاذ محمد العكل | أحياء الثانوية العامة</title>
+  <meta name="description" content="المنصة التعليمية الرسمية للأستاذ محمد العكل لتدريس مادة الأحياء لطلاب الثانوية العامة." />
   
-  <!-- وسوم تهيئة محركات البحث (SEO) للظهور الفوري في نتائج بحث جوجل -->
-  <title>منصة الأستاذ محمد العكل | أحياء ثانوية عامة</title>
-  <meta name="description" content="المنصة التعليمية الرسمية للأستاذ محمد العكل لتدريس مادة الأحياء لطلاب الثانوية العامة، شروحات وامتحانات إلكترونية ومذكرات تفاعلية." />
-  <meta name="keywords" content="الأستاذ محمد العكل, أحياء ثانوية عامة, منصة العكل, مستر محمد العكل أحياء" />
-  
-  <!-- ملفات PWA لتعمل المنصة كتطبيق ويب على الهاتف -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#2563eb" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="العكل أحياء" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -25,12 +20,14 @@
       --primary: #2563eb;
       --primary-dark: #1d4ed8;
       --accent: #f59e0b;
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --border: #334155;
+      --bg: #0b1329;
+      --card-bg: #131f3d;
+      --card-hover: #1a294f;
+      --border: #23355d;
       --text: #f8fafc;
       --muted: #94a3b8;
       --success: #10b981;
+      --danger: #ef4444;
     }
 
     * {
@@ -51,7 +48,7 @@
       position: fixed;
       bottom: 15px;
       left: 15px;
-      background: rgba(30, 41, 59, 0.95);
+      background: rgba(19, 31, 61, 0.95);
       border: 1px solid var(--border);
       color: var(--muted);
       font-size: 0.75rem;
@@ -69,12 +66,12 @@
       background: var(--success);
     }
 
-    /* رأس الصفحة */
+    /* رأس الصفحة الأصلي */
     header {
-      background: rgba(15, 23, 42, 0.95);
+      background: rgba(11, 19, 41, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 12px 20px;
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -82,123 +79,154 @@
       top: 0;
       z-index: 1000;
     }
-    .brand {
+    .brand-wrap {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 1.15rem;
-      font-weight: 900;
-      color: #fff;
     }
-
-    /* الدائرة المصغرة لصورة المدرس في الهيدر مع تكبير عند الضغط */
-    .teacher-avatar-circle {
+    .teacher-circle-thumb {
       width: 44px;
       height: 44px;
       border-radius: 50%;
       border: 2px solid var(--accent);
       object-fit: cover;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .teacher-avatar-circle:hover {
+    .teacher-circle-thumb:hover {
       transform: scale(1.08);
-      box-shadow: 0 0 15px rgba(245, 158, 11, 0.7);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+    }
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 700;
     }
 
-    .btn-teacher-panel {
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-admin {
       background: var(--card-bg);
-      border: 1px solid var(--accent);
+      border: 1px solid var(--border);
       color: var(--accent);
-      padding: 7px 14px;
-      border-radius: 8px;
+      padding: 8px 16px;
+      border-radius: 10px;
       font-size: 0.85rem;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
       transition: 0.2s;
     }
-    .btn-teacher-panel:hover {
-      background: var(--accent);
-      color: #000;
+    .btn-admin:hover {
+      background: var(--card-hover);
+      border-color: var(--accent);
     }
 
-    /* قسم الهيرو الترحيبي مع صورة المستر في خلفية هذا الجزء فقط */
-    .hero-section-box {
+    /* منطقة الهيرو الأصلية مع صورة المستر في خلفية هذا الجزء فقط */
+    .hero-banner {
       position: relative;
       text-align: center;
-      padding: 60px 20px 45px;
+      padding: 55px 20px 45px;
       border-bottom: 1px solid var(--border);
       overflow: hidden;
-      background-color: var(--bg);
+      background: radial-gradient(circle at 50% 10%, #17254d 0%, var(--bg) 85%);
     }
-    
-    /* صورة الخلفية المموهة خلف نص الهيرو فقط */
     .hero-bg-watermark {
       position: absolute;
       inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1544717305-2782549b5136?w=1000&auto=format&fit=crop&q=80');
       background-size: cover;
-      background-position: center;
+      background-position: center 25%;
       opacity: 0.12;
-      filter: grayscale(40%) contrast(120%);
+      filter: blur(1px) grayscale(30%);
       z-index: 1;
       pointer-events: none;
     }
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto;
     }
-
-    .hero-teacher-badge {
+    .hero-tag {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(30, 41, 59, 0.85);
-      border: 1px solid var(--border);
-      padding: 6px 16px;
+      gap: 8px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--accent);
+      padding: 5px 16px;
       border-radius: 30px;
-      margin-bottom: 16px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-bottom: 14px;
     }
-    .hero-teacher-badge img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 1.5px solid var(--accent);
-      object-fit: cover;
-      cursor: pointer;
-    }
-
-    .hero-content h1 {
-      font-size: 2.3rem;
+    .hero-title {
+      font-size: 2.2rem;
       font-weight: 900;
       margin-bottom: 10px;
       color: #fff;
     }
-    .hero-content h1 span { color: var(--accent); }
-    .hero-content p {
+    .hero-title span { color: var(--accent); }
+    .hero-desc {
       color: var(--muted);
-      font-size: 1.05rem;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    .container {
-      max-width: 1050px;
+    /* المحتوى الرئيسي */
+    .main-container {
+      max-width: 1100px;
       margin: 0 auto;
       padding: 30px 16px;
     }
 
-    /* شبكة الكورسات */
-    .courses-grid {
+    /* التبويبات الأصلية */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 9px 22px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    /* شبكة الكروت الأصلية */
+    .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 22px;
     }
-    .course-card {
+    .content-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -207,39 +235,50 @@
       flex-direction: column;
       transition: transform 0.2s, border-color 0.2s;
     }
-    .course-card:hover {
+    .content-card:hover {
       transform: translateY(-4px);
       border-color: var(--accent);
+      background: var(--card-hover);
     }
-    .course-banner {
+    .card-thumb {
       width: 100%;
-      height: 160px;
-      background: #090d16;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 165px;
+      background: #090e1d;
+      position: relative;
       overflow: hidden;
     }
-    .course-banner img {
+    .card-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .course-body {
+    .card-type-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(11, 19, 41, 0.85);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .card-body {
       padding: 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
       justify-content: space-between;
     }
-    .course-title {
-      font-size: 1.15rem;
+    .card-title {
+      font-size: 1.1rem;
       font-weight: 800;
       color: #fff;
       margin-bottom: 6px;
     }
-    .course-desc {
-      font-size: 0.85rem;
+    .card-desc {
+      font-size: 0.82rem;
       color: var(--muted);
       margin-bottom: 14px;
       display: -webkit-box;
@@ -247,25 +286,25 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .course-footer {
+    .card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid var(--border);
       padding-top: 12px;
     }
-    .course-price {
-      font-size: 1.2rem;
+    .card-price {
+      font-size: 1.15rem;
       font-weight: 900;
       color: var(--accent);
     }
-    .btn-watch {
+    .btn-action-primary {
       background: var(--primary);
       color: #fff;
       border: none;
       padding: 8px 16px;
       border-radius: 8px;
-      font-weight: bold;
+      font-weight: 800;
       font-size: 0.85rem;
       cursor: pointer;
       display: flex;
@@ -273,97 +312,99 @@
       gap: 6px;
       transition: 0.2s;
     }
-    .btn-watch:hover { background: var(--primary-dark); }
+    .btn-action-primary:hover { background: var(--primary-dark); }
 
-    /* النافذة المنبثقة لتكبير صورة المدرس في منتصف الشاشة */
+    /* النافذة المنبثقة لتكبير صورة المستر في منتصف الشاشة */
     #imageModal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.88);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(8px);
       z-index: 5000;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      animation: fadeIn 0.25s ease;
+      animation: fadeIn 0.2s ease;
     }
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-    .image-modal-card {
+    .img-modal-content {
       position: relative;
-      max-width: 480px;
+      max-width: 440px;
       width: 100%;
       background: var(--card-bg);
       border: 2px solid var(--accent);
-      border-radius: 20px;
+      border-radius: 18px;
       padding: 16px;
       text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-      animation: zoomIn 0.25s ease;
+      animation: popIn 0.2s ease;
     }
-    @keyframes zoomIn {
-      from { transform: scale(0.85); }
+    @keyframes popIn {
+      from { transform: scale(0.9); }
       to { transform: scale(1); }
     }
-    .image-modal-card img {
+    .img-modal-content img {
       width: 100%;
       height: 380px;
       object-fit: cover;
-      border-radius: 14px;
+      border-radius: 12px;
       border: 1px solid var(--border);
     }
-    .image-modal-card h3 {
+    .img-modal-content h3 {
       color: #fff;
       margin-top: 12px;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
     }
-    .image-modal-card p {
+    .img-modal-content p {
       color: var(--accent);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
     }
     .btn-close-img-modal {
       position: absolute;
-      top: -12px;
-      left: -12px;
+      top: -10px;
+      left: -10px;
       background: #ef4444;
       color: #fff;
       border: none;
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       font-size: 1.1rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     }
 
-    /* لوحة تحكم المدرس السحابية */
-    #adminModal {
+    /* النوافذ العامة ولوحة الإدارة الأصلية */
+    .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
       z-index: 4000;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
-    .admin-card {
+    .modal-box {
       background: var(--card-bg);
-      border: 1px solid var(--accent);
+      border: 1px solid var(--border);
       border-radius: 14px;
       width: 100%;
       max-width: 600px;
       max-height: 90vh;
       overflow-y: auto;
       padding: 22px;
+      position: relative;
     }
     .form-group {
       margin-bottom: 12px;
@@ -371,16 +412,16 @@
     }
     .form-group label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--muted);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
     .form-control {
       width: 100%;
-      background: #0f172a;
+      background: #090e1d;
       border: 1px solid var(--border);
       color: #fff;
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-radius: 8px;
       font-size: 0.9rem;
       outline: none;
@@ -390,9 +431,10 @@
       background: var(--accent);
       color: #000;
       border: none;
-      padding: 10px 20px;
+      padding: 11px;
       border-radius: 8px;
       font-weight: 800;
+      font-size: 0.95rem;
       cursor: pointer;
       width: 100%;
       margin-top: 8px;
@@ -409,144 +451,189 @@
 
   <!-- رأس الصفحة -->
   <header>
-    <div class="brand">
-      <!-- الصورة المصغرة في رأس الصفحة -->
+    <div class="brand-wrap">
+      <!-- الدائرة الصغيرة لصورة المستر (تكبر عند الضغط) -->
       <img 
         src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop&q=80" 
         alt="الأستاذ محمد العكل" 
-        class="teacher-avatar-circle" 
-        id="headerTeacherImg" 
-        title="اضغط لتكبير صورة المستر"
-        onclick="openTeacherImageModal()" 
+        class="teacher-circle-thumb" 
+        id="teacherThumb" 
+        title="اضغط لتكبير الصورة"
+        onclick="openImageModal()"
       />
       <div>
-        <div style="font-size:1.1rem;">منصة الأستاذ محمد العكل</div>
-        <div style="font-size:0.75rem; color:var(--accent);">خبير مادة الأحياء للثانوية العامة</div>
+        <div class="brand-title">منصة الأستاذ محمد العكل</div>
+        <div class="brand-sub">خبير تدريس الأحياء للثانوية العامة</div>
       </div>
     </div>
-    
-    <button class="btn-teacher-panel" onclick="promptAdmin()">
-      <i class="fa-solid fa-chalkboard-user"></i>
-      <span>لوحة المدرس</span>
-    </button>
+
+    <div class="header-actions">
+      <button class="btn-admin" onclick="promptAdmin()">
+        <i class="fa-solid fa-lock"></i>
+        <span>لوحة المدرس</span>
+      </button>
+    </div>
   </header>
 
-  <!-- قسم الترحيب (Hero Section) مع صورة المستر في خلفية هذا الجزء فقط -->
-  <section class="hero-section-box">
-    <div class="hero-bg-watermark" id="heroBgWatermark"></div>
+  <!-- منطقة الهيرو مع صورة المستر في خلفية هذا الجزء فقط بشكل مموه -->
+  <section class="hero-banner">
+    <div class="hero-bg-watermark" id="heroWatermark"></div>
     <div class="hero-content">
-      <div class="hero-teacher-badge">
-        <img 
-          src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop&q=80" 
-          id="badgeTeacherImg" 
-          onclick="openTeacherImageModal()" 
-          title="اضغط للتكبير"
-        />
-        <span style="font-size:0.85rem; color:var(--text); font-weight:700;">مع الأستاذ محمد العكل .. الأحياء مضمونة 100%</span>
+      <div class="hero-tag">
+        <i class="fa-solid fa-dna"></i> رحلتك نحو التفوق والدرجة النهائية
       </div>
-
-      <h1>طريقك نحو <span>الدرجة النهائية</span> في الأحياء</h1>
-      <p>شروحات منهج الثانوية العامة باحترافية، امتحانات إلكترونية تفاعلية، ومتابعة دورية مباشرة.</p>
+      <h1 class="hero-title">منصة <span>الأستاذ محمد العكل</span> للأحياء</h1>
+      <p class="hero-desc">شروحات تفصيلية لأدق جزيئات المنهج، حل جميع أفكار بنك المعرفة والوزارة، ومتابعة وامتحانات دورية إلكترونية.</p>
     </div>
   </section>
 
-  <!-- الكورسات والمحاضرات -->
-  <div class="container">
-    <h2 style="margin-bottom:18px; font-weight:900; color:#fff; display:flex; align-items:center; gap:8px;">
-      <i class="fa-solid fa-graduation-cap" style="color:var(--accent);"></i> الكورسات والمحاضرات المتاحة
-    </h2>
-    <div class="courses-grid" id="coursesArea"></div>
-  </div>
+  <!-- المحتوى الرئيسي -->
+  <main class="main-container">
+    <!-- التبويبات الأصلية -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('all', this)">
+        <i class="fa-solid fa-layer-group"></i> كل المحتوى
+      </button>
+      <button class="tab-btn" onclick="switchTab('course', this)">
+        <i class="fa-solid fa-video"></i> المحاضرات والكورسات
+      </button>
+      <button class="tab-btn" onclick="switchTab('quiz', this)">
+        <i class="fa-solid fa-pen-to-square"></i> الامتحانات الإلكترونية
+      </button>
+      <button class="tab-btn" onclick="switchTab('summary', this)">
+        <i class="fa-solid fa-file-pdf"></i> المذكرات والملخصات
+      </button>
+    </div>
+
+    <!-- شبكة الكروت -->
+    <div class="cards-grid" id="mainCardsArea"></div>
+  </main>
 
   <!-- النافذة المنبثقة لتكبير صورة المستر في منتصف الشاشة -->
-  <div id="imageModal" onclick="closeTeacherImageModal(event)">
-    <div class="image-modal-card" onclick="event.stopPropagation()">
-      <button class="btn-close-img-modal" onclick="closeTeacherImageModal()">&times;</button>
-      <img src="" id="modalImgTag" alt="الأستاذ محمد العكل" />
-      <h3 id="modalTeacherName">الأستاذ محمد العكل</h3>
-      <p>كبير معلمي مادة الأحياء للثانوية العامة</p>
+  <div id="imageModal" onclick="closeImageModal()">
+    <div class="img-modal-content" onclick="event.stopPropagation()">
+      <button class="btn-close-img-modal" onclick="closeImageModal()">&times;</button>
+      <img src="" id="modalExpandedImg" alt="صورة الأستاذ محمد العكل" />
+      <h3>الأستاذ محمد العكل</h3>
+      <p>معلم خبير مادة الأحياء للثانوية العامة</p>
     </div>
   </div>
 
-  <!-- لوحة تحكم المدرس (كلمة السر 123456) -->
-  <div id="adminModal">
-    <div class="admin-card">
+  <!-- لوحة تحكم المدرس الأصلية -->
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="color:var(--accent);"><i class="fa-solid fa-gear"></i> لوحة إدارة المنصة سحابياً</h3>
-        <button onclick="closeAdmin()" style="background:none; border:none; color:#ef4444; font-size:1.3rem; cursor:pointer;">&times;</button>
+        <h3 style="color:var(--accent);"><i class="fa-solid fa-sliders"></i> لوحة إدارة المحتوى السحابية</h3>
+        <button onclick="closeAdmin()" style="background:none; border:none; color:var(--danger); font-size:1.4rem; cursor:pointer;">&times;</button>
       </div>
 
-      <!-- تحديث صورة المستر سحابياً -->
-      <div style="background:#0f172a; border:1px solid var(--border); padding:12px; border-radius:10px; margin-bottom:14px;">
-        <h4 style="color:var(--accent); font-size:0.9rem; margin-bottom:6px;"><i class="fa-solid fa-image"></i> تغيير صورة الأستاذ محمد العكل:</h4>
+      <!-- خانة تغيير صورة المستر سحابياً -->
+      <div style="background:#090e1d; border:1px solid var(--border); padding:12px; border-radius:10px; margin-bottom:14px;">
+        <label style="color:var(--accent); font-size:0.85rem; font-weight:bold; display:block; margin-bottom:6px;">
+          <i class="fa-solid fa-image"></i> تحديث صورة المستر (الأيقونة والخلفية):
+        </label>
         <div style="display:flex; gap:8px;">
-          <input type="text" id="teacherImgInput" class="form-control" placeholder="الصق رابط صورة المستر (URL)" />
-          <button class="btn-submit" style="width:auto; margin:0; padding:0 14px;" onclick="saveTeacherImage()">حفظ الصورة</button>
+          <input type="text" id="teacherImgInput" class="form-control" placeholder="الصق رابط صورة المستر المباشر (URL)" />
+          <button class="btn-submit" style="width:auto; margin:0; padding:0 14px;" onclick="saveTeacherImage()">حفظ</button>
         </div>
-        <p style="color:var(--muted); font-size:0.75rem; margin-top:4px;">الصورة ستتحدث تلقائياً في الأيقونة الدائرية وفي خلفية الصفحة الترحيبية.</p>
       </div>
 
-      <!-- إضافة كورس جديد -->
-      <form onsubmit="handleCreateCourse(event)">
-        <div class="form-group">
-          <label>عنوان الكورس / المحاضرة</label>
-          <input type="text" id="cTitle" class="form-control" placeholder="مثال: الباب الأول - الدعامة والحركة" required />
+      <!-- إضافة عنصر تعليمي جديد -->
+      <form onsubmit="handleCreateItem(event)">
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:8px;">
+          <div class="form-group">
+            <label>عنوان المحاضرة / الكويز</label>
+            <input type="text" id="itemTitle" class="form-control" placeholder="مثال: الباب الأول - الحركة" required />
+          </div>
+          <div class="form-group">
+            <label>نوع المحتوى</label>
+            <select id="itemType" class="form-control">
+              <option value="course">محاضرة / كورس</option>
+              <option value="quiz">امتحان إلكتروني</option>
+              <option value="summary">مذكرة / PDF</option>
+            </select>
+          </div>
         </div>
+
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
           <div class="form-group">
-            <label>السعر (جنيه)</label>
-            <input type="number" id="cPrice" class="form-control" placeholder="مثال: 150" required />
+            <label>السعر (0 للمجاني)</label>
+            <input type="number" id="itemPrice" class="form-control" placeholder="مثال: 120" required />
           </div>
           <div class="form-group">
-            <label>رابط صورة الغلاف</label>
-            <input type="text" id="cImg" class="form-control" placeholder="https://..." required />
+            <label>رابط الصورة / الغلاف</label>
+            <input type="text" id="itemImg" class="form-control" placeholder="https://..." required />
           </div>
         </div>
+
         <div class="form-group">
-          <label>رابط الفيديو (YouTube)</label>
-          <input type="text" id="cVideo" class="form-control" placeholder="https://youtube.com/watch?v=..." required />
+          <label>رابط الفيديو أو الامتحان أو الملف</label>
+          <input type="text" id="itemLink" class="form-control" placeholder="https://youtube.com/... أو رابط الامتحان" required />
         </div>
+
         <div class="form-group">
-          <label>وصف الكورس</label>
-          <input type="text" id="cDesc" class="form-control" placeholder="شرح تفصيلي مع حل 200 سؤال..." required />
+          <label>الوصف والمواصفات</label>
+          <input type="text" id="itemDesc" class="form-control" placeholder="تفاصيل وشرح هذا المحتوى..." required />
         </div>
-        <button type="submit" class="btn-submit">نشر الكورس سحابياً فوراً</button>
+
+        <button type="submit" class="btn-submit">نشر في السحابة فوراً للطلاب</button>
       </form>
 
       <hr style="border:0; border-top:1px solid var(--border); margin:16px 0;" />
-      <h4 style="color:#fff; margin-bottom:8px;">الكورسات الحالية:</h4>
-      <div id="adminCoursesList"></div>
+      <h4 style="color:#fff; margin-bottom:8px;">المحتويات المنشورة حالياً:</h4>
+      <div id="adminItemsList"></div>
     </div>
   </div>
 
   <script>
-    /* رابط Firebase السحابي الخاص بمنصة المدرس */
-    const FIREBASE_ENDPOINT = 'https://elokel-bilogy-default-rtdb.firebaseio.com/platformData.json';
+    /* رابط Firebase السحابي */
+    const PLATFORM_ENDPOINT = 'https://elokel-bilogy-default-rtdb.firebaseio.com/platformData.json';
 
     let platformData = {
       adminPass: '123456',
       teacherImage: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&auto=format&fit=crop&q=80',
-      courses: [
+      items: [
         {
-          id: 'c1',
+          id: 'i1',
+          type: 'course',
           title: 'الفصل الأول: الدعامة والحركة في الكائنات الحية',
           price: 150,
           img: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&auto=format&fit=crop&q=60',
-          desc: 'شرح تفصيلي للدعامة الفسيولوجية والتركيبية، مع أفكار بنك المعرفة ونماذج الوزارة.',
-          video: 'https://www.youtube.com'
+          desc: 'شرح تفصيلي للدعامة الفسيولوجية والتركيبية وحل أكثر من 150 سؤال فكري.',
+          link: 'https://www.youtube.com'
         },
         {
-          id: 'c2',
-          title: 'الفصل الثاني: التنسيق الهرموني في الكائنات الحية',
+          id: 'i2',
+          type: 'quiz',
+          title: 'كويز تقييمي شامل على الدعامة الفسيولوجية',
+          price: 0,
+          img: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&auto=format&fit=crop&q=60',
+          desc: 'امتحان إلكتروني مؤقت بـ 30 دقيقة وتصحيح تلقائي وإظهار الإجابات النموذجية.',
+          link: 'https://forms.google.com'
+        },
+        {
+          id: 'i3',
+          type: 'course',
+          title: 'الفصل الثاني: التنسيق الهرموني والغدد الصماء',
           price: 120,
           img: 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?w=600&auto=format&fit=crop&q=60',
-          desc: 'دراسة الغدد الصماء والهرمونات وآليات عملها مع تدريبات مكثفة على أسئلة المستويات العليا.',
-          video: 'https://www.youtube.com'
+          desc: 'شرح آليات عمل الغدد الصماء والهرمونات وأهم العلاقات البيانية في المنهج.',
+          link: 'https://www.youtube.com'
+        },
+        {
+          id: 'i4',
+          type: 'summary',
+          title: 'مذكرة المراجعة المركزة للباب الأول PDF',
+          price: 45,
+          img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=60',
+          desc: 'مذكرة مطبوعة وملونة تضم ملخص القوانين والرسومات البيانية الهامة.',
+          link: '#'
         }
       ]
     };
 
-    // مزامنة السحابة
+    let currentTab = 'all';
+
     async function syncPlatform() {
       const statusEl = document.getElementById('syncText');
       try {
@@ -556,10 +643,10 @@
           renderUI();
         }
 
-        const res = await fetch(FIREBASE_ENDPOINT);
+        const res = await fetch(PLATFORM_ENDPOINT);
         if (res.ok) {
           const cloud = await res.json();
-          if (cloud && cloud.courses) {
+          if (cloud && cloud.items) {
             platformData = cloud;
             if (!platformData.teacherImage) {
               platformData.teacherImage = 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&auto=format&fit=crop&q=80';
@@ -583,68 +670,103 @@
       renderUI();
 
       try {
-        await fetch(FIREBASE_ENDPOINT, {
+        await fetch(PLATFORM_ENDPOINT, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(platformData)
         });
         statusEl.innerText = 'سحابي: تم التحديث للجميع!';
       } catch (e) {
-        console.log('Sync error');
+        console.log('Error cloud save');
       }
     }
 
     function renderUI() {
-      // تحديث صورة المستر الدائرية وصورة الخلفية
-      const imgUrl = platformData.teacherImage;
-      document.getElementById('headerTeacherImg').src = imgUrl;
-      document.getElementById('badgeTeacherImg').src = imgUrl;
-      document.getElementById('heroBgWatermark').style.backgroundImage = `url('${imgUrl}')`;
-      document.getElementById('teacherImgInput').value = imgUrl;
+      // تحديث صورة المستر في الأيقونة الدائرية وفي خلفية الهيرو المموهة
+      const img = platformData.teacherImage || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&auto=format&fit=crop&q=80';
+      document.getElementById('teacherThumb').src = img;
+      document.getElementById('heroWatermark').style.backgroundImage = `url('${img}')`;
+      document.getElementById('teacherImgInput').value = img;
 
-      // عرض الكورسات
-      const area = document.getElementById('coursesArea');
-      area.innerHTML = platformData.courses.map(c => `
-        <div class="course-card">
-          <div class="course-banner">
-            <img src="${c.img}" alt="${c.title}" loading="lazy" />
-          </div>
-          <div class="course-body">
-            <div>
-              <h3 class="course-title">${c.title}</h3>
-              <p class="course-desc">${c.desc}</p>
+      // فلترة وعرض الكروت
+      const area = document.getElementById('mainCardsArea');
+      const filtered = currentTab === 'all' 
+        ? platformData.items 
+        : platformData.items.filter(i => i.type === currentTab);
+
+      area.innerHTML = filtered.map(item => {
+        let tagText = 'محاضرة';
+        let btnIcon = 'fa-play';
+        let btnText = 'بدء المشاهدة';
+
+        if (item.type === 'quiz') {
+          tagText = 'امتحان إلكتروني';
+          btnIcon = 'fa-pen';
+          btnText = 'بدء الامتحان';
+        } else if (item.type === 'summary') {
+          tagText = 'مذكرة PDF';
+          btnIcon = 'fa-download';
+          btnText = 'تحميل المذكرة';
+        }
+
+        return `
+          <div class="content-card">
+            <div class="card-thumb">
+              <span class="card-type-tag">${tagText}</span>
+              <img src="${item.img}" alt="${item.title}" loading="lazy" />
             </div>
-            <div class="course-footer">
-              <span class="course-price">${c.price} ج.م</span>
-              <button class="btn-watch" onclick="window.open('${c.video}', '_blank')">
-                <i class="fa-solid fa-play"></i> بدء المشاهدة
-              </button>
+            <div class="card-body">
+              <div>
+                <h3 class="card-title">${item.title}</h3>
+                <p class="card-desc">${item.desc}</p>
+              </div>
+              <div class="card-footer">
+                <span class="card-price">${item.price === 0 ? 'مجاناً' : item.price + ' ج.م'}</span>
+                <button class="btn-action-primary" onclick="handleCardAction('${item.link}')">
+                  <i class="fa-solid ${btnIcon}"></i> ${btnText}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
-    /* تكبير صورة المدرس في منتصف الشاشة */
-    function openTeacherImageModal() {
+    function switchTab(tab, btn) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderUI();
+    }
+
+    function handleCardAction(link) {
+      if (!link || link === '#') {
+        alert('المحتوى قيد التجهيز من قبل المستر!');
+        return;
+      }
+      window.open(link, '_blank');
+    }
+
+    /* تكبير صورة المستر عند النقر على الدائرة */
+    function openImageModal() {
       const modal = document.getElementById('imageModal');
-      const modalImg = document.getElementById('modalImgTag');
-      modalImg.src = platformData.teacherImage;
+      const imgTag = document.getElementById('modalExpandedImg');
+      imgTag.src = platformData.teacherImage;
       modal.style.display = 'flex';
     }
 
-    function closeTeacherImageModal(e) {
+    function closeImageModal() {
       document.getElementById('imageModal').style.display = 'none';
     }
 
-    /* إدارة المدرس */
+    /* لوحة المدرس */
     function promptAdmin() {
-      const pass = prompt('أدخل كلمة سر المدرس:');
+      const pass = prompt('أدخل كلمة سر لوحة المدرس:');
       if (pass === (platformData.adminPass || '123456')) {
         renderAdminList();
         document.getElementById('adminModal').style.display = 'flex';
       } else if (pass !== null) {
-        alert('كلمة السر غير صحيحة!');
+        alert('كلمة المرور غير صحيحة!');
       }
     }
 
@@ -657,38 +779,41 @@
       if (!url) return;
       platformData.teacherImage = url;
       savePlatform();
-      alert('تم تحديث صورة المستر في كل المنصة سحابياً بنجاح!');
+      alert('تم تحديث صورة المستر في الأيقونة والخلفية بنجاح!');
     }
 
     function renderAdminList() {
-      const list = document.getElementById('adminCoursesList');
-      list.innerHTML = platformData.courses.map(c => `
-        <div style="background:#0f172a; border:1px solid var(--border); padding:8px 10px; border-radius:6px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-size:0.82rem; color:#fff;">${c.title} - <strong style="color:var(--accent);">${c.price} ج.م</strong></span>
-          <button onclick="deleteCourse('${c.id}')" style="background:#ef4444; border:none; color:#fff; padding:3px 8px; border-radius:4px; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-trash"></i></button>
+      const list = document.getElementById('adminItemsList');
+      list.innerHTML = platformData.items.map(item => `
+        <div style="background:#090e1d; border:1px solid var(--border); padding:8px 10px; border-radius:6px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:0.82rem; color:#fff;">${item.title} - <strong style="color:var(--accent);">${item.price} ج.م</strong></span>
+          <button onclick="deleteItem('${item.id}')" style="background:#ef4444; border:none; color:#fff; padding:3px 8px; border-radius:4px; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-trash"></i></button>
         </div>
       `).join('');
     }
 
-    function handleCreateCourse(e) {
+    function handleCreateItem(e) {
       e.preventDefault();
-      const newC = {
-        id: 'c_' + Date.now(),
-        title: document.getElementById('cTitle').value.trim(),
-        price: parseFloat(document.getElementById('cPrice').value),
-        img: document.getElementById('cImg').value.trim(),
-        video: document.getElementById('cVideo').value.trim(),
-        desc: document.getElementById('cDesc').value.trim()
+      const newItem = {
+        id: 'i_' + Date.now(),
+        title: document.getElementById('itemTitle').value.trim(),
+        type: document.getElementById('itemType').value,
+        price: parseFloat(document.getElementById('itemPrice').value),
+        img: document.getElementById('itemImg').value.trim(),
+        link: document.getElementById('itemLink').value.trim(),
+        desc: document.getElementById('itemDesc').value.trim()
       };
-      platformData.courses.unshift(newC);
+
+      if (!platformData.items) platformData.items = [];
+      platformData.items.unshift(newItem);
       savePlatform();
       e.target.reset();
       renderAdminList();
     }
 
-    function deleteCourse(id) {
-      if (!confirm('حذف هذا الكورس نهائياً؟')) return;
-      platformData.courses = platformData.courses.filter(c => c.id !== id);
+    function deleteItem(id) {
+      if (!confirm('هل تريد حذف هذا العنصر نهائياً؟')) return;
+      platformData.items = platformData.items.filter(i => i.id !== id);
       savePlatform();
       renderAdminList();
     }
