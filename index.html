@@ -78,10 +78,6 @@
       font-size: 1.3rem;
       color: #fff;
     }
-    .sakr-brand i {
-      color: var(--sakr-gold);
-      font-size: 1.6rem;
-    }
 
     /* الدائرة المصغرة لصورة المستر في الهيدر */
     .teacher-top-thumb {
@@ -304,6 +300,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 22px;
+      margin-bottom: 60px;
     }
     .course-card {
       background: var(--sakr-card);
@@ -358,6 +355,38 @@
       gap: 8px;
       flex-wrap: wrap;
     }
+
+    /* شبكة الكتب والملفات الجديدة */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .book-card {
+      background: var(--sakr-card);
+      border: 1px solid var(--sakr-card-border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.2s;
+    }
+    .book-card:hover {
+      border-color: var(--sakr-gold);
+      transform: translateY(-3px);
+    }
+    .book-badge {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--sakr-yellow);
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
     .btn-sm-action {
       background: rgba(245, 158, 11, 0.15);
       border: 1px solid var(--sakr-gold);
@@ -370,6 +399,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      text-decoration: none;
       transition: 0.2s;
     }
     .btn-sm-action:hover {
@@ -772,12 +802,21 @@
       </div>
     </div>
 
+    <!-- قسم الكورسات -->
     <div id="coursesSection" class="section-title">
       <h2>الكورسات والمحاضرات المتاحة</h2>
       <p>اختر صفك الدراسي واستكمل محاضراتك وكويزاتك</p>
     </div>
 
     <div class="courses-grid" id="coursesGridArea"></div>
+
+    <!-- قسم الملفات والكتب والمذكرات الجديد -->
+    <div id="booksSection" class="section-title">
+      <h2><i class="fa-solid fa-book-bookmark" style="color:var(--sakr-gold);"></i> الملفات والكتب والمذكرات</h2>
+      <p>حمل واقرأ مذكرات وكتب المنهج بصيغة PDF مباشرة</p>
+    </div>
+
+    <div class="books-grid" id="booksGridArea"></div>
 
   </div>
 
@@ -984,6 +1023,7 @@
     </div>
   </div>
 
+  <!-- لوحة تحكم المستر السحابية -->
   <div id="adminScreen">
     <div class="admin-navbar">
       <div style="display:flex; align-items:center; gap:10px;">
@@ -1002,6 +1042,9 @@
         </button>
         <button class="admin-tab-btn" onclick="switchAdminTab('lectures', this)">
           <i class="fa-solid fa-video"></i> رفع الفيديوهات والمحاضرات
+        </button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('books', this)">
+          <i class="fa-solid fa-book-open"></i> إدارة الملفات والكتب
         </button>
         <button class="admin-tab-btn" onclick="switchAdminTab('quizzes', this)">
           <i class="fa-solid fa-stopwatch"></i> إنشاء وربط الكويزات
@@ -1022,6 +1065,7 @@
 
       <main class="admin-main-view">
         
+        <!-- إدارة الكورسات -->
         <div id="viewCourses" class="admin-tab-view">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-plus-circle"></i> إضافة كورس جديد وتحديد سعره وصفه الدراسي</h3>
@@ -1060,6 +1104,7 @@
           </div>
         </div>
 
+        <!-- رفع المحاضرات (من الجهاز أو رابط) -->
         <div id="viewLectures" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-cloud-arrow-up"></i> رفع محاضرة فيديو وربطها بكورس وصف محدد</h3>
@@ -1074,10 +1119,18 @@
                   <select id="lecTargetCourse" class="form-control" required></select>
                 </div>
               </div>
-              <div class="form-group">
-                <label>رابط فيديو المحاضرة (YouTube أو رابط مباشر)</label>
-                <input type="text" id="lecVideoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." required />
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-upload"></i> اختر ملف فيديو من جهازك (اختياري)</label>
+                  <input type="file" id="lecVideoFileInput" class="form-control" accept="video/*" />
+                </div>
+                <div class="form-group">
+                  <label>أو ضع رابط الفيديو (YouTube أو رابط مباشر)</label>
+                  <input type="text" id="lecVideoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." />
+                </div>
               </div>
+
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
                 <i class="fa-solid fa-video"></i> نشر المحاضرة سحابياً للطلاب
               </button>
@@ -1085,6 +1138,59 @@
           </div>
         </div>
 
+        <!-- إدارة الملفات والكتب والمذكرات الجديدة -->
+        <div id="viewBooks" class="admin-tab-view" style="display:none;">
+          <div class="admin-panel-card">
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-book-medical"></i> إضافة ملف أو كتاب أو مذكرة (PDF)</h3>
+            <form onsubmit="handleCreateBook(event)">
+              <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:14px;">
+                <div class="form-group">
+                  <label>عنوان الكتاب أو المذكرة</label>
+                  <input type="text" id="bTitle" class="form-control" placeholder="مثال: مذكرة ليلة الامتحان في الأحياء PDF" required />
+                </div>
+                <div class="form-group">
+                  <label>الصف الدراسي المخصص</label>
+                  <select id="bGrade" class="form-control" required>
+                    <option value="1">الصف الأول الثانوي</option>
+                    <option value="2">الصف الثاني الثانوي</option>
+                    <option value="3">الصف الثالث الثانوي</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>السعر أو الحالة</label>
+                  <input type="text" id="bPrice" class="form-control" placeholder="مجاني أو 30 جنيه" required />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+                <div class="form-group">
+                  <label><i class="fa-solid fa-file-pdf"></i> اختر الملف من جهازك (PDF أو Word أو صورة)</label>
+                  <input type="file" id="bFileInput" class="form-control" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
+                </div>
+                <div class="form-group">
+                  <label>أو ضع رابط مباشر للملف (Google Drive أو غيره)</label>
+                  <input type="text" id="bFileUrl" class="form-control" placeholder="https://..." />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>وصف المذكرة أو محتواها</label>
+                <input type="text" id="bDesc" class="form-control" placeholder="ملخص القوانين والرسومات الهامة لجميع أبواب المنهج" required />
+              </div>
+
+              <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> نشر الملف في المكتبة فوراً
+              </button>
+            </form>
+          </div>
+
+          <div class="admin-panel-card">
+            <h4 style="color:#fff; margin-bottom:12px;">الملفات والكتب المنشورة حالياً:</h4>
+            <div id="adminBooksListTable"></div>
+          </div>
+        </div>
+
+        <!-- الكويزات -->
         <div id="viewQuizzes" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
             <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-file-circle-question"></i> إنشاء كويز تحت محاضرة وفيديو محدد</h3>
@@ -1131,20 +1237,39 @@
           </div>
         </div>
 
-        <!-- قسم تعديل صور المستر سحابياً -->
+        <!-- قسم صور المستر (من الجهاز أو رابط) -->
         <div id="viewPhotos" class="admin-tab-view" style="display:none;">
           <div class="admin-panel-card">
-            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-image"></i> تحديث صور الأستاذ محمد العكل سحابياً</h3>
-            <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom:16px;">يمكنك وضع روابط مباشرة لصور المستر لتحديث الدائرة المصغرة العلوية والخلفية المموهة فوراً:</p>
+            <h3 style="color:var(--sakr-gold); margin-bottom:14px;"><i class="fa-solid fa-image"></i> تحديث صور الأستاذ محمد العكل (من الجهاز أو رابط)</h3>
             <form onsubmit="handleSaveTeacherPhotos(event)">
-              <div class="form-group">
-                <label>رابط صورة المستر في الدائرة العلوية (URL)</label>
-                <input type="text" id="teacherThumbInput" class="form-control" placeholder="https://..." required />
+              <div style="border-bottom: 1px solid var(--sakr-card-border); padding-bottom: 16px; margin-bottom: 16px;">
+                <h4 style="color:#fff; margin-bottom: 8px;">1. صورة الدائرة المصغرة العلوية:</h4>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+                  <div class="form-group">
+                    <label>رفع صورة من جهازك:</label>
+                    <input type="file" id="teacherThumbFileInput" class="form-control" accept="image/*" />
+                  </div>
+                  <div class="form-group">
+                    <label>أو الصق رابط صورة (URL):</label>
+                    <input type="text" id="teacherThumbInput" class="form-control" placeholder="https://..." />
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label>رابط صورة المستر في خلفية الهيرو المموهة (URL)</label>
-                <input type="text" id="teacherHeroBgInput" class="form-control" placeholder="https://..." required />
+
+              <div style="margin-bottom: 16px;">
+                <h4 style="color:#fff; margin-bottom: 8px;">2. صورة خلفية الهيرو المموهة:</h4>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+                  <div class="form-group">
+                    <label>رفع صورة من جهازك:</label>
+                    <input type="file" id="teacherHeroBgFileInput" class="form-control" accept="image/*" />
+                  </div>
+                  <div class="form-group">
+                    <label>أو الصق رابط صورة (URL):</label>
+                    <input type="text" id="teacherHeroBgInput" class="form-control" placeholder="https://..." />
+                  </div>
+                </div>
               </div>
+
               <button type="submit" class="btn-sakr-cta" style="padding:10px 24px; font-size:0.95rem;">
                 <i class="fa-solid fa-cloud-arrow-up"></i> حفظ وتحديث الصور عند الجميع فوراً
               </button>
@@ -1336,6 +1461,16 @@
           desc: 'كورس شامل لمراجعة المفاهيم والأساسيات مع كويزات تقييمية.'
         }
       ],
+      books: [
+        {
+          id: 'book_1',
+          title: 'كتاب الشرح الوافي في الأحياء - الصف الثالث الثانوي',
+          grade: '3',
+          price: 'مجاني للجميع',
+          desc: 'كتاب شامل لشرح المنهج كاملاً مع أطلس رسومات ملون.',
+          fileUrl: '#'
+        }
+      ],
       lectures: [
         {
           id: 'lec_1',
@@ -1369,7 +1504,16 @@
       }
     };
 
-    // جلب البيانات لحظياً من Firebase عند فتح الموقع لدى أي طالب
+    // تحويل الملفات المرفوعة إلى Base64
+    function convertFileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    }
+
     async function syncFromCloud() {
       const syncText = document.getElementById('syncText');
       if (syncText) syncText.innerText = 'سحابي: اتصال بـ Firebase...';
@@ -1391,6 +1535,7 @@
                 heroBg: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1000&auto=format&fit=crop&q=80'
               };
             }
+            if (!currentCloudData.books) currentCloudData.books = [];
             localStorage.setItem('firebase_app_cached', JSON.stringify(currentCloudData));
             if (syncText) syncText.innerText = 'سحابي: Google Firebase متصل ومتزامن';
             renderFrontView();
@@ -1403,7 +1548,6 @@
       }
     }
 
-    // حفظ أي تعديل يجريه المستر مباشرة في Firebase
     async function saveToCloud() {
       const syncText = document.getElementById('syncText');
       if (syncText) syncText.innerText = 'سحابي: جارِ النشر لسحابة Google...';
@@ -1418,7 +1562,7 @@
         });
         if (res.ok) {
           if (syncText) syncText.innerText = 'سحابي: تم الحفظ والتحديث لكل الطلاب!';
-          toast('تم نشر التعديل في سحابة جوجل وظهر الآن عند جميع الطلاب فوراً وبدون GitHub!');
+          toast('تم نشر التعديل والملفات في سحابة جوجل وظهرت للجميع فوراً!');
         }
       } catch (err) {
         toast('تم الحفظ محلياً.');
@@ -1444,7 +1588,7 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     function renderFrontView() {
-      // تحديث صور المستر (الدائرة المصغرة والخلفية المموهة)
+      // صور المستر
       const p = currentCloudData.teacherPhotos || {
         thumb: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop&q=80',
         heroBg: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1000&auto=format&fit=crop&q=80'
@@ -1456,6 +1600,7 @@
       const heroWatermark = document.getElementById('heroWatermarkBg');
       if (heroWatermark) heroWatermark.style.backgroundImage = `url('${p.heroBg || p.thumb}')`;
 
+      // النصوص
       const t = currentCloudData.texts;
       if (t) {
         document.getElementById('brandNameDisplay').innerText = t.brandName || 'الأستاذ محمد العكل';
@@ -1473,6 +1618,7 @@
         document.getElementById('featDesc4').innerText = t.featDesc4 || '';
       }
 
+      // الإحصائيات
       const s = currentCloudData.stats;
       if (s) {
         document.getElementById('statDisplayYt').innerText = s.yt || '+1.3M';
@@ -1480,6 +1626,7 @@
         document.getElementById('statDisplayTop').innerText = s.top || 'أوائل جمهورية';
       }
 
+      // الكورسات
       const courses = currentCloudData.courses || [];
       const lectures = currentCloudData.lectures || [];
       const quizzes = currentCloudData.quizzes || [];
@@ -1525,11 +1672,33 @@
         `;
       }).join('');
 
+      // عرض الملفات والكتب والمذكرات
+      const books = currentCloudData.books || [];
+      const booksContainer = document.getElementById('booksGridArea');
+      if (books.length === 0) {
+        booksContainer.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--sakr-muted);">لا توجد كتب أو مذكرات مرفوعة حالياً.</p>`;
+      } else {
+        booksContainer.innerHTML = books.map(b => `
+          <div class="book-card">
+            <div>
+              <span class="book-badge"><i class="fa-solid fa-graduation-cap"></i> ${getGradeText(b.grade)}</span>
+              <h3 style="color:#fff; font-size:1.1rem; margin-bottom:6px;">${b.title}</h3>
+              <p style="color:var(--sakr-muted); font-size:0.85rem; margin-bottom:12px;">${b.desc}</p>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--sakr-card-border); padding-top:12px;">
+              <span style="color:var(--sakr-gold); font-weight:bold; font-size:0.9rem;">${b.price}</span>
+              <a href="${b.fileUrl}" target="_blank" download="${b.title}" class="btn-sm-action" style="background:var(--sakr-gold); color:#000;">
+                <i class="fa-solid fa-download"></i> تحميل / فتح الملف
+              </a>
+            </div>
+          </div>
+        `).join('');
+      }
+
       renderDevVisuals();
       refreshStudentHeaderButton();
     }
 
-    /* دوال تكبير صورة المستر */
     function openTeacherBigPhotoModal() {
       const p = currentCloudData.teacherPhotos || {};
       const bigImg = document.getElementById('teacherModalBigImg');
@@ -1786,6 +1955,7 @@
 
       document.getElementById('viewCourses').style.display = tabName === 'courses' ? 'block' : 'none';
       document.getElementById('viewLectures').style.display = tabName === 'lectures' ? 'block' : 'none';
+      document.getElementById('viewBooks').style.display = tabName === 'books' ? 'block' : 'none';
       document.getElementById('viewQuizzes').style.display = tabName === 'quizzes' ? 'block' : 'none';
       document.getElementById('viewPhotos').style.display = tabName === 'photos' ? 'block' : 'none';
       document.getElementById('viewContent').style.display = tabName === 'content' ? 'block' : 'none';
@@ -1796,6 +1966,7 @@
     function refreshAdminSelectors() {
       const courses = currentCloudData.courses || [];
       const lectures = currentCloudData.lectures || [];
+      const books = currentCloudData.books || [];
 
       document.getElementById('lecTargetCourse').innerHTML = courses.map(c => `
         <option value="${c.id}">${c.title} (${getGradeText(c.grade)})</option>
@@ -1811,6 +1982,13 @@
         <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:10px 14px; border-radius:8px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
           <span>${i + 1}. <strong>${c.title}</strong> (${getGradeText(c.grade)}) - <span style="color:var(--sakr-gold);">${c.price}</span></span>
           <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="deleteCourse('${c.id}')"><i class="fa-solid fa-trash"></i> حذف</button>
+        </div>
+      `).join('');
+
+      document.getElementById('adminBooksListTable').innerHTML = books.map((b, i) => `
+        <div style="background:#090d18; border:1px solid var(--sakr-card-border); padding:10px 14px; border-radius:8px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span>${i + 1}. <strong>${b.title}</strong> (${getGradeText(b.grade)}) - <span style="color:var(--sakr-gold);">${b.price}</span></span>
+          <button class="btn-sm-action" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="deleteBook('${b.id}')"><i class="fa-solid fa-trash"></i> حذف</button>
         </div>
       `).join('');
     }
@@ -1837,17 +2015,62 @@
       refreshAdminSelectors();
     }
 
-    function handleCreateLecture(e) {
+    async function handleCreateLecture(e) {
       e.preventDefault();
       const title = document.getElementById('lecTitle').value.trim();
       const courseId = document.getElementById('lecTargetCourse').value;
-      const video = document.getElementById('lecVideoUrl').value.trim();
+      let video = document.getElementById('lecVideoUrl').value.trim();
+      const fileInput = document.getElementById('lecVideoFileInput');
+
+      if (fileInput.files && fileInput.files[0]) {
+        toast('جارِ معالجة ورفع ملف الفيديو من الجهاز...');
+        video = await convertFileToBase64(fileInput.files[0]);
+      }
+
+      if (!video) {
+        alert('برجاء رفع ملف فيديو من جهازك أو وضع رابط خارجي!');
+        return;
+      }
 
       if (!currentCloudData.lectures) currentCloudData.lectures = [];
       currentCloudData.lectures.push({ id: 'lec_' + Date.now(), courseId, title, video });
 
       saveToCloud();
       e.target.reset();
+      refreshAdminSelectors();
+    }
+
+    async function handleCreateBook(e) {
+      e.preventDefault();
+      const title = document.getElementById('bTitle').value.trim();
+      const grade = document.getElementById('bGrade').value;
+      const price = document.getElementById('bPrice').value.trim();
+      const desc = document.getElementById('bDesc').value.trim();
+      let fileUrl = document.getElementById('bFileUrl').value.trim();
+      const fileInput = document.getElementById('bFileInput');
+
+      if (fileInput.files && fileInput.files[0]) {
+        toast('جارِ قراءة ومعالجة الملف من جهازك...');
+        fileUrl = await convertFileToBase64(fileInput.files[0]);
+      }
+
+      if (!fileUrl) {
+        alert('برجاء اختيار ملف من جهازك أو إدخال رابط مباشر!');
+        return;
+      }
+
+      if (!currentCloudData.books) currentCloudData.books = [];
+      currentCloudData.books.unshift({ id: 'book_' + Date.now(), title, grade, price, desc, fileUrl });
+
+      saveToCloud();
+      e.target.reset();
+      refreshAdminSelectors();
+    }
+
+    function deleteBook(id) {
+      if (!confirm('هل تريد حذف هذا الملف أو الكتاب نهائياً؟')) return;
+      currentCloudData.books = currentCloudData.books.filter(b => b.id !== id);
+      saveToCloud();
       refreshAdminSelectors();
     }
 
@@ -1898,11 +2121,24 @@
       document.getElementById('teacherHeroBgInput').value = p.heroBg || '';
     }
 
-    function handleSaveTeacherPhotos(e) {
+    async function handleSaveTeacherPhotos(e) {
       e.preventDefault();
+      let thumb = document.getElementById('teacherThumbInput').value.trim();
+      let heroBg = document.getElementById('teacherHeroBgInput').value.trim();
+
+      const thumbFile = document.getElementById('teacherThumbFileInput');
+      const heroBgFile = document.getElementById('teacherHeroBgFileInput');
+
+      if (thumbFile.files && thumbFile.files[0]) {
+        thumb = await convertFileToBase64(thumbFile.files[0]);
+      }
+      if (heroBgFile.files && heroBgFile.files[0]) {
+        heroBg = await convertFileToBase64(heroBgFile.files[0]);
+      }
+
       currentCloudData.teacherPhotos = {
-        thumb: document.getElementById('teacherThumbInput').value.trim(),
-        heroBg: document.getElementById('teacherHeroBgInput').value.trim()
+        thumb: thumb || currentCloudData.teacherPhotos?.thumb || '',
+        heroBg: heroBg || currentCloudData.teacherPhotos?.heroBg || ''
       };
       saveToCloud();
     }
